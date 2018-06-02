@@ -18,7 +18,7 @@ export default class Admin extends Component {
               <Navleft />
             </Col>
             <Col span="21">
-              <Route path="/admin" component={Welcome} />
+              <Route exact path="/admin" component={Welcome} />
               <Route path="/admin/category" component={Category} />
               <Route path="/admin/article" component={Article} />
             </Col>
