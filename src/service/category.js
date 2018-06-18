@@ -10,6 +10,9 @@ function list({ current = 1, pageSize = 5, keyword = "" }) {
 function create(category) {
   return post(ENTITY, category);
 }
+function update(category) {
+  return put(`${ENTITY}/${category.id}`, category);
+}
 function remove(ids) {
   if (typeof ids == "string") {
     ids = [ids];
@@ -19,5 +22,6 @@ function remove(ids) {
 export default {
   list,
   create,
+  update,
   remove
 };

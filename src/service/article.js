@@ -18,9 +18,17 @@ function remove(ids) {
   }
   return del(`${ENTITY}/${ids[0]}`, { ids });
 }
+function addPv(id) {
+  return get(`${ENTITY}/pv/${id}`);
+}
+function addComment(article_id, comment) {
+  return post(`${ENTITY}/comment/${article_id}`, comment);
+}
 export default {
   list,
   create,
   update,
-  remove
+  remove,
+  addPv,
+  addComment
 };

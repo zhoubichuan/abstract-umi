@@ -48,15 +48,16 @@ export default class Category extends Component {
       })
       .then(res => {
         if (res.code == 0) {
-          const { item, pageNum: current, pageSize, total } = res.data;
+          const { items, pageNum: current, pageSize, total } = res.data;
           this.setState({
-            items: res.data.items.map(item => ((item.key = item._id), item)),
+            items: items.map(item => ((item.key = item._id), item)),
             pagination: {
               current,
               pageSize,
               total,
               showTotal: total => `总计${total}条`,
-              pageChange: this.pageChange
+              showQuickJumper: true,
+              onChange: this.pageChange
             }
           });
         } else {
@@ -69,14 +70,15 @@ export default class Category extends Component {
   };
   editOk = () => {
     let category = this.editform.props.form.getFieldsValue();
-    categoryService.create(category).then(res => {
-      if (res.code == 0) {
-        this.setState({ editVisible: false }, this.getList());
-        this.getList();
-      } else {
-        message.error(res.error);
+    categoryService[this.state.isCreate ? "create" : "update"](category).then(
+      res => {
+        if (res.code == 0) {
+          this.setState({ editVisible: false }, this.getList());
+        } else {
+          message.error(res.error);
+        }
       }
-    });
+    );
   };
   edit = item => {
     this.setState({
@@ -90,7 +92,12 @@ export default class Category extends Component {
     categoryService.remove(id).then(res => {
       if (res.code == 0) {
         this.setState(
-          { pagination: { ...this.state.pagination, current: 1 } },
+          {
+            pagination: {
+              ...this.state.pagination,
+              current: 1
+            }
+          },
           this.getList
         );
       }
@@ -102,7 +109,7 @@ export default class Category extends Component {
       {
         title: "操作",
         dataIndex: "operation",
-        render: function(text, record, index) {
+        render: (text, record, index) => {
           return (
             <Button.Group>
               <Button type="primary" onClick={() => this.edit(record)}>
@@ -189,6 +196,13 @@ class EditModal extends Component {
             rules: [{ required: true, message: "请输入分类名称" }]
           })(<Input placeholder="请输入分类名称 " />)}
         </Form.Item>
+        {!this.props.isCreate && (
+          <Form.Item>
+            {getFieldDecorator("id", {
+              initialValue: this.props.item._id
+            })(<Input type="hidden" />)}
+          </Form.Item>
+        )}
       </Form>
     );
   }
