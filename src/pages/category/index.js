@@ -78,7 +78,7 @@ export default class Category extends Component {
       }
     });
   };
-  edit = (item) => {
+  edit = item => {
     this.setState({
       title: "更新分类",
       editVisible: true,
@@ -86,7 +86,7 @@ export default class Category extends Component {
       item
     });
   };
-  remove = (id) => {
+  remove = id => {
     categoryService.remove(id).then(res => {
       if (res.code == 0) {
         this.setState(
