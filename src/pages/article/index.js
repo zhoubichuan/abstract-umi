@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import {
   List,
   Spin,
@@ -14,11 +14,11 @@ import {
   Row,
   Modal,
   Card
-} from "antd";
-import articleService from "../../service/article";
-import categoryService from "../../service/category";
-import moment from "moment";
-require("moment/locale/zh-cn.js");
+} from 'antd'
+import articleService from '../../service/article'
+import categoryService from '../../service/category'
+import moment from 'moment'
+require('moment/locale/zh-cn.js')
 
 export default class Article extends Component {
   state = {
@@ -29,38 +29,38 @@ export default class Article extends Component {
     commentVisible: false,
     isCreate: true,
     item: {},
-    keyword: "",
+    keyword: '',
     pagination: {},
     selectedRowkKeys: []
-  };
+  }
   componentDidMount() {
     categoryService.list({ current: 1, pageSize: 10 }).then(res => {
       if (res.code == 0) {
         this.setState({
           categories: res.data.items
-        });
+        })
       }
-    });
-    this.getList();
+    })
+    this.getList()
   }
   pageChange = current => {
     this.setState(
       { pagination: { ...this.state.pagination, current } },
       this.getList
-    );
-  };
+    )
+  }
   getList = () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true })
     articleService
       .list({
         current: this.state.pagination.current,
         keyword: this.state.keyword
       })
       .then(res => {
-        this.setState({ loading: false });
+        this.setState({ loading: false })
 
         if (res.code == 0) {
-          const { items, pageNum: current, pageSize, total } = res.data;
+          const { items, pageNum: current, pageSize, total } = res.data
           this.setState({
             items: items.map(item => ((item.key = item._id), item)),
             pagination: {
@@ -71,50 +71,50 @@ export default class Article extends Component {
               showTotal: total => `共计${total}条`,
               onChange: this.pageChange
             }
-          });
+          })
         } else {
-          message.error(res.data);
+          message.error(res.data)
         }
-      });
-  };
+      })
+  }
   create = () => {
-    this.setState({ title: "增加文章", editVisible: true, isCreate: true });
-  };
+    this.setState({ title: '增加文章', editVisible: true, isCreate: true })
+  }
   editCancel = () => {
-    this.setState({ editVisible: false });
-  };
+    this.setState({ editVisible: false })
+  }
   editOk = () => {
-    let article = this.editform.props.form.getFieldsValue();
-    articleService[this.state.isCreate ? "create" : "update"](article).then(
+    let article = this.editform.props.form.getFieldsValue()
+    articleService[this.state.isCreate ? 'create' : 'update'](article).then(
       res => {
         if (res.code == 0) {
-          this.setState({ editVisible: false }, this.getList);
+          this.setState({ editVisible: false }, this.getList)
         }
       }
-    );
-  };
+    )
+  }
   edit = item => {
-    this.setState({ editVisible: true, item, isCreate: false });
-  };
+    this.setState({ editVisible: true, item, isCreate: false })
+  }
   view = item => {
     articleService.addPv(item._id).then(res => {
       if (res.code == 0) {
-        this.setState({ viewVisible: true, item }, this.getList);
+        this.setState({ viewVisible: true, item }, this.getList)
       } else {
-        message.error(res.data);
+        message.error(res.data)
       }
-    });
-  };
+    })
+  }
   viewCancel = () => {
-    this.setState({ viewVisible: false });
-  };
+    this.setState({ viewVisible: false })
+  }
   remove = ids => {
     articleService.remove(ids).then(res => {
       if (res.code == 0) {
-        this.setState({}, this.getList);
+        this.setState({}, this.getList)
       }
-    });
-  };
+    })
+  }
   handleSearch = keyword => {
     this.setState(
       {
@@ -122,64 +122,64 @@ export default class Article extends Component {
         pagination: { ...this.state.pagination, current: 1 }
       },
       this.getList
-    );
-  };
+    )
+  }
   commentOk = () => {
-    let comment = this.commentForm.props.form.getFieldsValue();
+    let comment = this.commentForm.props.form.getFieldsValue()
     articleService.addComment(this.state.item._id, comment).then(res => {
       if (res.code == 0) {
-        this.setState({ commentVisible: false }, this.getList);
+        this.setState({ commentVisible: false }, this.getList)
       } else {
-        message.error(res.data);
+        message.error(res.data)
       }
-    });
-  };
+    })
+  }
   commentCancel = () => {
-    this.setState({ commentVisible: false });
-  };
+    this.setState({ commentVisible: false })
+  }
   comment = item => {
-    this.setState({ commentVisible: true, item });
-  };
+    this.setState({ commentVisible: true, item })
+  }
   deleteComment = (article_id, comment_id) => {
     articleService.deleteComment(article_id, comment_id).then(res => {
       if (res.code == 0) {
         if (res.code == 0) {
-          this.setState({ commentVisible: false }, this.getList);
+          this.setState({ commentVisible: false }, this.getList)
         } else {
-          message.error(res.data);
+          message.error(res.data)
         }
       }
-    });
-  };
+    })
+  }
   render() {
     let columns = [
-      { title: "标题", dataIndex: "title", key: "title" },
-      { title: "内容", dataIndex: "content", key: "content" },
+      { title: '标题', dataIndex: 'title', key: 'title' },
+      { title: '内容', dataIndex: 'content', key: 'content' },
       {
-        title: "分类",
-        dataIndex: "category",
-        key: "category",
+        title: '分类',
+        dataIndex: 'category',
+        key: 'category',
         render: (text, record) => {
-          return text.name;
+          return text && text.name
         }
       },
-      { title: "阅读量", dataIndex: "pv", key: "pv" },
+      { title: '阅读量', dataIndex: 'pv', key: 'pv' },
       {
-        title: "创建时间",
-        dataIndex: "createAt",
-        key: "createAt",
+        title: '创建时间',
+        dataIndex: 'createAt',
+        key: 'createAt',
         render: text => moment(text).fromNow()
       },
       {
-        title: "评论数",
-        dataIndex: "comments",
-        key: "comments",
+        title: '评论数',
+        dataIndex: 'comments',
+        key: 'comments',
         render: text => text.length
       },
       {
-        title: "操作",
-        dataIndex: "action",
-        key: "action",
+        title: '操作',
+        dataIndex: 'action',
+        key: 'action',
         render: (text, record, index) => {
           return (
             <Button.Group>
@@ -210,15 +210,15 @@ export default class Article extends Component {
                 </Button>
               </Popconfirm>
             </Button.Group>
-          );
+          )
         }
       }
-    ];
+    ]
     let rowSelection = {
       onChange: selectedRowkKeys => {
-        this.setState({ selectedRowkKeys });
+        this.setState({ selectedRowkKeys })
       }
-    };
+    }
     return (
       <Row>
         <Col span="24" style={{ padding: 8 }}>
@@ -286,20 +286,20 @@ export default class Article extends Component {
           </Modal>
         </Col>
       </Row>
-    );
+    )
   }
 }
 class EditModal extends Component {
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
     return (
       <Form>
         <Form.Item>
-          {getFieldDecorator("category", {
+          {getFieldDecorator('category', {
             initialValue: this.props.isCreate
               ? this.props.categories[0]._id
               : this.props.item._id,
-            rules: [{ required: true, message: "请输入标题" }]
+            rules: [{ required: true, message: '请输入标题' }]
           })(
             <Select>
               {this.props.categories.map(item => (
@@ -311,26 +311,26 @@ class EditModal extends Component {
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("title", {
-            initialValue: this.props.isCreate ? "" : this.props.item.title,
-            rules: [{ required: true, message: "请输入标题" }]
+          {getFieldDecorator('title', {
+            initialValue: this.props.isCreate ? '' : this.props.item.title,
+            rules: [{ required: true, message: '请输入标题' }]
           })(<Input placeholder="请输入标题" />)}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("content", {
-            initialValue: this.props.isCreate ? "" : this.props.item.content,
-            rules: [{ required: true, message: "请输入内容" }]
+          {getFieldDecorator('content', {
+            initialValue: this.props.isCreate ? '' : this.props.item.content,
+            rules: [{ required: true, message: '请输入内容' }]
           })(<Input.TextArea placeholder="请输入内容" />)}
         </Form.Item>
         {!this.isCreate && (
           <Form.Item>
-            {getFieldDecorator("id", {
+            {getFieldDecorator('id', {
               initialValue: this.props.item._id
             })(<Input type="hidden" />)}
           </Form.Item>
         )}
       </Form>
-    );
+    )
   }
 }
 class ViewModal extends Component {
@@ -340,7 +340,7 @@ class ViewModal extends Component {
         <p>标题：{this.props.item.title}</p>
         <p>内容：{this.props.item.content}</p>
       </Card>
-    );
+    )
   }
 }
 class CommentModal extends Component {
@@ -349,9 +349,9 @@ class CommentModal extends Component {
     limit: 5,
     loading: false,
     comments: this.props.item.comments.slice(0, 5)
-  };
+  }
   loading = () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true })
     setTimeout(() => {
       this.setState(
         {
@@ -364,29 +364,29 @@ class CommentModal extends Component {
               0,
               this.state.start + this.state.limit
             )
-          });
+          })
         }
-      );
-    }, 2000);
-  };
+      )
+    }, 2000)
+  }
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
     const loadMore = this.state.start + this.state.limit <
       this.props.item.comments.length && (
-      <div style={{ marginTop: 20, textAlign: "center" }}>
+      <div style={{ marginTop: 20, textAlign: 'center' }}>
         {this.state.loading ? (
           <Spin />
         ) : (
           <Button onClick={this.loadMore}>加载更多</Button>
         )}
       </div>
-    );
+    )
     return (
       <Row style={{ marginTop: 15 }}>
         <Col span="24">
           <Form>
             <Form.Item>
-              {getFieldDecorator("content")(
+              {getFieldDecorator('content')(
                 <Input placeholder="请输入评论内容" />
               )}
             </Form.Item>
@@ -422,9 +422,9 @@ class CommentModal extends Component {
           />
         </Col>
       </Row>
-    );
+    )
   }
 }
-const WrappedEditModal = Form.create()(EditModal);
-const WrappedViewModal = Form.create()(ViewModal);
-const WrappedCommentModal = Form.create()(CommentModal);
+const WrappedEditModal = Form.create()(EditModal)
+const WrappedViewModal = Form.create()(ViewModal)
+const WrappedCommentModal = Form.create()(CommentModal)
