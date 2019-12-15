@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://127.0.0.1:7001";
+const baseURL = localStorage.baseURL ? localStorage.baseURL : "http://127.0.0.1:7001";
 
 const config = {
   baseURL,
@@ -7,7 +7,14 @@ const config = {
   withCredentials: true
 };
 
-export function get(url) {
+export function get(url, data) {
+  if (data) {
+    let params = ''
+    for (let key in data) {
+      data[key] && (params += key + '=' + data[key] + '&')
+    }
+    url = `${url}?${params.slice(-1)}`
+  }
   return axios({
     ...config,
     method: "get",

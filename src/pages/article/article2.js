@@ -17,7 +17,6 @@ import {
 } from 'antd'
 import articleService from '../../service/article'
 import categoryService from '../../service/category'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 require('moment/locale/zh-cn.js')
 
@@ -160,11 +159,13 @@ export default class Article extends Component {
         key: 'title',
         width: 100,
         render: (text, record) => (
-          <Link to={`/admin/articleaa/${record.category._id}`}>
-            <span className={'text-ellipsis'} title={text}>
-              {text}
-            </span>
-          </Link>
+          <a
+            onClick={() => this.view(record)}
+            className={'text-ellipsis'}
+            title={text}
+          >
+            {text}
+          </a>
         )
       },
       {
@@ -206,13 +207,13 @@ export default class Article extends Component {
         render: (text, record, index) => {
           return (
             <Button.Group>
-              <Button
+              {/* <Button
                 type="dashed"
                 style={{ marginLeft: 5 }}
                 onClick={() => this.view(record)}
               >
                 查看
-              </Button>
+              </Button> */}
               <Button
                 type="primary"
                 style={{ marginLeft: 5 }}

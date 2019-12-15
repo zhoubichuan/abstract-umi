@@ -1,36 +1,86 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-ul,li{
-    list-style: none;
+
+ul,
+li {
+  list-style: none;
 }
-a,a:hover{
-    text-decoration: none;
+
+a,
+a:hover {
+  text-decoration: none;
 }
-html,body,#root{
-    width:100%;
-    height:100%;
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
 }
-.home-page{
-    width:100%;
-    height:100%;
-    background-color:seashell;
-    overflow: hidden;
-    .login-form{
-        width:550px;
-        height:550px;
-        margin:100px auto;
-        h1{
-            text-align: center;
-        }
+
+.home-page {
+  width: 100%;
+  height: 100%;
+  background-color: seashell;
+  overflow: hidden;
+
+  .login-form {
+    width: 550px;
+    height: 550px;
+    margin: 100px auto;
+
+    h1 {
+      text-align: center;
     }
+  }
 }
-.admin-page{
-    .admin-header{
-        height:55px;
-        line-height: 55px;
-        padding:0 10px;
-        background-color: seashell;
-    }
+
+.admin-page {
+  .admin-header {
+    height: 55px;
+    line-height: 55px;
+    padding: 0 10px;
+    background-color: seashell;
+  }
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  width: 100px;
+}
+
+.text-ellipsis-3line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.events .ant-badge-status {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.notes-month {
+  text-align: center;
+  font-size: 28px;
+}
+
+.notes-month section {
+  font-size: 28px;
 }

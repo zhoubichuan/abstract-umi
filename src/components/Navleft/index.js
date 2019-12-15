@@ -35,18 +35,22 @@ class Navleft extends Component {
           title={
             <span className="submenu-title-wrapper">
               <Icon type="setting" />
-              类别管理
+              前端知识点
             </span>
           }
         >
-          <Menu.ItemGroup title="前端知识点">
-            <Menu.Item key="setting:1">Vue知识点</Menu.Item>
-            <Menu.Item key="setting:2">React知识点</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="后端知识点">
-            <Menu.Item key="setting:3">node</Menu.Item>
-            <Menu.Item key="setting:4">算法</Menu.Item>
-          </Menu.ItemGroup>
+          <Menu.Item key="/admin/article1">
+            <Link to="/admin/article1">
+              <Icon type="book" />
+              Vue相关知识点
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/article2">
+            <Link to="/admin/article2">
+              <Icon type="book" />
+              Vuex
+            </Link>
+          </Menu.Item>
         </SubMenu>
       </Menu>
     )
