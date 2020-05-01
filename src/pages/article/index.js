@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 import {
   List,
   Spin,
@@ -13,13 +13,13 @@ import {
   Col,
   Row,
   Modal,
-  Card
-} from 'antd'
-import articleService from '../../service/article'
-import categoryService from '../../service/category'
-import { Link } from 'react-router-dom'
-import moment from 'moment'
-require('moment/locale/zh-cn.js')
+  Card,
+} from "antd"
+import articleService from "../../service/article"
+import categoryService from "../../service/category"
+import { Link } from "react-router-dom"
+import moment from "moment"
+require("moment/locale/zh-cn.js")
 
 export default class Article extends Component {
   state = {
@@ -30,21 +30,21 @@ export default class Article extends Component {
     commentVisible: false,
     isCreate: true,
     item: {},
-    keyword: '',
+    keyword: "",
     pagination: {},
-    selectedRowkKeys: []
+    selectedRowkKeys: [],
   }
   componentDidMount() {
-    categoryService.list({ current: 1, pageSize: 10 }).then(res => {
+    categoryService.list({ current: 1, pageSize: 10 }).then((res) => {
       if (res.code == 0) {
         this.setState({
-          categories: res.data.items
+          categories: res.data.items,
         })
       }
     })
     this.getList()
   }
-  pageChange = current => {
+  pageChange = (current) => {
     this.setState(
       { pagination: { ...this.state.pagination, current } },
       this.getList
@@ -55,23 +55,23 @@ export default class Article extends Component {
     articleService
       .list({
         current: this.state.pagination.current,
-        keyword: this.state.keyword
+        keyword: this.state.keyword,
       })
-      .then(res => {
+      .then((res) => {
         this.setState({ loading: false })
 
         if (res.code == 0) {
           const { items, pageNum: current, pageSize, total } = res.data
           this.setState({
-            items: items.map(item => ((item.key = item._id), item)),
+            items: items.map((item) => ((item.key = item._id), item)),
             pagination: {
               current,
               pageSize,
               total,
               showQuickJumper: true,
-              showTotal: total => `共计${total}条`,
-              onChange: this.pageChange
-            }
+              showTotal: (total) => `共计${total}条`,
+              onChange: this.pageChange,
+            },
           })
         } else {
           message.error(res.data)
@@ -79,26 +79,26 @@ export default class Article extends Component {
       })
   }
   create = () => {
-    this.setState({ title: '增加文章', editVisible: true, isCreate: true })
+    this.setState({ title: "增加文章", editVisible: true, isCreate: true })
   }
   editCancel = () => {
     this.setState({ editVisible: false })
   }
   editOk = () => {
     let article = this.editform.props.form.getFieldsValue()
-    articleService[this.state.isCreate ? 'create' : 'update'](article).then(
-      res => {
+    articleService[this.state.isCreate ? "create" : "update"](article).then(
+      (res) => {
         if (res.code == 0) {
           this.setState({ editVisible: false }, this.getList)
         }
       }
     )
   }
-  edit = item => {
+  edit = (item) => {
     this.setState({ editVisible: true, item, isCreate: false })
   }
-  view = item => {
-    articleService.addPv(item._id).then(res => {
+  view = (item) => {
+    articleService.addPv(item._id).then((res) => {
       if (res.code == 0) {
         this.setState({ viewVisible: true, item }, this.getList)
       } else {
@@ -109,25 +109,25 @@ export default class Article extends Component {
   viewCancel = () => {
     this.setState({ viewVisible: false })
   }
-  remove = ids => {
-    articleService.remove(ids).then(res => {
+  remove = (ids) => {
+    articleService.remove(ids).then((res) => {
       if (res.code == 0) {
         this.setState({}, this.getList)
       }
     })
   }
-  handleSearch = keyword => {
+  handleSearch = (keyword) => {
     this.setState(
       {
         keyword,
-        pagination: { ...this.state.pagination, current: 1 }
+        pagination: { ...this.state.pagination, current: 1 },
       },
       this.getList
     )
   }
   commentOk = () => {
     let comment = this.commentForm.props.form.getFieldsValue()
-    articleService.addComment(this.state.item._id, comment).then(res => {
+    articleService.addComment(this.state.item._id, comment).then((res) => {
       if (res.code == 0) {
         this.setState({ commentVisible: false }, this.getList)
       } else {
@@ -138,11 +138,11 @@ export default class Article extends Component {
   commentCancel = () => {
     this.setState({ commentVisible: false })
   }
-  comment = item => {
+  comment = (item) => {
     this.setState({ commentVisible: true, item })
   }
   deleteComment = (article_id, comment_id) => {
-    articleService.deleteComment(article_id, comment_id).then(res => {
+    articleService.deleteComment(article_id, comment_id).then((res) => {
       if (res.code == 0) {
         if (res.code == 0) {
           this.setState({ commentVisible: false }, this.getList)
@@ -155,54 +155,54 @@ export default class Article extends Component {
   render() {
     let columns = [
       {
-        title: '标题',
-        dataIndex: 'title',
-        key: 'title',
+        title: "标题",
+        dataIndex: "title",
+        key: "title",
         width: 100,
         render: (text, record) => (
           <Link to={`/admin/articleaa/${record.category._id}`}>
-            <span className={'text-ellipsis'} title={text}>
+            <span className={"text-ellipsis"} title={text}>
               {text}
             </span>
           </Link>
-        )
+        ),
       },
       {
-        title: '内容',
-        dataIndex: 'content',
-        key: 'content',
+        title: "内容",
+        dataIndex: "content",
+        key: "content",
         width: 250,
-        render: text => (
-          <div className={'text-ellipsis'} title={text}>
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
             {text}
           </div>
-        )
+        ),
       },
       {
-        title: '分类',
-        dataIndex: 'category',
-        key: 'category',
+        title: "分类",
+        dataIndex: "category",
+        key: "category",
         render: (text, record) => {
           return text && text.name
-        }
+        },
       },
-      { title: '阅读量', dataIndex: 'pv', key: 'pv' },
+      { title: "阅读量", dataIndex: "pv", key: "pv" },
       {
-        title: '创建时间',
-        dataIndex: 'createAt',
-        key: 'createAt',
-        render: text => moment(text).fromNow()
-      },
-      {
-        title: '评论数',
-        dataIndex: 'comments',
-        key: 'comments',
-        render: text => text.length
+        title: "创建时间",
+        dataIndex: "createAt",
+        key: "createAt",
+        render: (text) => moment(text).fromNow(),
       },
       {
-        title: '操作',
-        dataIndex: 'action',
-        key: 'action',
+        title: "评论数",
+        dataIndex: "comments",
+        key: "comments",
+        render: (text) => text.length,
+      },
+      {
+        title: "操作",
+        dataIndex: "action",
+        key: "action",
         render: (text, record, index) => {
           return (
             <Button.Group>
@@ -234,13 +234,13 @@ export default class Article extends Component {
               </Popconfirm>
             </Button.Group>
           )
-        }
-      }
+        },
+      },
     ]
     let rowSelection = {
-      onChange: selectedRowkKeys => {
+      onChange: (selectedRowkKeys) => {
         this.setState({ selectedRowkKeys })
-      }
+      },
     }
     return (
       <Row>
@@ -281,7 +281,7 @@ export default class Article extends Component {
             destroyOnClose
           >
             <WrappedEditModal
-              wrappedComponentRef={inst => (this.editform = inst)}
+              wrappedComponentRef={(inst) => (this.editform = inst)}
               isCreate={this.state.isCreate}
               item={this.state.item}
               categories={this.state.categories}
@@ -302,7 +302,7 @@ export default class Article extends Component {
             destroyOnClose
           >
             <WrappedCommentModal
-              wrappedComponentRef={inst => (this.commentForm = inst)}
+              wrappedComponentRef={(inst) => (this.commentForm = inst)}
               item={this.state.item}
               deleteComment={this.deleteComment}
             />
@@ -315,17 +315,18 @@ export default class Article extends Component {
 class EditModal extends Component {
   render() {
     const { getFieldDecorator } = this.props.form
+    debugger
     return (
       <Form>
         <Form.Item>
-          {getFieldDecorator('category', {
+          {getFieldDecorator("category", {
             initialValue: this.props.isCreate
               ? this.props.categories[0]._id
               : this.props.item._id,
-            rules: [{ required: true, message: '请输入标题' }]
+            rules: [{ required: true, message: "请输入标题" }],
           })(
             <Select>
-              {this.props.categories.map(item => (
+              {this.props.categories.map((item) => (
                 <Select.Option key={item._id} value={item._id}>
                   {item.name}
                 </Select.Option>
@@ -334,21 +335,21 @@ class EditModal extends Component {
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('title', {
-            initialValue: this.props.isCreate ? '' : this.props.item.title,
-            rules: [{ required: true, message: '请输入标题' }]
+          {getFieldDecorator("title", {
+            initialValue: this.props.isCreate ? "" : this.props.item.title,
+            rules: [{ required: true, message: "请输入标题" }],
           })(<Input placeholder="请输入标题" />)}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('content', {
-            initialValue: this.props.isCreate ? '' : this.props.item.content,
-            rules: [{ required: true, message: '请输入内容' }]
+          {getFieldDecorator("content", {
+            initialValue: this.props.isCreate ? "" : this.props.item.content,
+            rules: [{ required: true, message: "请输入内容" }],
           })(<Input.TextArea placeholder="请输入内容" />)}
         </Form.Item>
         {!this.isCreate && (
           <Form.Item>
-            {getFieldDecorator('id', {
-              initialValue: this.props.item._id
+            {getFieldDecorator("id", {
+              initialValue: this.props.item._id,
             })(<Input type="hidden" />)}
           </Form.Item>
         )}
@@ -371,14 +372,14 @@ class CommentModal extends Component {
     start: 0,
     limit: 5,
     loading: false,
-    comments: this.props.item.comments.slice(0, 5)
+    comments: this.props.item.comments.slice(0, 5),
   }
   loading = () => {
     this.setState({ loading: true })
     setTimeout(() => {
       this.setState(
         {
-          start: this.state.start + this.state.limit
+          start: this.state.start + this.state.limit,
         },
         () => {
           this.setState({
@@ -386,7 +387,7 @@ class CommentModal extends Component {
             comments: this.props.item.comments.slice(
               0,
               this.state.start + this.state.limit
-            )
+            ),
           })
         }
       )
@@ -396,7 +397,7 @@ class CommentModal extends Component {
     const { getFieldDecorator } = this.props.form
     const loadMore = this.state.start + this.state.limit <
       this.props.item.comments.length && (
-      <div style={{ marginTop: 20, textAlign: 'center' }}>
+      <div style={{ marginTop: 20, textAlign: "center" }}>
         {this.state.loading ? (
           <Spin />
         ) : (
@@ -409,7 +410,7 @@ class CommentModal extends Component {
         <Col span="24">
           <Form>
             <Form.Item>
-              {getFieldDecorator('content')(
+              {getFieldDecorator("content")(
                 <Input placeholder="请输入评论内容" />
               )}
             </Form.Item>
@@ -418,7 +419,7 @@ class CommentModal extends Component {
             loading={this.state.loading}
             dataSource={this.state.comments}
             loadMore={loadMore}
-            renderItem={item => (
+            renderItem={(item) => (
               <List.Item
                 actions={[
                   <Button
@@ -429,7 +430,7 @@ class CommentModal extends Component {
                     icon="delete"
                   >
                     删除
-                  </Button>
+                  </Button>,
                 ]}
               >
                 <List.Item.Meta
