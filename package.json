@@ -14,6 +14,9 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "dev": "react-app-rewired start",
+    "deploy": "bash deploy.sh",
+    "gh-pagh": "bash deploy_gh_pages.sh",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
@@ -21,6 +24,7 @@
   "devDependencies": {
     "babel-plugin-import": "^1.7.0",
     "less": "^2.7.3",
+    "less-loader": "^4.1.0",
     "react-app-rewire-less": "^2.1.1"
   }
 }
