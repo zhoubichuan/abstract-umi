@@ -1,37 +1,46 @@
-import React, { Component } from 'react'
-import { Row, Col, Icon, message } from 'antd'
-import user from '../../service/user'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from "react"
+import { Row, Col, Icon, message, Popconfirm } from "antd"
+import user from "../../service/user"
+import { withRouter } from "react-router-dom"
 
 class Header extends Component {
   state = {
-    username: ''
+    username: "",
   }
   componentWillMount() {
-    let username = sessionStorage.getItem('username')
+    let username = sessionStorage.getItem("username")
     this.setState({ username })
   }
   logout = () => {
-    user.signout().then(data => {
+    user.signout().then((data) => {
       if (data.code == 0) {
-        sessionStorage.removeItem('username')
+        sessionStorage.removeItem("username")
       } else {
         message.error(data.error)
       }
     })
   }
+  cancel = (e) => {
+    message.error("Click on No")
+  }
   render() {
     return (
-      <Row className="admin-header" style={{ padding: '0 20px' }}>
+      <Row className="admin-header" style={{ padding: "0 20px" }}>
         <Col span="6">我的博客</Col>
         <Col span="18">
-          <div style={{ float: 'right', fontSize: 16 }}>
+          <div style={{ float: "right", fontSize: 16 }}>
             <Icon type="smile" />
             欢迎{this.state.username}
-            <a onClick={this.logout}>
+            <Popconfirm
+              title="Are you sure delete this task?"
+              onConfirm={this.logout}
+              onCancel={this.cancelcancel}
+              okText="Yes"
+              cancelText="No"
+            >
               <Icon type="logout" />
               退出
-            </a>
+            </Popconfirm>
           </div>
         </Col>
       </Row>

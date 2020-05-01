@@ -17,7 +17,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async create() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     let article = ctx.request.body
     article.user = this.user
     try {
@@ -28,7 +30,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async update() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     const article = ctx.request.body
     try {
@@ -39,36 +43,54 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async destroy() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
-    const { ids = [] } = ctx.request.body
+    const {
+      ids = []
+    } = ctx.request.body
     ids.push(id)
     try {
-      await ctx.model.Article.remove({ _id: { $in: ids } })
-      this.success("删除文章成功")
+      await ctx.model.Article.remove({
+        _id: {
+          $in: ids
+        }
+      })
+      this.success("删除成功")
     } catch (error) {
       this.error(error)
     }
   }
   async addPv() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     try {
-      await ctx.model.Article.findByIdAndUpdate(id, { $inc: { pv: 1 } })
+      await ctx.model.Article.findByIdAndUpdate(id, {
+        $inc: {
+          pv: 1
+        }
+      })
       this.success("修改pv成功")
     } catch (error) {
       this.error(error)
     }
   }
   async addComment() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     const comment = ctx.request.body
     comment.user = this.user
     console.log("用户名：" + this.user)
     try {
       await ctx.model.Article.findByIdAndUpdate(id, {
-        $push: { comments: comment },
+        $push: {
+          comments: comment
+        },
       })
       this.success("评论成功")
     } catch (error) {
@@ -76,11 +98,20 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async removeComment() {
-    const { ctx } = this
-    const { article_id, comment_id } = ctx.params
+    const {
+      ctx
+    } = this
+    const {
+      article_id,
+      comment_id
+    } = ctx.params
     try {
       await ctx.model.Article.findByIdAndUpdate(article_id, {
-        $pull: { comment: { _id: comment_id } },
+        $pull: {
+          comment: {
+            _id: comment_id
+          }
+        },
       })
       this.success("删除评论成功")
     } catch (error) {

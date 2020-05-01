@@ -207,7 +207,7 @@ export default class Article extends Component {
           return (
             <Button.Group>
               <Button
-                type="dashed"
+                type="primary"
                 style={{ marginLeft: 5 }}
                 onClick={() => this.view(record)}
               >
@@ -221,7 +221,7 @@ export default class Article extends Component {
                 编辑
               </Button>
               <Button
-                type="dashed"
+                type="primary"
                 style={{ marginLeft: 5 }}
                 onClick={() => this.comment(record)}
               >
@@ -248,8 +248,8 @@ export default class Article extends Component {
           <Row>
             <Col span="12">
               <Button.Group>
-                <Button type="dashed" icon="plus-circle" onClick={this.create}>
-                  添加文章
+                <Button type="primary" icon="plus-circle" onClick={this.create}>
+                  添加
                 </Button>
                 <Button
                   style={{ marginLeft: 5 }}
@@ -257,7 +257,7 @@ export default class Article extends Component {
                   icon="minus-circle"
                   onClick={() => this.remove(this.state.selectedRowkKeys)}
                 >
-                  删除文章
+                  删除
                 </Button>
               </Button.Group>
             </Col>
