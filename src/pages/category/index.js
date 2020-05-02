@@ -11,6 +11,8 @@ import {
   Form,
 } from "antd"
 import categoryService from "../../service/category"
+import moment from "moment"
+require("moment/locale/zh-cn.js")
 
 export default class Category extends Component {
   state = {
@@ -134,9 +136,23 @@ export default class Category extends Component {
       { title: "标签", dataIndex: "tags", key: "tags" },
       { title: "描述", dataIndex: "descript", key: "descript" },
       { title: "创建者", dataIndex: "creator", key: "creator" },
-      { title: "创建时间", dataIndex: "createTime", key: "createTime" },
-      { title: "更新者", dataIndex: "updater", key: "updater" },
-      { title: "更新时间", dataIndex: "updateTime", key: "updateTime" },
+      {
+        title: "创建时间",
+        dataIndex: "createTime",
+        key: "createTime",
+        render: (text) => moment(text).fromNow(),
+      },
+      {
+        title: "更新者",
+        dataIndex: "updater",
+        key: "updater",
+      },
+      {
+        title: "更新时间",
+        dataIndex: "updateTime",
+        key: "updateTime",
+        render: (text) => moment(text).fromNow(),
+      },
       {
         title: "操作",
         width: 200,

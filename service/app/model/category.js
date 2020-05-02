@@ -1,14 +1,29 @@
 /**
  * Created by Administrator on 2018/5/14.
  */
-module.exports = app =>{
-    let mongoose = app.mongoose;
-    let Schema= mongoose.Schema;
-    let CategorySchema = new Schema({
-        name:String,
-        tags:String,
-        descript:String
-    })
-    let Category =mongoose.model('Category',CategorySchema);
-    return Category;
-}
+'use strict';
+
+module.exports = app => {
+  const mongoose = app.mongoose;
+  const Schema = mongoose.Schema;
+  const ObjectId = Schema.Types.ObjectId;
+  const CategorySchema = new Schema({
+    name: String,
+    tags: String,
+    descript: String,
+    creator: {
+      type: ObjectId,
+      ref: 'User',
+    },
+    createTime: {
+      type: Date,
+      default: Date.now,
+    },
+    updateTime: {
+      type: Date,
+      default: Date.now,
+    },
+  });
+  const Category = mongoose.model('Category', CategorySchema);
+  return Category;
+};
