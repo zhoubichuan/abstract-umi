@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
-import { Row, Col, message } from 'antd'
-import articleService from '../../service/article'
+import React, { Component } from "react"
+import { Row, Col, message } from "antd"
+import articleService from "../../service/article"
 
 export default class Article extends Component {
   state = {
-    item: {}
+    item: {},
   }
   componentDidMount() {
-    articleService.addPv(this.props.match.params.id).then(res => {
+    articleService.addPv(this.props.match.params.id).then((res) => {
       if (res.code == 0) {
         this.setState({}, this.getList)
       } else {
@@ -18,8 +18,8 @@ export default class Article extends Component {
   render() {
     return (
       <Row>
-        <Col style={{ 'text-align': 'center' }} span={24}>
-          {'asdfasd'}
+        <Col style={{ "text-align": "center" }} span={24}>
+          {"asdfasd"}
         </Col>
       </Row>
     )

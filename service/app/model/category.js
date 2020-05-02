@@ -5,7 +5,9 @@ module.exports = app =>{
     let mongoose = app.mongoose;
     let Schema= mongoose.Schema;
     let CategorySchema = new Schema({
-        name:String
+        name:String,
+        tags:String,
+        descript:String
     })
     let Category =mongoose.model('Category',CategorySchema);
     return Category;

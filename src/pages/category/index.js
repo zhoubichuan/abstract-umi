@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   Row,
   Col,
@@ -8,9 +8,9 @@ import {
   message,
   Popconfirm,
   Input,
-  Form
-} from "antd";
-import categoryService from "../../service/category";
+  Form,
+} from "antd"
+import categoryService from "../../service/category"
 
 export default class Category extends Component {
   state = {
@@ -21,93 +21,126 @@ export default class Category extends Component {
     selectedRowKeys: [],
     editVisible: false,
     pagination: {},
-    isCreate: true
-  };
+    isCreate: true,
+  }
   //开始执行添加操作
   create = () => {
     this.setState({
       title: "添加分类",
       isCreate: true,
-      editVisible: true
-    });
-  };
-  componentDidMount() {
-    this.getList();
+      editVisible: true,
+    })
   }
-  pageChange = current => {
+  componentDidMount() {
+    this.getList()
+  }
+  pageChange = (current) => {
     this.setState(
       { pagination: { ...this.state.pagination, current } },
       this.getList
-    );
-  };
+    )
+  }
   getList = () => {
     categoryService
       .list({
         current: this.state.pagination.current,
-        keyword: this.state.keyword
+        keyword: this.state.keyword,
       })
-      .then(res => {
+      .then((res) => {
         if (res.code == 0) {
-          const { items, pageNum: current, pageSize, total } = res.data;
+          const { items, pageNum: current, pageSize, total } = res.data
           this.setState({
-            items: items.map(item => ((item.key = item._id), item)),
+            items: items.map(
+              (item, index) => (
+                ((item.key = item._id),
+                (item.index = index + 1),
+                (item.code = item.code),
+                (item.creator = item.creator),
+                (item.createTime = item.createTime),
+                (item.updater = item.updater),
+                (item.updateTime = item.updateTime)),
+                item
+              )
+            ),
             pagination: {
               current,
               pageSize,
               total,
-              showTotal: total => `总计${total}条`,
+              showTotal: (total) => `总计${total}条`,
               showQuickJumper: true,
-              onChange: this.pageChange
-            }
-          });
+              onChange: this.pageChange,
+            },
+          })
         } else {
-          message.error(res.error);
+          message.error(res.error)
         }
-      });
-  };
+      })
+  }
   editCancel = () => {
-    this.setState({ editVisible: false });
-  };
+    this.setState({ editVisible: false })
+  }
   editOk = () => {
-    let category = this.editform.props.form.getFieldsValue();
+    let category = this.editform.props.form.getFieldsValue()
     categoryService[this.state.isCreate ? "create" : "update"](category).then(
-      res => {
+      (res) => {
         if (res.code == 0) {
-          this.setState({ editVisible: false }, this.getList());
+          this.setState({ editVisible: false }, this.getList())
         } else {
-          message.error(res.error);
+          message.error(res.error)
         }
       }
-    );
-  };
-  edit = item => {
+    )
+  }
+  edit = (item) => {
     this.setState({
       title: "更新分类",
       editVisible: true,
       isCreate: false,
-      item
-    });
-  };
-  remove = id => {
-    categoryService.remove(id).then(res => {
+      item,
+    })
+  }
+  remove = (id) => {
+    categoryService.remove(id).then((res) => {
       if (res.code == 0) {
         this.setState(
           {
             pagination: {
               ...this.state.pagination,
-              current: 1
-            }
+              current: 1,
+            },
           },
           this.getList
-        );
+        )
       }
-    });
-  };
+    })
+  }
   render() {
     const columns = [
-      { title: "名称", width: 800, dataIndex: "name", key: "name" },
+      {
+        title: "序号",
+        dataIndex: "index",
+        key: "index",
+        width: 100,
+        fixed: "left",
+      },
+      {
+        title: "编码",
+        dataIndex: "code",
+        key: "code",
+        width: 100,
+        fixed: "left",
+      },
+      { title: "名称", dataIndex: "name", key: "name" },
+      { title: "标签", dataIndex: "tags", key: "tags" },
+      { title: "描述", dataIndex: "descript", key: "descript" },
+      { title: "创建者", dataIndex: "creator", key: "creator" },
+      { title: "创建时间", dataIndex: "createTime", key: "createTime" },
+      { title: "更新者", dataIndex: "updater", key: "updater" },
+      { title: "更新时间", dataIndex: "updateTime", key: "updateTime" },
       {
         title: "操作",
+        width: 200,
+        fixed: "right",
         dataIndex: "operation",
         render: (text, record, index) => {
           return (
@@ -124,22 +157,22 @@ export default class Category extends Component {
                 </Button>
               </Popconfirm>
             </Button.Group>
-          );
-        }
-      }
-    ];
+          )
+        },
+      },
+    ]
     const rowSelection = {
-      onChange: selectedRowKeys => {
-        this.setState({ selectedRowKeys });
-      }
-    };
+      onChange: (selectedRowKeys) => {
+        this.setState({ selectedRowKeys })
+      },
+    }
     return (
       <div style={{ paddingLeft: 10 }}>
         <Row>
           <Col span="6">
             <Button.Group>
-              <Button type="default" icon="plus-circle" onClick={this.create}>
-                添加分类
+              <Button type="primary" icon="plus-circle" onClick={this.create}>
+                新建
               </Button>
               <Button
                 style={{ marginLeft: 10 }}
@@ -147,7 +180,7 @@ export default class Category extends Component {
                 type="danger"
                 onClick={() => this.remove(this.state.selectedRowKeys)}
               >
-                删除所选分类
+                删除
               </Button>
             </Button.Group>
           </Col>
@@ -155,7 +188,7 @@ export default class Category extends Component {
             <Input.Search
               enterButton
               placeholder="请输入关键字"
-              onSearch={keyword => this.setState({ keyword }, this.getList)}
+              onSearch={(keyword) => this.setState({ keyword }, this.getList)}
             />
           </Col>
         </Row>
@@ -176,35 +209,57 @@ export default class Category extends Component {
           destroyOnClose
         >
           <WrappedEditModal
-            wrappedComponentRef={inst => (this.editform = inst)}
+            wrappedComponentRef={(inst) => (this.editform = inst)}
             isCreate={this.state.isCreate}
             item={this.state.item}
           />
         </Modal>
       </div>
-    );
+    )
   }
 }
 class EditModal extends Component {
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
     return (
       <Form>
         <Form.Item>
           {getFieldDecorator("name", {
             intialValue: this.props.isCreate ? "" : this.props.item.name,
-            rules: [{ required: true, message: "请输入分类名称" }]
+            rules: [{ required: true, message: "请输入分类名称" }],
           })(<Input placeholder="请输入分类名称 " />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("tags", {
+            initialValue: this.props.isCreate ? "" : this.props.item.tags,
+            rules: [
+              {
+                required: true,
+                message: "请输入标签",
+              },
+            ],
+          })(<Input placeholder="请输入标签" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("descript", {
+            initialValue: this.props.isCreate ? "" : this.props.item.descript,
+            rules: [
+              {
+                required: true,
+                message: "请输入描述",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入描述" />)}
         </Form.Item>
         {!this.props.isCreate && (
           <Form.Item>
             {getFieldDecorator("id", {
-              initialValue: this.props.item._id
+              initialValue: this.props.item._id,
             })(<Input type="hidden" />)}
           </Form.Item>
         )}
       </Form>
-    );
+    )
   }
 }
-const WrappedEditModal = Form.create()(EditModal);
+const WrappedEditModal = Form.create()(EditModal)

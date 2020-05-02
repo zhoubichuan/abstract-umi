@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Menu, Icon } from 'antd'
-import { withRouter, Link } from 'react-router-dom'
+import React, { Component } from "react"
+import { Menu, Icon } from "antd"
+import { withRouter, Link } from "react-router-dom"
 const { SubMenu } = Menu
 
 class Navleft extends Component {
@@ -18,10 +18,10 @@ class Navleft extends Component {
             首页
           </Link>
         </Menu.Item>
-        <Menu.Item key="/admin/category" title="分类管理">
+        <Menu.Item key="/admin/category" title="数据模型项目">
           <Link to="/admin/category">
             <Icon type="bars" />
-            分类管理
+            数据模型项目
           </Link>
         </Menu.Item>
         <Menu.Item key="/admin/article" title="文章管理">

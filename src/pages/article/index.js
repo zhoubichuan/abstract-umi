@@ -160,7 +160,7 @@ export default class Article extends Component {
         key: "title",
         width: 100,
         render: (text, record) => (
-          <Link to={`/admin/articleaa/${record.category._id}`}>
+          <Link to={`/admin/article/${record.category._id}`}>
             <span className={"text-ellipsis"} title={text}>
               {text}
             </span>

@@ -1,53 +1,63 @@
 /**
  * Created by Administrator on 2018/5/14.
  */
-"use strict"
-const { Controller } = require("egg")
+'use strict';
+const {
+  Controller,
+} = require('egg');
 module.exports = class BaseController extends Controller {
   get user() {
-    return this.ctx.session.user
+    return this.ctx.session.user;
   }
-  async getPager({ modName = "", fields = [], populateFields = [] }) {
-    const { ctx } = this
-    let { pageNum = 1, pageSize = 5, keyword = "" } = ctx.query
-    pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum)
-    pageSize = isNaN(pageSize) ? 5 : parseInt(pageSize)
-    const query = {}
+  async getPager({
+    modName = '',
+    fields = [],
+    populateFields = [],
+  }) {
+    const {
+      ctx,
+    } = this;
+    let {
+      pageNum = 1, pageSize = 5, keyword = '',
+    } = ctx.query;
+    pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum);
+    pageSize = isNaN(pageSize) ? 5 : parseInt(pageSize);
+    const query = {};
     if (keyword && fields.length > 0) {
-      query.$or = fields.map((field) => ({
+      query.$or = fields.map(field => ({
         [field]: new RegExp(keyword),
-      }))
+      }));
     }
-    const total = await ctx.model[modName].count(query)
+    const total = await ctx.model[modName].count(query);
     let cursor = ctx.model[modName]
       .find(query)
       .sort({
         _id: -1,
       })
       .skip((pageNum - 1) * pageSize)
-      .limit(pageSize)
-    populateFields.forEach((field) => {
-      cursor = cursor.populate(field)
-    })
-    const items = await cursor
+      .limit(pageSize);
+    populateFields.forEach(field => {
+      cursor = cursor.populate(field);
+    });
+    const items = await cursor;
     this.success({
       pageNum,
       pageSize,
       items,
       total,
-    })
+    });
   }
   success(data) {
     this.ctx.body = {
       code: 0,
       data,
-    }
+    };
   }
   error(error) {
-    console.error(error)
+    console.error(error);
     this.ctx.body = {
       code: 1,
       error: error.toString(),
-    }
+    };
   }
-}
+};
