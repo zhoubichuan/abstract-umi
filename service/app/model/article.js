@@ -7,25 +7,49 @@ module.exports = app => {
   const Schema = mongoose.Schema;
   const ObjectId = Schema.Types.ObjectId;
   const ArticleSchema = new Schema({
-    title: {
+    name: { // 中文名称
       type: String,
       required: true,
     },
-    content: {
-      type: Object,
-      ref: 'User',
+    nameEn: { // 英文名称
+      type: String,
+      required: true,
     },
-    user: {
-      type: ObjectId,
-      ref: 'User',
+    descript: { // 中文描述
+      type: String,
+      default: '-',
     },
-    category: {
+    descriptEn: { // 英文描述
+      type: String,
+      default: '-',
+    },
+    category: { // 分类
       type: ObjectId,
       ref: 'Category',
     },
-    pv: {
+    pv: { // 浏览量
       type: Number,
       default: 0,
+    },
+    content: { // 内容
+      type: Object,
+      ref: 'User',
+    },
+    creater: { // 创建人
+      type: ObjectId,
+      ref: 'User',
+    },
+    createTime: { // 创建时间
+      type: Date,
+      default: Date.now,
+    },
+    updater: { // 申请人
+      type: ObjectId,
+      ref: 'User',
+    },
+    updateTime: { // 申请时间
+      type: Date,
+      default: Date.now,
     },
     comments: [{
       user: {
@@ -33,15 +57,11 @@ module.exports = app => {
         ref: 'User',
       },
       content: String,
-      createAt: {
+      createTime: {
         type: Date,
         default: Date.now,
       },
     }],
-    createAt: {
-      type: Date,
-      default: Date.now,
-    },
   });
   const Article = mongoose.model('Article', ArticleSchema);
   return Article;

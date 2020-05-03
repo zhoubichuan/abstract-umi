@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, Component } from "react"
 import {
   Collapse,
   List,
@@ -19,24 +19,22 @@ import {
   Upload,
   Moda,
 } from "antd"
-// import { PlusOutlined } from "@ant-design/icons"
+import {
+  EditTwoTone,
+  DownOutlined,
+  CaretUpOutlined,
+  // PlusOutlined,
+  MessageTwoTone,
+  DeleteTwoTone,
+} from "@ant-design/icons"
+import { TheSlider } from "./TheSlider"
 import img from "./1.jpg"
+import { Search } from "./Search"
 import articleService from "../../service/article"
 import categoryService from "../../service/category"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
-const { TabPane } = Tabs
-function callback(key) {
-  console.log(key)
-}
-const { Panel } = Collapse
-
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`
 export default class Article extends Component {
   state = {
     categories: [],
@@ -93,7 +91,11 @@ export default class Article extends Component {
         if (res.code == 0) {
           const { items, pageNum: current, pageSize, total } = res.data
           this.setState({
-            items: items.map((item) => ((item.key = item._id), item)),
+            items: items.map(
+              (item, index) => (
+                ((item.index = index + 1), (item.key = item._id)), item
+              )
+            ),
             pagination: {
               current,
               pageSize,
@@ -229,23 +231,51 @@ export default class Article extends Component {
         title: "序号",
         dataIndex: "index",
         key: "index",
-        width: 100,
+        width: 60,
         fixed: "left",
       },
       {
-        title: "标题",
-        dataIndex: "title",
-        fixed: "left",
-        key: "title",
-        width: 100,
+        title: "中文名称",
+        dataIndex: "name",
+        key: "name",
         render: (text, record) => (
           <a
             onClick={() => this.view(record)}
-            // className={"text-ellipsis"}
+            className={"text-ellipsis"}
             title={text}
           >
             {text}
           </a>
+        ),
+      },
+      {
+        title: "英文名称",
+        dataIndex: "nameEn",
+        key: "nameEn",
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
+            {text}
+          </div>
+        ),
+      },
+      {
+        title: "中文描述",
+        dataIndex: "descript",
+        key: "descript",
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
+            {text}
+          </div>
+        ),
+      },
+      {
+        title: "英文描述",
+        dataIndex: "descriptEn",
+        key: "descriptEn",
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
+            {text}
+          </div>
         ),
       },
       {
@@ -282,7 +312,7 @@ export default class Article extends Component {
       { title: "创建者", dataIndex: "creator", key: "creator" },
       {
         title: "创建时间",
-        dataIndex: "createAt",
+        dataIndex: "creatTime",
         key: "createAt",
         render: (text) => moment(text).fromNow(),
       },
@@ -310,49 +340,20 @@ export default class Article extends Component {
         fixed: "right",
         render: (text, record, index) => {
           return (
-            <Button.Group>
-              {/* <Button
-                              type="primary"
-                              style={{ marginLeft: 5 }}
-                              onClick={() => this.view(record)}
-                            >
-                              查看
-                            </Button> */}
-              <Button
-                type="primary"
-                style={{
-                  marginLeft: 5,
-                }}
-                onClick={() => this.edit(record)}
-              >
-                编辑
-              </Button>
-              <Button
-                type="primary"
-                style={{
-                  marginLeft: 5,
-                }}
+            <div className="icons-list">
+              <EditTwoTone onClick={() => this.edit(record)} />
+              <MessageTwoTone
                 onClick={() => this.comment(record)}
-              >
-                评论
-              </Button>
+                style={{ marginLeft: "10px" }}
+              />
               <Popconfirm onConfirm={() => this.remove(record._id)}>
-                <Button
-                  icon="delete"
-                  type="danger"
-                  style={{
-                    marginLeft: 5,
-                  }}
-                >
-                  删除
-                </Button>
+                <DeleteTwoTone style={{ marginLeft: "10px" }} />
               </Popconfirm>
-            </Button.Group>
+            </div>
           )
         },
       },
     ]
-
     let rowSelection = {
       onChange: (selectedRowkKeys) => {
         this.setState({
@@ -361,86 +362,80 @@ export default class Article extends Component {
       },
     }
     return (
-      <Row>
-        <Col
-          span="24"
-          style={{
-            padding: 8,
-          }}
+      <div
+        className="common-page"
+        span="24"
+        style={{
+          padding: 8,
+        }}
+      >
+        <Search className={"search"} />
+        <Button.Group className={"button"}>
+          <Button type="primary" icon="plus-circle" onClick={this.create}>
+            添加
+          </Button>
+          <Button
+            style={{
+              marginLeft: 5,
+            }}
+            type="danger"
+            icon="minus-circle"
+            onClick={() => this.remove(this.state.selectedRowkKeys)}
+          >
+            删除
+          </Button>
+        </Button.Group>
+        <Table
+          className={"table"}
+          loading={this.state.loading}
+          columns={columns}
+          scroll={{ x: 1500 }}
+          dataSource={this.state.items}
+          pagination={this.state.pagination}
+          rowSelection={rowSelection}
+        />
+        <WrappedTheSlider
+          visible={this.state.editVisible}
+          categories={this.state.categories}
+          title={this.state.title}
+          isCreate={this.state.isCreate}
+          item={this.state.item}
+        />
+        <Modal
+          visible={this.state.editVisible}
+          title={this.state.title}
+          onCancel={this.editCancel}
+          onOk={this.editOk}
+          destroyOnClose
         >
-          <Row>
-            <Col span={12}>
-              <Button.Group>
-                <Button type="primary" icon="plus-circle" onClick={this.create}>
-                  添加
-                </Button>
-                <Button
-                  style={{
-                    marginLeft: 5,
-                  }}
-                  type="danger"
-                  icon="minus-circle"
-                  onClick={() => this.remove(this.state.selectedRowkKeys)}
-                >
-                  删除
-                </Button>
-              </Button.Group>
-            </Col>
-            <Col span={12}>
-              <Input.Search enterButton onSearch={this.handleSearch} />
-            </Col>
-          </Row>
-          <Table
-            loading={this.state.loading}
-            columns={columns}
-            scroll={{ x: 1500 }}
-            dataSource={this.state.items}
-            pagination={this.state.pagination}
-            rowSelection={rowSelection}
-          />
-          <WrappedTheSlider
-            visible={this.state.editVisible}
-            categories={this.state.categories}
-            title={this.state.title}
+          <WrappedEditModal
+            wrappedComponentRef={(inst) => (this.editform = inst)}
             isCreate={this.state.isCreate}
             item={this.state.item}
+            categories={this.state.categories}
           />
-          <Modal
-            visible={this.state.editVisible}
-            title={this.state.title}
-            onCancel={this.editCancel}
-            onOk={this.editOk}
-            destroyOnClose
-          >
-            <WrappedEditModal
-              wrappedComponentRef={(inst) => (this.editform = inst)}
-              isCreate={this.state.isCreate}
-              item={this.state.item}
-              categories={this.state.categories}
-            />
-          </Modal>
-          <Modal
-            visible={this.state.viewVisible}
-            footer={null}
-            onCancel={this.viewCancel}
-            destroyOnClose
-          >
-            <WrappedViewModal item={this.state.item} />
-          </Modal>
-          <Modal
-            visible={this.state.commentVisible}
-            onCancel={this.commentCancel}
-            onOk={this.commentOk}
-            destroyOnClose
-          >
-            <WrappedCommentModal
-              wrappedComponentRef={(inst) => (this.commentForm = inst)}
-              item={this.state.item}
-              deleteComment={this.deleteComment}
-            />
-          </Modal>
-        </Col>
-      </Row>
+        </Modal>
+        <Modal
+          visible={this.state.viewVisible}
+          footer={null}
+          onCancel={this.viewCancel}
+          destroyOnClose
+        >
+          <WrappedViewModal item={this.state.item} />
+        </Modal>
+        <Modal
+          visible={this.state.commentVisible}
+          onCancel={this.commentCancel}
+          onOk={this.commentOk}
+          destroyOnClose
+        >
+          <WrappedCommentModal
+            wrappedComponentRef={(inst) => (this.commentForm = inst)}
+            item={this.state.item}
+            deleteComment={this.deleteComment}
+          />
+        </Modal>
+      </div>
     )
   }
 }
@@ -544,9 +539,53 @@ class EditModal extends Component {
     return (
       <Form>
         <Form.Item>
+          {getFieldDecorator("name", {
+            initialValue: this.props.isCreate ? "" : this.props.item.name,
+            rules: [
+              {
+                required: true,
+                message: "请输入中文名称",
+              },
+            ],
+          })(<Input placeholder="请输入中文名称" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("nameEn", {
+            initialValue: this.props.isCreate ? "" : this.props.item.nameEn,
+            rules: [
+              {
+                required: true,
+                message: "请输入英文名称",
+              },
+            ],
+          })(<Input placeholder="请输入英文名称" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("descript", {
+            initialValue: this.props.isCreate ? "" : this.props.item.descript,
+            rules: [
+              {
+                required: true,
+                message: "请输入中文描述",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入中文描述" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("descriptEn", {
+            initialValue: this.props.isCreate ? "" : this.props.item.descriptEn,
+            rules: [
+              {
+                required: true,
+                message: "请输入英文描述",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入英文描述" />)}
+        </Form.Item>
+        <Form.Item>
           {getFieldDecorator("category", {
             initialValue: this.props.isCreate
-              ? this.props.categories[0].name
+              ? this.props.categories[0]._id
               : this.props.item.title,
             rules: [
               {
@@ -563,17 +602,6 @@ class EditModal extends Component {
               ))}
             </Select>
           )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("title", {
-            initialValue: this.props.isCreate ? "" : this.props.item.title,
-            rules: [
-              {
-                required: true,
-                message: "请输入标题",
-              },
-            ],
-          })(<Input placeholder="请输入标题" />)}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator("content", {
@@ -707,268 +735,6 @@ class CommentModal extends Component {
   }
 }
 
-class TheSlider extends Component {
-  state = {
-    editVisible: this.props.visible,
-    item: this.props.item,
-    isCreate: false,
-  }
-  editCancel = () => {
-    this.setState({
-      editVisible: false,
-    })
-  }
-  editOk = () => {
-    let article = this.editform.props.form.getFieldsValue()
-    articleService[this.state.isCreate ? "create" : "update"](article).then(
-      (res) => {
-        if (res.code == 0) {
-          this.setState(
-            {
-              editVisible: false,
-            },
-            this.getList
-          )
-        }
-      }
-    )
-  }
-  render() {
-    const { getFieldDecorator } = this.props.form
-    const layout = {
-      justify: "center",
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
-    }
-    const layoutItem = {
-      labelCol: { span: 2 },
-      wrapperCol: { span: 22 },
-    }
-    return (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          width: "80%",
-          height: "100vh",
-          background: "white",
-          display: this.state.editVisible ? "block" : "none",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "20px",
-            position: "absolute",
-            right: "10px",
-            top: "5px",
-            width: "20px",
-            zIndex: 1000,
-            textAlign: "center",
-            cursor: "pointer",
-          }}
-          onClick={this.editCancel}
-        >
-          x
-        </span>
-        <Tabs defaultActiveKey="1" onChange={callback}>
-          <TabPane tab="Tab 1" key="1">
-            <Form {...layout}>
-              <Row gutter={20}>
-                <Collapse defaultActiveKey={["1", "2"]}>
-                  <Panel header="基本信息" key="1">
-                    <Col span={12}>
-                      <Form.Item label="分类">
-                        {getFieldDecorator("category", {
-                          initialValue: this.props.isCreate
-                            ? this.props.categories[0] &&
-                              this.props.categories[0].name
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(
-                          <Select placeholder="请输入标题">
-                            {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item._id}>
-                                {item.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="中文名称">
-                        {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(<Input placeholder="请输入标题" />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="英文名称">
-                        {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(<Input placeholder="请输入标题" />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={24}>
-                      <Form.Item {...layoutItem} label="中文描述">
-                        {getFieldDecorator("content", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.content,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入内容",
-                            },
-                          ],
-                        })(<Input.TextArea placeholder="请输入内容" />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={24}>
-                      <Form.Item {...layoutItem} label="英文描述">
-                        {getFieldDecorator("content", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.content,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入内容",
-                            },
-                          ],
-                        })(<Input.TextArea placeholder="请输入内容" />)}
-                      </Form.Item>
-                    </Col>
-                    {!this.isCreate && (
-                      <Form.Item>
-                        {getFieldDecorator("id", {
-                          initialValue: this.props.item._id,
-                        })(<Input type="hidden" />)}
-                      </Form.Item>
-                    )}
-                  </Panel>
-                  <Panel header="编辑信息" key="2">
-                    <Col span={12}>
-                      <Form.Item label="创建者">
-                        {getFieldDecorator("category", {
-                          initialValue: this.props.isCreate
-                            ? this.props.categories[0] &&
-                              this.props.categories[0].name
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(
-                          <Select placeholder="请输入标题">
-                            {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item._id}>
-                                {item.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="创建时间">
-                        {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(<Input placeholder="请输入标题" />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="更新者">
-                        {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(<Input placeholder="请输入标题" />)}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="更新时间">
-                        {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
-                            ? ""
-                            : this.props.item.title,
-                          rules: [
-                            {
-                              required: true,
-                              message: "请输入标题",
-                            },
-                          ],
-                        })(<Input placeholder="请输入标题" />)}
-                      </Form.Item>
-                    </Col>
-                    {!this.isCreate && (
-                      <Form.Item>
-                        {getFieldDecorator("id", {
-                          initialValue: this.props.item._id,
-                        })(<Input type="hidden" />)}
-                      </Form.Item>
-                    )}
-                  </Panel>
-                </Collapse>
-              </Row>
-            </Form>
-            <Row justify="center">
-              <Col style={{ textAlign: "center", marginTop: "20px" }}>
-                <Button type="primary" onClick={this.handleSave}>
-                  保存
-                </Button>
-                <Button
-                  style={{ marginLeft: "20px" }}
-                  onClick={this.handleCancel}
-                >
-                  取消
-                </Button>
-              </Col>
-            </Row>
-          </TabPane>
-        </Tabs>
-      </div>
-    )
-  }
-}
 const WrappedTheSlider = Form.create()(TheSlider)
 const WrappedEditModal = Form.create()(EditModal)
 const WrappedViewModal = Form.create()(ViewModal)

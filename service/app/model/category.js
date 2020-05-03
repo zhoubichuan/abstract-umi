@@ -11,14 +11,12 @@ module.exports = app => {
     name: String,
     tags: String,
     descript: String,
-    creator: {
-      type: ObjectId,
-      ref: 'User',
-    },
+    creator: String,
     createTime: {
       type: Date,
       default: Date.now,
     },
+    updater: String,
     updateTime: {
       type: Date,
       default: Date.now,

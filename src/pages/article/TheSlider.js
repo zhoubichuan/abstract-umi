@@ -1,28 +1,16 @@
 import React, { Component } from "react"
-import {
-  Collapse,
-  TabPane,
-  Panel,
-  Input,
-  Button,
-  Form,
-  Select,
-  Col,
-  Row,
-  Tabs,
-} from "antd"
+import { Collapse, Tabs, Input, Button, Form, Select, Col, Row } from "antd"
 import articleService from "../../service/article"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
+
 function callback(key) {
   console.log(key)
 }
-module.exports = class TheSlider extends Component {
+export class TheSlider extends Component {
+  debugger
   state = {
-    start: 0,
-    limit: 5,
-    loading: false,
-    editVisible: true,
+    editVisible: this.props.visible,
     item: this.props.item,
     isCreate: false,
   }
@@ -75,17 +63,21 @@ module.exports = class TheSlider extends Component {
             position: "absolute",
             right: "10px",
             top: "5px",
+            width: "20px",
+            zIndex: 1000,
+            textAlign: "center",
+            cursor: "pointer",
           }}
           onClick={this.editCancel}
         >
           x
         </span>
         <Tabs defaultActiveKey="1" onChange={callback}>
-          <TabPane tab="Tab 1" key="1">
+          <Tabs.TabPane tab="Tab 1" key="1">
             <Form {...layout}>
               <Row gutter={20}>
                 <Collapse defaultActiveKey={["1", "2"]}>
-                  <Panel header="基本信息" key="1">
+                  <Collapse.Panel header="基本信息" key="1">
                     <Col span={12}>
                       <Form.Item label="分类">
                         {getFieldDecorator("category", {
@@ -177,8 +169,8 @@ module.exports = class TheSlider extends Component {
                         })(<Input type="hidden" />)}
                       </Form.Item>
                     )}
-                  </Panel>
-                  <Panel header="编辑信息" key="2">
+                  </Collapse.Panel>
+                  <Collapse.Panel header="编辑信息" key="2">
                     <Col span={12}>
                       <Form.Item label="创建者">
                         {getFieldDecorator("category", {
@@ -255,7 +247,7 @@ module.exports = class TheSlider extends Component {
                         })(<Input type="hidden" />)}
                       </Form.Item>
                     )}
-                  </Panel>
+                  </Collapse.Panel>
                 </Collapse>
               </Row>
             </Form>
@@ -272,7 +264,7 @@ module.exports = class TheSlider extends Component {
                 </Button>
               </Col>
             </Row>
-          </TabPane>
+          </Tabs.TabPane>
         </Tabs>
       </div>
     )

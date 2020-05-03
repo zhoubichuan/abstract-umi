@@ -37,12 +37,50 @@ body,
   }
 }
 
+.common-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .search {
+    height: 40px;
+    flex-grow: 1;
+  }
+
+  .button {
+    padding: 10px 0;
+  }
+
+  .table {
+    height: 200px;
+    flex-grow: 1;
+    overflow-y: scroll;
+  }
+}
+
 .admin-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   .admin-header {
     height: 55px;
     line-height: 55px;
     padding: 0 10px;
     background-color: seashell;
+  }
+
+  .admin-content {
+    height: 300px;
+    flex-grow: 1;
+
+    .admin-nav {
+      height: 100%;
+    }
+
+    .admin-page {
+      height: 100%;
+    }
   }
 }
 

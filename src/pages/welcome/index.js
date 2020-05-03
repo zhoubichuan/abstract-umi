@@ -1,17 +1,17 @@
-import React, { Component } from 'react'
-import { Calendar, Badge } from 'antd'
+import React, { Component } from "react"
+import { Calendar, Badge } from "antd"
 
 function getListData(value) {
   let listData
   switch (value.date()) {
     case 8:
-      listData = [{ type: '读书', content: 'javascript开发数据' }]
+      listData = [{ type: "读书", content: "javascript开发数据" }]
       break
     case 10:
-      listData = [{ type: '读书', content: 'javascript开发数据' }]
+      listData = [{ type: "读书", content: "javascript开发数据" }]
       break
     case 15:
-      listData = [{ type: '读书', content: 'javascript开发数据' }]
+      listData = [{ type: "读书", content: "javascript开发数据" }]
       break
     default:
   }
@@ -22,7 +22,7 @@ function dateCellRender(value) {
   const listData = getListData(value)
   return (
     <ul className="events">
-      {listData.map(item => (
+      {listData.map((item) => (
         <li key={item.content}>
           <Badge status={item.type} text={item.content} />
         </li>

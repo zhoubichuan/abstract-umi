@@ -83,6 +83,15 @@ export default class Category extends Component {
   }
   editOk = () => {
     let category = this.editform.props.form.getFieldsValue()
+    if (this.state.isCreate) {
+      category.creator = "aaa"
+      category.createTime = moment().format()
+      category.updater = "aaa"
+      category.updateTime = moment().format()
+    } else {
+      category.updater = "bbb"
+      category.updateTime = moment().format()
+    }
     categoryService[this.state.isCreate ? "create" : "update"](category).then(
       (res) => {
         if (res.code == 0) {
