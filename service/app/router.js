@@ -14,6 +14,10 @@ module.exports = app => {
   router.get('/api/users/signout', controller.users.signout); // 用户退出
   // router.post('/api/upload', controller.file.upload);
   router.resources('categories', '/api/categories', controller.categories);
+  router.get('/api/tag', controller.tag.get);
+  router.post('/api/tag', controller.tag.create);
+  router.put('/api/tag', controller.tag.update);
+  router.delete('/api/tag', controller.tag.delete);
   router.resources('articles', '/api/articles', controller.articles);
   router.get('/api/articles/pv/:id', controller.articles.addPv);
   router.post('/api/articles/comment/:id', controller.articles.addComment);

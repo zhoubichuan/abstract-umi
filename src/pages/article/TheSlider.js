@@ -7,12 +7,22 @@ require("moment/locale/zh-cn.js")
 function callback(key) {
   console.log(key)
 }
-export class TheSlider extends Component {
-  debugger
-  state = {
-    editVisible: this.props.visible,
-    item: this.props.item,
-    isCreate: false,
+class TheSlider extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      editVisible: this.props.visible,
+      item: this.props.item,
+      categories: this.props.categories,
+      isCreate: false,
+    }
+  }
+  componentWillReceivestate(nextProps) {
+    this.setState({
+      editVisible: nextProps.visible,
+      item: nextProps.item,
+      categories: nextProps.categories,
+    })
   }
   editCancel = () => {
     this.setState({
@@ -45,6 +55,7 @@ export class TheSlider extends Component {
       labelCol: { span: 2 },
       wrapperCol: { span: 22 },
     }
+    console.log(this.state, "222222222222")
     return (
       <div
         style={{
@@ -81,10 +92,10 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="分类">
                         {getFieldDecorator("category", {
-                          initialValue: this.props.isCreate
-                            ? this.props.categories[0] &&
-                              this.props.categories[0].name
-                            : this.props.item.title,
+                          initialValue: this.state.isCreate
+                            ? this.state.categories[0] &&
+                              this.state.categories[0].name
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -93,7 +104,7 @@ export class TheSlider extends Component {
                           ],
                         })(
                           <Select placeholder="请输入标题">
-                            {this.props.categories.map((item) => (
+                            {this.state.categories.map((item) => (
                               <Select.Option key={item._id} value={item._id}>
                                 {item.name}
                               </Select.Option>
@@ -105,9 +116,9 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="中文名称">
                         {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.title,
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -120,9 +131,9 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="英文名称">
                         {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.title,
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -135,9 +146,9 @@ export class TheSlider extends Component {
                     <Col span={24}>
                       <Form.Item {...layoutItem} label="中文描述">
                         {getFieldDecorator("content", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.content,
+                            : this.state.item.content,
                           rules: [
                             {
                               required: true,
@@ -150,9 +161,9 @@ export class TheSlider extends Component {
                     <Col span={24}>
                       <Form.Item {...layoutItem} label="英文描述">
                         {getFieldDecorator("content", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.content,
+                            : this.state.item.content,
                           rules: [
                             {
                               required: true,
@@ -165,7 +176,7 @@ export class TheSlider extends Component {
                     {!this.isCreate && (
                       <Form.Item>
                         {getFieldDecorator("id", {
-                          initialValue: this.props.item._id,
+                          initialValue: this.state.item._id,
                         })(<Input type="hidden" />)}
                       </Form.Item>
                     )}
@@ -174,10 +185,10 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="创建者">
                         {getFieldDecorator("category", {
-                          initialValue: this.props.isCreate
-                            ? this.props.categories[0] &&
-                              this.props.categories[0].name
-                            : this.props.item.title,
+                          initialValue: this.state.isCreate
+                            ? this.state.categories[0] &&
+                              this.state.categories[0].name
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -186,7 +197,7 @@ export class TheSlider extends Component {
                           ],
                         })(
                           <Select placeholder="请输入标题">
-                            {this.props.categories.map((item) => (
+                            {this.state.categories.map((item) => (
                               <Select.Option key={item._id} value={item._id}>
                                 {item.name}
                               </Select.Option>
@@ -198,9 +209,9 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="创建时间">
                         {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.title,
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -213,9 +224,9 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="更新者">
                         {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.title,
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -228,9 +239,9 @@ export class TheSlider extends Component {
                     <Col span={12}>
                       <Form.Item label="更新时间">
                         {getFieldDecorator("title", {
-                          initialValue: this.props.isCreate
+                          initialValue: this.state.isCreate
                             ? ""
-                            : this.props.item.title,
+                            : this.state.item.title,
                           rules: [
                             {
                               required: true,
@@ -243,7 +254,7 @@ export class TheSlider extends Component {
                     {!this.isCreate && (
                       <Form.Item>
                         {getFieldDecorator("id", {
-                          initialValue: this.props.item._id,
+                          initialValue: this.state.item._id,
                         })(<Input type="hidden" />)}
                       </Form.Item>
                     )}
@@ -270,3 +281,4 @@ export class TheSlider extends Component {
     )
   }
 }
+export const WrappedTheSlider = Form.create()(TheSlider)

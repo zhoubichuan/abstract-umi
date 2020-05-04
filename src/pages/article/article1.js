@@ -15,9 +15,6 @@ import {
   Row,
   Modal,
   Card,
-  Tabs,
-  Upload,
-  Moda,
 } from "antd"
 import {
   EditTwoTone,
@@ -27,9 +24,10 @@ import {
   MessageTwoTone,
   DeleteTwoTone,
 } from "@ant-design/icons"
-import { TheSlider } from "./TheSlider"
-import img from "./1.jpg"
-import { Search } from "./Search"
+import { WrappedTheSlider } from "./TheSlider"
+import { TheSlider as TheSliderView } from "./TheSliderView"
+
+import { Search2 } from "./Search"
 import articleService from "../../service/article"
 import categoryService from "../../service/category"
 import moment from "moment"
@@ -225,6 +223,53 @@ export default class Article extends Component {
       }
     })
   }
+  refresh = async (pagination, filters, sorter) => {
+    if (typeof filters === "undefined") {
+      filters = []
+    }
+    if (pagination === null) {
+      this.json = filters
+    }
+    for (let p in this.json) {
+      filters[p] = this.json[p]
+    }
+    filters["auditStatus"] = 1
+    filters["sort"] = this.state.sort
+    filters["order"] = this.state.order
+    if (pagination !== null && typeof pagination !== "undefined") {
+      filters["rows"] = pagination.pageSize
+      filters["page"] = pagination.current
+      this.setState({
+        page: pagination.current,
+      })
+    } else {
+      this.setState({
+        page: 1,
+      })
+    }
+    // 刷新表格
+    let result = await categoryService.list({
+      current: 1,
+      pageSize: 10,
+      ...filters,
+    })
+
+    this.setState({
+      openAdd: false,
+      openTableAddUp: false,
+      openUpdate: false,
+      dataSource: result.data.rows,
+      total: result.data.total,
+      id: 0,
+    })
+  }
+  close = async () => {
+    this.setState({
+      openAdd: false,
+      openTableAddUp: false,
+      openUpdate: false,
+    })
+  }
   render() {
     let columns = [
       {
@@ -369,7 +414,12 @@ export default class Article extends Component {
           padding: 8,
         }}
       >
-        <Search className={"search"} />
+        <Search2
+          refresh={this.refresh}
+          close={this.close}
+          type={1}
+          className={"search"}
+        />
         <Button.Group className={"button"}>
           <Button type="primary" icon="plus-circle" onClick={this.create}>
             添加
@@ -384,6 +434,16 @@ export default class Article extends Component {
           >
             删除
           </Button>
+          <Button
+            style={{
+              marginLeft: 5,
+            }}
+            type="danger"
+            icon="download"
+            className="export-table"
+          >
+            导出表格
+          </Button>
         </Button.Group>
         <Table
           className={"table"}
@@ -394,6 +454,13 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
+        <TheSliderView
+          visible={this.state.viewVisible}
+          categories={this.state.categories}
+          title={this.state.title}
+          isCreate={this.state.isCreate}
+          item={this.state.item}
+        />
         <WrappedTheSlider
           visible={this.state.editVisible}
           categories={this.state.categories}
@@ -401,28 +468,6 @@ export default class Article extends Component {
           isCreate={this.state.isCreate}
           item={this.state.item}
         />
-        <Modal
-          visible={this.state.editVisible}
-          title={this.state.title}
-          onCancel={this.editCancel}
-          onOk={this.editOk}
-          destroyOnClose
-        >
-          <WrappedEditModal
-            wrappedComponentRef={(inst) => (this.editform = inst)}
-            isCreate={this.state.isCreate}
-            item={this.state.item}
-            categories={this.state.categories}
-          />
-        </Modal>
-        <Modal
-          visible={this.state.viewVisible}
-          footer={null}
-          onCancel={this.viewCancel}
-          destroyOnClose
-        >
-          <WrappedViewModal item={this.state.item} />
-        </Modal>
         <Modal
           visible={this.state.commentVisible}
           onCancel={this.commentCancel}
@@ -439,100 +484,7 @@ export default class Article extends Component {
     )
   }
 }
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
-}
-class PicturesWall extends React.Component {
-  state = {
-    previewVisible: false,
-    previewImage: "",
-    previewTitle: "",
-    fileList: [
-      {
-        uid: "-1",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-2",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-3",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-4",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-5",
-        name: "image.png",
-        status: "error",
-      },
-    ],
-  }
 
-  handleCancel = () => this.setState({ previewVisible: false })
-
-  handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj)
-    }
-
-    this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
-    })
-  }
-
-  handleChange = ({ fileList }) => this.setState({ fileList })
-
-  render() {
-    const { previewVisible, previewImage, fileList, previewTitle } = this.state
-    const uploadButton = (
-      <div>
-        {/* <PlusOutlined /> */}
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    )
-    return (
-      <div className="clearfix">
-        <Upload
-          action="http://127.0.0.1:7001/api/file/upload"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Modal
-          visible={previewVisible}
-          title={previewTitle}
-          footer={null}
-          onCancel={this.handleCancel}
-        >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
-        </Modal>
-      </div>
-    )
-  }
-}
 class EditModal extends Component {
   render() {
     const { getFieldDecorator } = this.props.form
@@ -622,22 +574,6 @@ class EditModal extends Component {
           </Form.Item>
         )}
       </Form>
-    )
-  }
-}
-class ViewModal extends Component {
-  render() {
-    return (
-      <Card
-        title="查看文章"
-        style={{
-          marginTop: 20,
-        }}
-      >
-        <p> 标题： {this.props.item.title} </p>
-        <p> 内容： {this.props.item.content} </p>
-        <PicturesWall />
-      </Card>
     )
   }
 }
@@ -734,8 +670,4 @@ class CommentModal extends Component {
     )
   }
 }
-
-const WrappedTheSlider = Form.create()(TheSlider)
-const WrappedEditModal = Form.create()(EditModal)
-const WrappedViewModal = Form.create()(ViewModal)
 const WrappedCommentModal = Form.create()(CommentModal)

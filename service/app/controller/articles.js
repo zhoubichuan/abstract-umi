@@ -17,7 +17,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async create() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     let article = ctx.request.body
     article.creater = this.user
     article.updater = this.user
@@ -29,7 +31,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async update() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     const article = ctx.request.body
     article.updater = this.user
@@ -41,9 +45,13 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async destroy() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
-    const { ids = [] } = ctx.request.body
+    const {
+      ids = []
+    } = ctx.request.body
     ids.push(id)
     try {
       await ctx.model.Article.remove({
@@ -57,7 +65,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async addPv() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     try {
       await ctx.model.Article.findByIdAndUpdate(id, {
@@ -71,7 +81,9 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async addComment() {
-    const { ctx } = this
+    const {
+      ctx
+    } = this
     const id = ctx.params.id
     const comment = ctx.request.body
     comment.user = this.user
@@ -88,8 +100,13 @@ module.exports = class ArticlesController extends BaseController {
     }
   }
   async removeComment() {
-    const { ctx } = this
-    const { article_id, comment_id } = ctx.params
+    const {
+      ctx
+    } = this
+    const {
+      article_id,
+      comment_id
+    } = ctx.params
     try {
       await ctx.model.Article.findByIdAndUpdate(article_id, {
         $pull: {
