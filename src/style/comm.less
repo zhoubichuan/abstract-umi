@@ -58,26 +58,57 @@ body,
   }
 }
 
-.common-tabs {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  .base-info {
-    height: 500px;
-    flex-grow: 1;
-    flex-shrink: 1;
-    overflow: hidden scroll;
-  }
-
-  .button {
-    height: 40px;
-    flex-grow: 1;
-    text-align: center;
-  }
-
-
+.ant-tabs-bar {
+  height: 40px;
 }
+
+.ant-tabs .ant-tabs-top-content.ant-tabs-content-animated {
+  height: 200px;
+  flex-grow: 1;
+}
+
+.the-slider {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  height: 100vh;
+  background: white;
+
+  .tabs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .common-tabs {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .ant-tabs {
+        height: 100%;
+
+
+      }
+
+      .base-info {
+        height: 200px;
+        flex-grow: 1;
+        flex-shrink: 1;
+        overflow: hidden auto;
+      }
+
+      .button {
+        height: 60px;
+        text-align: center;
+      }
+
+
+    }
+  }
+}
+
+
 
 .admin-page {
   height: 100vh;
@@ -142,4 +173,25 @@ body,
 
 .notes-month section {
   font-size: 28px;
+}
+
+::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 10px;
+  /*高宽分别对应横竖滚动条的尺寸*/
+  height: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #535353;
+}
+
+::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #ededed;
 }

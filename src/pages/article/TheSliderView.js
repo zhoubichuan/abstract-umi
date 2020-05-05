@@ -13,11 +13,14 @@ import {
 } from "antd"
 import img from "./1.jpg"
 import articleService from "../../service/article"
+// 日报时间选择器
+import DailyTimePicker from "../../components/TimePicker/DailyTimePicker"
 require("moment/locale/zh-cn.js")
 
 function callback(key) {
   console.log(key)
 }
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -32,30 +35,6 @@ class PicturesWall extends React.Component {
     previewImage: "",
     previewTitle: "",
     fileList: [
-      {
-        uid: "-1",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-2",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-3",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
-      {
-        uid: "-4",
-        name: "image.png",
-        status: "done",
-        url: img,
-      },
       {
         uid: "-5",
         name: "image.png",
@@ -112,7 +91,7 @@ class PicturesWall extends React.Component {
     )
   }
 }
-export class TheSlider extends Component {
+class TheSlider extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -144,6 +123,9 @@ export class TheSlider extends Component {
       }
     )
   }
+  onChange = () => {
+    this.setState(this.state.item)
+  }
   render() {
     const layout = {
       justify: "center",
@@ -154,15 +136,11 @@ export class TheSlider extends Component {
       labelCol: { span: 2 },
       wrapperCol: { span: 22 },
     }
+    const { getFieldDecorator } = this.props.form
     return (
       <div
+        className="the-slider"
         style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          width: "80%",
-          height: "100vh",
-          background: "white",
           display: this.state.editVisible ? "block" : "none",
         }}
       >
@@ -182,9 +160,15 @@ export class TheSlider extends Component {
           x
         </span>
 
-        <Tabs defaultActiveKey="1" onChange={callback}>
+        <Tabs defaultActiveKey="1" onChange={callback} className="tabs">
           <Tabs.TabPane tab="Tab 1" key="1" className="common-tabs">
-            <Form {...layout} className="base-info">
+            <Form
+              {...layout}
+              className="base-info"
+              onFieldsChange={(changedFields, allFields) => {
+                this.onChange(allFields)
+              }}
+            >
               <Row
                 gutter={20}
                 style={{ overflowY: "scroll", overflowX: "hidden" }}
@@ -192,142 +176,85 @@ export class TheSlider extends Component {
                 <Collapse defaultActiveKey={["1", "2"]}>
                   <Collapse.Panel header="基本信息" key="1">
                     <Col span={12}>
-                      <Form.Item
-                        label="分类"
-                        name="category"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请选择分类",
-                          },
-                        ]}
-                      >
-                        <Select placeholder="请选择分类">
-                          {this.props.categories.map((item) => (
-                            <Select.Option key={item._id} value={item._id}>
-                              {item.name}
-                            </Select.Option>
-                          ))}
-                        </Select>
+                      <Form.Item label="中文名称">
+                        {getFieldDecorator("name")(
+                          <Input
+                            placeholder="请输入英文名称"
+                            style={{ width: 200 }}
+                          />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item
-                        label="中文名称"
-                        name="name"
-                        rule={[
-                          {
-                            required: true,
-                            message: "请输入中文名称",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请输入中文名称" />
+                      <Form.Item label="英文名称">
+                        {getFieldDecorator("nameEn")(
+                          <Input
+                            placeholder="请输入英文名称"
+                            style={{ width: 200 }}
+                          />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item
-                        label="英文名称"
-                        name="nameEn"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入英文名称",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请输入英文名称" />
+                      <Form.Item label="分类">
+                        {getFieldDecorator("category")(
+                          <Select>
+                            {this.props.categories.map((item) => (
+                              <Select.Option key={item._id} value={item._id}>
+                                {item.name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <PicturesWall />
                     </Col>
                     <Col span={24}>
-                      <Form.Item
-                        {...layoutItem}
-                        label="中文描述"
-                        name="descript"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入中文描述",
-                          },
-                        ]}
-                      >
-                        <Input.TextArea placeholder="请输入中文描述" />
+                      <Form.Item label="中文描述">
+                        {getFieldDecorator("descript")(
+                          <Input.TextArea placeholder="请输入中文描述" />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={24}>
-                      <Form.Item
-                        {...layoutItem}
-                        label="英文描述"
-                        name="descriptEn"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入英文描述",
-                          },
-                        ]}
-                      >
-                        <Input.TextArea placeholder="请输入英文描述" />
+                      <Form.Item label="英文描述">
+                        {getFieldDecorator("descriptEn")(
+                          <Input.TextArea placeholder="请输入英文描述" />
+                        )}
                       </Form.Item>
                     </Col>
                   </Collapse.Panel>
                   <Collapse.Panel header="编辑信息" key="2">
                     <Col span={12}>
-                      <Form.Item
-                        label="更新者"
-                        name="updater"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请选择更新者",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请选择更新者" />
+                      <Form.Item label="更新者">
+                        {getFieldDecorator("updater")(
+                          <Input
+                            placeholder="请输入更新者"
+                            style={{ width: 200 }}
+                          />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item
-                        label="创建者"
-                        name="creater"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入创建者",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请输入创建者" />
+                      <Form.Item label="创建者">
+                        {getFieldDecorator("creater")(
+                          <Input
+                            placeholder="请输入创建者"
+                            style={{ width: 200 }}
+                          />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item
-                        label="更新时间"
-                        name="updateTime"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入标题",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请输入标题" />
+                      <Form.Item label="更新时间">
+                        {getFieldDecorator("updateTime")(<DailyTimePicker />)}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item
-                        label="创建时间"
-                        name="createTime"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请输入标题",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="请输入标题" />
+                      <Form.Item label="创建时间">
+                        {getFieldDecorator("creatTime")(<DailyTimePicker />)}
                       </Form.Item>
                     </Col>
                   </Collapse.Panel>
@@ -351,3 +278,39 @@ export class TheSlider extends Component {
     )
   }
 }
+
+export let TheSliderView = Form.create({
+  mapPropsToFields(props) {
+    return props.item
+      ? {
+          name: Form.createFormField({
+            value: props.item.name,
+          }),
+          nameEn: Form.createFormField({
+            value: props.item.nameEn,
+          }),
+          category: Form.createFormField({
+            value: props.item.category,
+          }),
+          descript: Form.createFormField({
+            value: props.item.descript,
+          }),
+          descriptEn: Form.createFormField({
+            value: props.item.descriptEn,
+          }),
+          updater: Form.createFormField({
+            value: props.item.updater,
+          }),
+          creater: Form.createFormField({
+            value: props.item.creater,
+          }),
+          updateTime: Form.createFormField({
+            value: props.item.updateTime,
+          }),
+          creatTime: Form.createFormField({
+            value: props.item.creatTime,
+          }),
+        }
+      : {}
+  },
+})(TheSlider)

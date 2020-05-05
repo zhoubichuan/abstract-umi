@@ -1,5 +1,14 @@
 import React, { Component } from "react"
-import { Form, Row, Col, Collapse, Input, Button, Select } from "antd"
+import {
+  Form,
+  Row,
+  Col,
+  Collapse,
+  Input,
+  Button,
+  Select,
+  DatePicker,
+} from "antd"
 import { DownOutlined, UpOutlined } from "@ant-design/icons"
 // 城市选择
 import { Cascader } from "antd"
@@ -11,6 +20,7 @@ import DailyTimePicker from "../../components/TimePicker/DailyTimePicker"
 import WeeklyPicker from "../../components/TimePicker/WeeklyPicker"
 //月报时间选择器
 import MonthlyPicker from "../../components/TimePicker/MonthlyPicker"
+const { RangePicker } = DatePicker
 export class Search extends Component {
   constructor(props) {
     super(props)
@@ -36,6 +46,14 @@ export class Search extends Component {
   }
   handleExpand() {
     this.setState({ expand: !this.state.expand })
+  }
+  getDate = (date, dateString) => {
+    this.startDate = dateString[0]
+    if (dateString[1] > 0) {
+      this.endDate = dateString[1] + " 23:59:59"
+    } else {
+      this.endDate = dateString[1]
+    }
   }
   render() {
     const { getFieldDecorator } = this.props.form
@@ -91,7 +109,9 @@ export class Search extends Component {
               </Col>
               <Col span={8}>
                 <Form.Item label="创建时间">
-                  {getFieldDecorator("creatTime")(<DailyTimePicker />)}
+                  {getFieldDecorator("creatTime")(
+                    <RangePicker onChange={this.getDate} />
+                  )}
                 </Form.Item>
               </Col>
               <Col span={8}>

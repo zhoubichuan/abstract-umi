@@ -25,7 +25,7 @@ import {
   DeleteTwoTone,
 } from "@ant-design/icons"
 import { WrappedTheSlider } from "./TheSlider"
-import { TheSlider as TheSliderView } from "./TheSliderView"
+import { TheSliderView } from "./TheSliderView"
 
 import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"
