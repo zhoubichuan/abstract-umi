@@ -43,7 +43,7 @@ class PicturesWall extends React.Component {
     ],
   }
 
-  handleCancel = () => this.setState({ previewVisible: false })
+  handleCancel = () => this.setState({ viewVisible: false, editVisible: false })
 
   handlePreview = async (file) => {
     if (!file.url && !file.preview) {
@@ -95,16 +95,22 @@ class TheSlider extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      editVisible: this.props.visible,
+      viewVisible: this.props.viewVisible,
+      editVisible: this.props.editVisible,
       item: this.props.item,
       isCreate: false,
     }
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ editVisible: nextProps.visible, item: nextProps.item })
+    this.setState({
+      viewVisible: nextProps.viewVisible,
+      editVisible: nextProps.editVisible,
+      item: nextProps.item,
+    })
   }
   editCancel = () => {
     this.setState({
+      viewVisible: false,
       editVisible: false,
     })
   }
@@ -141,7 +147,8 @@ class TheSlider extends Component {
       <div
         className="the-slider"
         style={{
-          display: this.state.editVisible ? "block" : "none",
+          display:
+            this.state.editVisible || this.state.viewVisible ? "block" : "none",
         }}
       >
         <span
@@ -151,7 +158,7 @@ class TheSlider extends Component {
             right: "10px",
             top: "5px",
             width: "20px",
-            zIndex: 100000,
+            zIndex: 1000,
             textAlign: "center",
             cursor: "pointer",
           }}
@@ -213,7 +220,7 @@ class TheSlider extends Component {
                         )}
                       </Form.Item>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                       <PicturesWall />
                     </Col>
                   </Collapse.Panel>
@@ -264,7 +271,7 @@ class TheSlider extends Component {
   }
 }
 
-export let TheSliderView = Form.create({
+export let TheSliderEdit = Form.create({
   mapPropsToFields(props) {
     let item = props.isCreate ? [] : props.item
     return item

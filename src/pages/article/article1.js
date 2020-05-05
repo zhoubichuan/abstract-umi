@@ -1,6 +1,5 @@
-import React, { useState, Component } from "react"
+import React, { Component } from "react"
 import {
-  Collapse,
   List,
   Spin,
   Avatar,
@@ -14,17 +13,14 @@ import {
   Col,
   Row,
   Modal,
-  Card,
 } from "antd"
 import {
   EditTwoTone,
-  DownOutlined,
-  CaretUpOutlined,
   // PlusOutlined,
   MessageTwoTone,
   DeleteTwoTone,
 } from "@ant-design/icons"
-import { WrappedTheSlider } from "./TheSlider"
+import { TheSliderEdit } from "./TheSliderEdit"
 import { TheSliderView } from "./TheSliderView"
 
 import { SearchForm } from "./SearchForm"
@@ -54,6 +50,7 @@ export default class Article extends Component {
       })
       .then((res) => {
         if (res.code == 0) {
+          message.success("请求成功")
           this.setState({
             categories: res.data.items,
           })
@@ -125,6 +122,7 @@ export default class Article extends Component {
     articleService[this.state.isCreate ? "create" : "update"](article).then(
       (res) => {
         if (res.code == 0) {
+          message.success(this.state.isCreate ? "创建数据成功" : "更新数据成功")
           this.setState(
             {
               editVisible: false,
@@ -165,6 +163,7 @@ export default class Article extends Component {
   remove = (ids) => {
     articleService.remove(ids).then((res) => {
       if (res.code == 0) {
+        message.success("删除数据成功")
         this.setState({}, this.getList)
       }
     })
@@ -185,6 +184,7 @@ export default class Article extends Component {
     let comment = this.commentForm.props.form.getFieldsValue()
     articleService.addComment(this.state.item._id, comment).then((res) => {
       if (res.code == 0) {
+        message.success("评论成功")
         this.setState(
           {
             commentVisible: false,
@@ -210,16 +210,15 @@ export default class Article extends Component {
   deleteComment = (article_id, comment_id) => {
     articleService.deleteComment(article_id, comment_id).then((res) => {
       if (res.code == 0) {
-        if (res.code == 0) {
-          this.setState(
-            {
-              commentVisible: false,
-            },
-            this.getList
-          )
-        } else {
-          message.error(res.data)
-        }
+        message.success("删除评论成功")
+        this.setState(
+          {
+            commentVisible: false,
+          },
+          this.getList
+        )
+      } else {
+        message.error(res.data)
       }
     })
   }
@@ -453,17 +452,15 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        <TheSliderView
-          visible={this.state.viewVisible}
+        {/* <TheSliderView
+          viewVisible={this.state.viewVisible}
           categories={this.state.categories}
-          title={this.state.title}
-          isCreate={this.state.isCreate}
           item={this.state.item}
-        />
-        <WrappedTheSlider
-          visible={this.state.editVisible}
+        /> */}
+        <TheSliderEdit
+          viewVisible={this.state.viewVisible}
+          editVisible={this.state.editVisible}
           categories={this.state.categories}
-          title={this.state.title}
           isCreate={this.state.isCreate}
           item={this.state.item}
         />

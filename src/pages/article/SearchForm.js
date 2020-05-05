@@ -44,7 +44,7 @@ export class Search extends Component {
       this.props.refresh(null, json, null)
     }
   }
-  handleExpand() {
+  handleExpand = () => {
     this.setState({ expand: !this.state.expand })
   }
   getDate = (date, dateString) => {
@@ -70,20 +70,14 @@ export class Search extends Component {
               <Col span={8}>
                 <Form.Item label="中文名称">
                   {getFieldDecorator("name")(
-                    <Input
-                      placeholder="请输入英文名称"
-                      style={{ width: 200 }}
-                    />
+                    <Input placeholder="请输入英文名称" />
                   )}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="英文名称">
                   {getFieldDecorator("nameEn")(
-                    <Input
-                      placeholder="请输入英文名称"
-                      style={{ width: 200 }}
-                    />
+                    <Input placeholder="请输入英文名称" />
                   )}
                 </Form.Item>
               </Col>
@@ -103,7 +97,7 @@ export class Search extends Component {
               <Col span={8}>
                 <Form.Item label="创建者">
                   {getFieldDecorator("creater")(
-                    <Input placeholder="请输入创建者" style={{ width: 200 }} />
+                    <Input placeholder="请输入创建者" />
                   )}
                 </Form.Item>
               </Col>
@@ -117,7 +111,7 @@ export class Search extends Component {
               <Col span={8}>
                 <Form.Item label="更新者">
                   {getFieldDecorator("updater")(
-                    <Input placeholder="请输入更新者" style={{ width: 200 }} />
+                    <Input placeholder="请输入更新者" />
                   )}
                 </Form.Item>
               </Col>
