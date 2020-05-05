@@ -54,7 +54,7 @@ body,
   .table {
     height: 200px;
     flex-grow: 1;
-    overflow: hidden scroll;
+    overflow: auto;
   }
 }
 
@@ -75,11 +75,32 @@ body,
   height: 100vh;
   background: white;
   z-index: 1000;
+  box-shadow: 1px 1px 8px black;
+
+  .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    width: 200px;
+  }
 
   .tabs {
     height: 100%;
     display: flex;
     flex-direction: column;
+
+    .ant-collapse>.ant-collapse-item {
+      border: none;
+    }
+
+    .ant-collapse-item:last-child>.ant-collapse-content {
+      border: none;
+    }
+
+    .ant-collapse-content {
+      border: none;
+    }
+
+    .ant-collapse {
+      border: none;
+    }
 
     .common-tabs {
       display: flex;
@@ -176,23 +197,31 @@ body,
   font-size: 28px;
 }
 
+::-webkit-scrollbar-track-piece {
+  background-color: #fff;
+  -webkit-border-radius: 0
+}
+
 ::-webkit-scrollbar {
-  /*滚动条整体样式*/
   width: 10px;
-  /*高宽分别对应横竖滚动条的尺寸*/
-  height: 1px;
+  height: 10px
 }
 
 ::-webkit-scrollbar-thumb {
-  /*滚动条里面小方块*/
-  border-radius: 10px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  background: #c4b8b8;
+  height: 50px;
+  background-color: #b8b8b8;
+  -webkit-border-radius: 6px;
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+  border: 2px solid #fff;
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5
 }
 
-::-webkit-scrollbar-track {
-  /*滚动条里面轨道*/
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  background: #ededed;
+::-webkit-scrollbar-thumb:hover {
+  height: 50px;
+  background-color: #878987;
+  -webkit-border-radius: 6px
 }

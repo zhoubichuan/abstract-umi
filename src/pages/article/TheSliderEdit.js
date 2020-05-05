@@ -9,88 +9,11 @@ import {
   Col,
   Row,
   Upload,
-  Modal,
 } from "antd"
-import { UploadOutlined, InboxOutlined } from "@ant-design/icons"
-import img from "./1.jpg"
-import articleService from "../../service/article"
-// 日报时间选择器
-import DailyTimePicker from "../../components/TimePicker/DailyTimePicker"
-require("moment/locale/zh-cn.js")
+import { UploadOutlined, CloseOutlined } from "@ant-design/icons"
 
 function callback(key) {
   console.log(key)
-}
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
-  })
-}
-class PicturesWall extends React.Component {
-  state = {
-    previewVisible: false,
-    previewImage: "",
-    previewTitle: "",
-    fileList: [
-      {
-        uid: "-5",
-        name: "image.png",
-        status: "error",
-      },
-    ],
-  }
-
-  handleCancel = () => this.setState({ viewVisible: false, editVisible: false })
-
-  handlePreview = async (file) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj)
-    }
-
-    this.setState({
-      previewImage: file.url || file.preview,
-      previewVisible: true,
-      previewTitle:
-        file.name || file.url.substring(file.url.lastIndexOf("/") + 1),
-    })
-  }
-
-  handleChange = ({ fileList }) => this.setState({ fileList })
-
-  render() {
-    const { previewVisible, previewImage, fileList, previewTitle } = this.state
-    const uploadButton = (
-      <div>
-        {/* <PlusOutlined /> */}
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    )
-    return (
-      <div className="clearfix">
-        <Upload
-          action="http://127.0.0.1:7001/api/file/upload"
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
-        >
-          {fileList.length >= 8 ? null : uploadButton}
-        </Upload>
-        <Modal
-          visible={previewVisible}
-          title={previewTitle}
-          footer={null}
-          onCancel={this.handleCancel}
-        >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
-        </Modal>
-      </div>
-    )
-  }
 }
 class TheSlider extends Component {
   constructor(props) {
@@ -105,15 +28,17 @@ class TheSlider extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       viewVisible: nextProps.viewVisible,
+      isCreate: nextProps.isCreate,
       editVisible: nextProps.editVisible,
       item: nextProps.item,
     })
   }
 
-  editCancel = () => {
+  handleCloseTabs = () => {
     this.setState({
       viewVisible: false,
       editVisible: false,
+      isCreate: false,
     })
   }
   componentWillUnmount() {
@@ -132,9 +57,9 @@ class TheSlider extends Component {
       }
     })
     if (adopt) {
-      let json = this.props.form.getFieldsValue()
-      json["id"] = this.state.item._id
-      this.props.save(null, json, null)
+      let params = this.props.form.getFieldsValue()
+      params["id"] = this.state.item._id
+      this.props.save(null, params, null)
     }
   }
   viewTabs() {
@@ -148,37 +73,38 @@ class TheSlider extends Component {
       labelCol: { span: 4 },
       wrapperCol: { span: 20 },
     }
-    const layoutItem = {
-      labelCol: { span: 2 },
-      wrapperCol: { span: 22 },
-    }
     const { getFieldDecorator } = this.props.form
     return (
       <div
         className="the-slider"
         style={{
           display:
-            this.state.editVisible || this.state.viewVisible ? "block" : "none",
+            this.state.isCreate ||
+            this.state.editVisible ||
+            this.state.viewVisible
+              ? "block"
+              : "none",
         }}
       >
-        <span
+        <CloseOutlined
           style={{
             fontSize: "20px",
             position: "absolute",
             right: "10px",
-            top: "5px",
+            top: "10px",
             width: "20px",
             zIndex: 1000,
             textAlign: "center",
             cursor: "pointer",
           }}
-          onClick={this.editCancel}
-        >
-          x
-        </span>
-
+          onClick={this.handleCloseTabs}
+        />
         <Tabs defaultActiveKey="1" onChange={callback} className="tabs">
-          <Tabs.TabPane tab="Tab 1" key="1" className="common-tabs">
+          <Tabs.TabPane
+            tab={this.state.item.name || "创建模型"}
+            key="1"
+            className="common-tabs"
+          >
             <Form {...layout} className="base-info">
               <Row gutter={24}>
                 <Collapse defaultActiveKey={["1", "2"]}>
@@ -224,11 +150,21 @@ class TheSlider extends Component {
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      <Form.Item label="分类">
-                        {getFieldDecorator("category")(
+                      <Form.Item label="内容">
+                        {getFieldDecorator("content")(
+                          <Input.TextArea
+                            disabled={this.viewTabs()}
+                            placeholder="请输入内容"
+                          />
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Form.Item label="标签">
+                        {getFieldDecorator("tag")(
                           <Select disabled={this.viewTabs()}>
                             {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item.name}>
+                              <Select.Option key={item._id} value={item._id}>
                                 {item.name}
                               </Select.Option>
                             ))}
@@ -237,7 +173,19 @@ class TheSlider extends Component {
                       </Form.Item>
                     </Col>
                     <Col span={12}>
-                      {/* <PicturesWall /> */}
+                      <Form.Item label="分类">
+                        {getFieldDecorator("category")(
+                          <Select disabled={this.viewTabs()}>
+                            {this.props.categories.map((item) => (
+                              <Select.Option key={item._id} value={item._id}>
+                                {item.name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        )}
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
                       <Form.Item name="upload" label="上传文件">
                         <Upload
                           name="logo"
@@ -251,42 +199,38 @@ class TheSlider extends Component {
                       </Form.Item>
                     </Col>
                   </Collapse.Panel>
-                  <Collapse.Panel header="编辑信息" key="2">
-                    <Col span={12}>
-                      <Form.Item label="更新者">
-                        {getFieldDecorator("updater")(
-                          <Input
-                            disabled={this.viewTabs()}
-                            placeholder="请输入更新者"
-                          />
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="创建者">
-                        {getFieldDecorator("creater")(
-                          <Input
-                            disabled={this.viewTabs()}
-                            placeholder="请输入创建者"
-                          />
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="更新时间">
-                        {getFieldDecorator("updateTime")(
-                          <DailyTimePicker disabled={this.viewTabs()} />
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="创建时间">
-                        {getFieldDecorator("creatTime")(
-                          <DailyTimePicker disabled={this.viewTabs()} />
-                        )}
-                      </Form.Item>
-                    </Col>
-                  </Collapse.Panel>
+                  {!this.state.isCreate && (
+                    <Collapse.Panel header="编辑信息" key="2">
+                      <Col span={12}>
+                        <Form.Item label="更新者">
+                          {getFieldDecorator("updater")(
+                            <Input disabled placeholder="请输入更新者" />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="创建者">
+                          {getFieldDecorator("creater")(
+                            <Input disabled placeholder="请输入创建者" />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="更新时间">
+                          {getFieldDecorator("updateTime")(
+                            <Input disabled placeholder="更新时间" />
+                          )}
+                        </Form.Item>
+                      </Col>
+                      <Col span={12}>
+                        <Form.Item label="创建时间">
+                          {getFieldDecorator("creatTime")(
+                            <Input disabled placeholder="创建时间" />
+                          )}
+                        </Form.Item>
+                      </Col>
+                    </Collapse.Panel>
+                  )}
                 </Collapse>
               </Row>
             </Form>
@@ -294,7 +238,10 @@ class TheSlider extends Component {
               <Button type="primary" onClick={this.handleSave}>
                 保存
               </Button>
-              <Button style={{ marginLeft: "20px" }} onClick={this.editCancel}>
+              <Button
+                style={{ marginLeft: "20px" }}
+                onClick={this.handleCloseTabs}
+              >
                 取消
               </Button>
             </Col>
@@ -316,15 +263,22 @@ export let TheSliderEdit = Form.create({
           nameEn: Form.createFormField({
             value: item.nameEn,
           }),
-          category: Form.createFormField({
-            value: props.categories.name,
-          }),
           descript: Form.createFormField({
             value: item.descript,
           }),
           descriptEn: Form.createFormField({
             value: item.descriptEn,
           }),
+          content: Form.createFormField({
+            value: item.content,
+          }),
+          tag: Form.createFormField({
+            value: props.tag,
+          }),
+          category: Form.createFormField({
+            value: props.categories.name,
+          }),
+
           updater: Form.createFormField({
             value: item.updater,
           }),

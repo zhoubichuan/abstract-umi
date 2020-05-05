@@ -23,6 +23,10 @@ module.exports = app => {
       type: String,
       default: '-',
     },
+    // tag: { // 分类
+    //   type: ObjectId,
+    //   ref: 'tag',
+    // },
     category: { // 分类
       type: ObjectId,
       ref: 'Category',

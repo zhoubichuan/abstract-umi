@@ -14,13 +14,13 @@ export default class Admin extends Component {
   render() {
     return (
       <Row>
-        <Col span="24" className="admin-page">
+        <Col span={24} className="admin-page">
           <Header className="admin-header" />
           <Row className="admin-content">
-            <Col span="3" className="admin-nav">
+            <Col span={3} className="admin-nav">
               <Navleft />
             </Col>
-            <Col span="21" className="admin-page">
+            <Col span={21} className="admin-page">
               <Route exact path="/admin" component={Welcome} />
               <Route path="/admin/category" component={Category} />
               <Route path="/admin/article" component={Article} />

@@ -14,12 +14,7 @@ import {
   Row,
   Modal,
 } from "antd"
-import {
-  EditTwoTone,
-  // PlusOutlined,
-  MessageTwoTone,
-  DeleteTwoTone,
-} from "@ant-design/icons"
+import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
 import { TheSliderEdit } from "./TheSliderEdit"
 
 import { SearchForm } from "./SearchForm"
@@ -65,7 +60,7 @@ export default class Article extends Component {
           current,
         },
       },
-      this.getList
+      this.getList()
     )
   }
   getList = () => {
@@ -106,37 +101,18 @@ export default class Article extends Component {
   }
   handleCreate = () => {
     this.setState({
-      editVisible: true,
-      isCreate: true,
-    })
-  }
-  editCancel = () => {
-    this.setState({
+      viewVisible: false,
       editVisible: false,
+      isCreate: true,
+      item: [],
     })
   }
-  editOk = () => {
-    let article = this.editform.props.form.getFieldsValue()
-    articleService[this.state.isCreate ? "create" : "update"](article).then(
-      (res) => {
-        if (res.code == 0) {
-          message.success(this.state.isCreate ? "创建数据成功" : "更新数据成功")
-          this.setState(
-            {
-              editVisible: false,
-            },
-            this.getList
-          )
-        }
-      }
-    )
-  }
-  edit = (item) => {
+  handleEdit = (item) => {
     this.setState({
       editVisible: true,
       viewVisible: false,
-      item,
       isCreate: false,
+      item,
     })
   }
   handleView = (item) => {
@@ -145,6 +121,7 @@ export default class Article extends Component {
         this.setState({
           viewVisible: true,
           editVisible: false,
+          isCreate: false,
           item,
         })
       } else {
@@ -161,7 +138,7 @@ export default class Article extends Component {
     articleService.remove(ids).then((res) => {
       if (res.code == 0) {
         message.success("删除数据成功")
-        this.setState({}, this.getList)
+        this.setState({}, this.getList())
       }
     })
   }
@@ -174,7 +151,7 @@ export default class Article extends Component {
           current: 1,
         },
       },
-      this.getList
+      this.getList()
     )
   }
   commentOk = () => {
@@ -186,7 +163,7 @@ export default class Article extends Component {
           {
             commentVisible: false,
           },
-          this.getList
+          this.getList()
         )
       } else {
         message.error(res.data)
@@ -212,14 +189,14 @@ export default class Article extends Component {
           {
             commentVisible: false,
           },
-          this.getList
+          this.getList()
         )
       } else {
         message.error(res.data)
       }
     })
   }
-  refresh = async (pagination, filters, sorter) => {
+  handleSearch = async (pagination, filters, sorter) => {
     if (typeof filters === "undefined") {
       filters = []
     }
@@ -271,8 +248,6 @@ export default class Article extends Component {
     filters["sort"] = this.state.sort
     filters["order"] = this.state.order
     if (pagination !== null && typeof pagination !== "undefined") {
-      filters["rows"] = pagination.pageSize
-      filters["page"] = pagination.current
       this.setState({
         page: pagination.current,
       })
@@ -281,9 +256,6 @@ export default class Article extends Component {
         page: 1,
       })
     }
-    // 刷新表格
-    filters.current = 1
-    filters.pageSize = 10
     let result = await articleService[
       this.state.isCreate ? "create" : "update"
     ](filters)
@@ -391,7 +363,16 @@ export default class Article extends Component {
         dataIndex: "pv",
         key: "pv",
       },
-      { title: "创建者", dataIndex: "creator", key: "creator" },
+      {
+        title: "创建者",
+        dataIndex: "creator",
+        key: "creator",
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
+            {text}
+          </div>
+        ),
+      },
       {
         title: "创建时间",
         dataIndex: "creatTime",
@@ -402,6 +383,11 @@ export default class Article extends Component {
         title: "更新者",
         dataIndex: "updater",
         key: "updater",
+        render: (text) => (
+          <div className={"text-ellipsis"} title={text}>
+            {text}
+          </div>
+        ),
       },
       {
         title: "更新时间",
@@ -423,7 +409,7 @@ export default class Article extends Component {
         render: (text, record, index) => {
           return (
             <div className="icons-list">
-              <EditTwoTone onClick={() => this.edit(record)} />
+              <EditTwoTone onClick={() => this.handleEdit(record)} />
               <MessageTwoTone
                 onClick={() => this.comment(record)}
                 style={{ marginLeft: "10px" }}
@@ -452,7 +438,7 @@ export default class Article extends Component {
         }}
       >
         <SearchForm
-          refresh={this.refresh}
+          search={this.handleSearch}
           categories={this.state.categories}
           close={this.close}
           type={1}

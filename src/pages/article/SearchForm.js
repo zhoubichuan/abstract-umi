@@ -38,10 +38,10 @@ export class Search extends Component {
       }
     })
     if (adopt) {
-      let json = this.props.form.getFieldsValue()
-      json["startDate"] = this.startDate
-      json["endDate"] = this.endDate
-      this.props.refresh(null, json, null)
+      let params = this.props.form.getFieldsValue()
+      params["startDate"] = this.startDate
+      params["endDate"] = this.endDate
+      this.props.search(null, params, null)
     }
   }
   handleExpand = () => {
