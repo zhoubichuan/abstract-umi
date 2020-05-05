@@ -16,6 +16,12 @@ function list({
   );
 }
 
+function search(filter) {
+  return post(
+    `${ENTITY}/search`, filter
+  );
+}
+
 function create(item) {
   return post(ENTITY, item);
 }
@@ -42,6 +48,7 @@ function addComment(article_id, comment) {
 }
 export default {
   list,
+  search,
   create,
   update,
   remove,

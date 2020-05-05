@@ -27,7 +27,7 @@ import {
 import { WrappedTheSlider } from "./TheSlider"
 import { TheSlider as TheSliderView } from "./TheSliderView"
 
-import { Search2 } from "./Search"
+import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"
 import categoryService from "../../service/category"
 import moment from "moment"
@@ -248,17 +248,15 @@ export default class Article extends Component {
       })
     }
     // 刷新表格
-    let result = await categoryService.list({
-      current: 1,
-      pageSize: 10,
-      ...filters,
-    })
+    filters.current = 1
+    filters.pageSize = 10
+    let result = await articleService.search(filters)
 
     this.setState({
       openAdd: false,
       openTableAddUp: false,
       openUpdate: false,
-      dataSource: result.data.rows,
+      dataSource: result.data.item,
       total: result.data.total,
       id: 0,
     })
@@ -414,8 +412,9 @@ export default class Article extends Component {
           padding: 8,
         }}
       >
-        <Search2
+        <SearchForm
           refresh={this.refresh}
+          categories={this.state.categories}
           close={this.close}
           type={1}
           className={"search"}

@@ -19,6 +19,7 @@ module.exports = app => {
   router.put('/api/tag', controller.tag.update);
   router.delete('/api/tag', controller.tag.delete);
   router.resources('articles', '/api/articles', controller.articles);
+  router.post('/api/articles/search', controller.articles.search);
   router.get('/api/articles/pv/:id', controller.articles.addPv);
   router.post('/api/articles/comment/:id', controller.articles.addComment);
   router.delete(

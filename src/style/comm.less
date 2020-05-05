@@ -54,8 +54,29 @@ body,
   .table {
     height: 200px;
     flex-grow: 1;
-    overflow-y: scroll;
+    overflow: hidden scroll;
   }
+}
+
+.common-tabs {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .base-info {
+    height: 500px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden scroll;
+  }
+
+  .button {
+    height: 40px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+
 }
 
 .admin-page {

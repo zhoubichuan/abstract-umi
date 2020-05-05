@@ -154,7 +154,6 @@ export class TheSlider extends Component {
       labelCol: { span: 2 },
       wrapperCol: { span: 22 },
     }
-    console.log(this.state, "1111111111111")
     return (
       <div
         style={{
@@ -184,8 +183,8 @@ export class TheSlider extends Component {
         </span>
 
         <Tabs defaultActiveKey="1" onChange={callback}>
-          <Tabs.TabPane tab="Tab 1" key="1">
-            <Form {...layout}>
+          <Tabs.TabPane tab="Tab 1" key="1" className="common-tabs">
+            <Form {...layout} className="base-info">
               <Row
                 gutter={20}
                 style={{ overflowY: "scroll", overflowX: "hidden" }}
@@ -335,19 +334,17 @@ export class TheSlider extends Component {
                 </Collapse>
               </Row>
             </Form>
-            <Row justify="center">
-              <Col style={{ textAlign: "center", marginTop: "20px" }}>
-                <Button type="primary" onClick={this.handleSave}>
-                  保存
-                </Button>
-                <Button
-                  style={{ marginLeft: "20px" }}
-                  onClick={this.handleCancel}
-                >
-                  取消
-                </Button>
-              </Col>
-            </Row>
+            <Col className="button">
+              <Button type="primary" onClick={this.handleSave}>
+                保存
+              </Button>
+              <Button
+                style={{ marginLeft: "20px" }}
+                onClick={this.handleCancel}
+              >
+                取消
+              </Button>
+            </Col>
           </Tabs.TabPane>
         </Tabs>
       </div>

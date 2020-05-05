@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Form, Row, Col, Collapse, Input, Button } from "antd"
+import { Form, Row, Col, Collapse, Input, Button, Select } from "antd"
 import { DownOutlined, UpOutlined } from "@ant-design/icons"
 // 城市选择
 import { Cascader } from "antd"
@@ -52,12 +52,9 @@ export class Search extends Component {
               <Col span={8}>
                 <Form.Item label="中文名称">
                   {getFieldDecorator("name")(
-                    <Cascader
-                      options={ChooseCity.options}
-                      onChange={ChooseCity.onChange}
-                      changeOnSelect
-                      className="cascader-picker"
-                      defaultValue={["全国"]}
+                    <Input
+                      placeholder="请输入英文名称"
+                      style={{ width: 200 }}
                     />
                   )}
                 </Form.Item>
@@ -73,29 +70,15 @@ export class Search extends Component {
                 </Form.Item>
               </Col>
               <Col span={8}>
-                <Form.Item label="中文描述">
-                  {getFieldDecorator("descript")(
-                    <Input
-                      placeholder="请输入中文描述"
-                      style={{ width: 200 }}
-                    />
-                  )}
-                </Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item label="英文描述">
-                  {getFieldDecorator("descriptEn")(
-                    <Input
-                      placeholder="请输入英文描述"
-                      style={{ width: 200 }}
-                    />
-                  )}
-                </Form.Item>
-              </Col>
-              <Col span={8}>
                 <Form.Item label="分类">
                   {getFieldDecorator("category")(
-                    <Input placeholder="请输入分类" style={{ width: 200 }} />
+                    <Select>
+                      {this.props.categories.map((item) => (
+                        <Select.Option key={item._id} value={item._id}>
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
                   )}
                 </Form.Item>
               </Col>
@@ -137,4 +120,4 @@ export class Search extends Component {
     )
   }
 }
-export let Search2 = Form.create()(Search)
+export let SearchForm = Form.create()(Search)

@@ -219,8 +219,7 @@ export default class Article extends Component {
             className={"text-ellipsis"}
             title={text}
           >
-            {" "}
-            {text}{" "}
+            {text}
           </a>
         ),
       },
@@ -231,8 +230,7 @@ export default class Article extends Component {
         width: 250,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
-            {" "}
-            {text}{" "}
+            {text}
           </div>
         ),
       },
@@ -268,14 +266,13 @@ export default class Article extends Component {
         render: (text, record, index) => {
           return (
             <Button.Group>
-              {" "}
               {/* <Button
                               type="primary"
                               style={{ marginLeft: 5 }}
                               onClick={() => this.view(record)}
                             >
                               查看
-                            </Button> */}{" "}
+                            </Button> */}
               <Button
                 type="primary"
                 style={{
@@ -283,8 +280,8 @@ export default class Article extends Component {
                 }}
                 onClick={() => this.edit(record)}
               >
-                编辑{" "}
-              </Button>{" "}
+                编辑
+              </Button>
               <Button
                 type="dashed"
                 style={{
@@ -292,8 +289,8 @@ export default class Article extends Component {
                 }}
                 onClick={() => this.comment(record)}
               >
-                评论{" "}
-              </Button>{" "}
+                评论
+              </Button>
               <Popconfirm onConfirm={() => this.remove(record._id)}>
                 <Button
                   icon="delete"
@@ -302,9 +299,9 @@ export default class Article extends Component {
                     marginLeft: 5,
                   }}
                 >
-                  删除{" "}
-                </Button>{" "}
-              </Popconfirm>{" "}
+                  删除
+                </Button>
+              </Popconfirm>
             </Button.Group>
           )
         },
@@ -329,8 +326,8 @@ export default class Article extends Component {
             <Col span="12">
               <Button.Group>
                 <Button type="dashed" icon="plus-circle" onClick={this.create}>
-                  添加{" "}
-                </Button>{" "}
+                  添加
+                </Button>
                 <Button
                   style={{
                     marginLeft: 5,
@@ -339,14 +336,14 @@ export default class Article extends Component {
                   icon="minus-circle"
                   onClick={() => this.remove(this.state.selectedRowkKeys)}
                 >
-                  删除{" "}
-                </Button>{" "}
-              </Button.Group>{" "}
-            </Col>{" "}
+                  删除
+                </Button>
+              </Button.Group>
+            </Col>
             <Col span="12">
-              <Input.Search enterButton onSearch={this.handleSearch} />{" "}
-            </Col>{" "}
-          </Row>{" "}
+              <Input.Search enterButton onSearch={this.handleSearch} />
+            </Col>
+          </Row>
           <Table
             loading={this.state.loading}
             columns={columns}
@@ -366,16 +363,16 @@ export default class Article extends Component {
               isCreate={this.state.isCreate}
               item={this.state.item}
               categories={this.state.categories}
-            />{" "}
-          </Modal>{" "}
+            />
+          </Modal>
           <Modal
             visible={this.state.viewVisible}
             footer={null}
             onCancel={this.viewCancel}
             destroyOnClose
           >
-            <WrappedViewModal item={this.state.item} />{" "}
-          </Modal>{" "}
+            <WrappedViewModal item={this.state.item} />
+          </Modal>
           <Modal
             visible={this.state.commentVisible}
             onCancel={this.commentCancel}
@@ -386,9 +383,9 @@ export default class Article extends Component {
               wrappedComponentRef={(inst) => (this.commentForm = inst)}
               item={this.state.item}
               deleteComment={this.deleteComment}
-            />{" "}
-          </Modal>{" "}
-        </Col>{" "}
+            />
+          </Modal>
+        </Col>
       </Row>
     )
   }
@@ -399,7 +396,6 @@ class EditModal extends Component {
     return (
       <Form>
         <Form.Item>
-          {" "}
           {getFieldDecorator("category", {
             initialValue: this.props.isCreate
               ? this.props.categories[0]._id
@@ -412,18 +408,15 @@ class EditModal extends Component {
             ],
           })(
             <Select>
-              {" "}
               {this.props.categories.map((item) => (
                 <Select.Option key={item._id} value={item._id}>
-                  {" "}
-                  {item.name}{" "}
+                  {item.name}
                 </Select.Option>
-              ))}{" "}
+              ))}
             </Select>
-          )}{" "}
-        </Form.Item>{" "}
+          )}
+        </Form.Item>
         <Form.Item>
-          {" "}
           {getFieldDecorator("title", {
             initialValue: this.props.isCreate ? "" : this.props.item.title,
             rules: [
@@ -432,10 +425,9 @@ class EditModal extends Component {
                 message: "请输入标题",
               },
             ],
-          })(<Input placeholder="请输入标题" />)}{" "}
-        </Form.Item>{" "}
+          })(<Input placeholder="请输入标题" />)}
+        </Form.Item>
         <Form.Item>
-          {" "}
           {getFieldDecorator("content", {
             initialValue: this.props.isCreate ? "" : this.props.item.content,
             rules: [
@@ -444,16 +436,15 @@ class EditModal extends Component {
                 message: "请输入内容",
               },
             ],
-          })(<Input.TextArea placeholder="请输入内容" />)}{" "}
-        </Form.Item>{" "}
+          })(<Input.TextArea placeholder="请输入内容" />)}
+        </Form.Item>
         {!this.isCreate && (
           <Form.Item>
-            {" "}
             {getFieldDecorator("id", {
               initialValue: this.props.item._id,
-            })(<Input type="hidden" />)}{" "}
+            })(<Input type="hidden" />)}
           </Form.Item>
-        )}{" "}
+        )}
       </Form>
     )
   }
@@ -467,8 +458,8 @@ class ViewModal extends Component {
           marginTop: 20,
         }}
       >
-        <p> 标题： {this.props.item.title} </p>{" "}
-        <p> 内容： {this.props.item.content} </p>{" "}
+        <p> 标题： {this.props.item.title} </p>
+        <p> 内容： {this.props.item.content} </p>
       </Card>
     )
   }
@@ -511,12 +502,11 @@ class CommentModal extends Component {
           textAlign: "center",
         }}
       >
-        {" "}
         {this.state.loading ? (
           <Spin />
         ) : (
           <Button onClick={this.loadMore}> 加载更多 </Button>
-        )}{" "}
+        )}
       </div>
     )
     return (
@@ -528,12 +518,11 @@ class CommentModal extends Component {
         <Col span="24">
           <Form>
             <Form.Item>
-              {" "}
               {getFieldDecorator("content")(
                 <Input placeholder="请输入评论内容" />
-              )}{" "}
-            </Form.Item>{" "}
-          </Form>{" "}
+              )}
+            </Form.Item>
+          </Form>
           <List
             loading={this.state.loading}
             dataSource={this.state.comments}
@@ -548,7 +537,7 @@ class CommentModal extends Component {
                     type="danger"
                     icon="delete"
                   >
-                    删除{" "}
+                    删除
                   </Button>,
                 ]}
               >
@@ -558,12 +547,12 @@ class CommentModal extends Component {
                   }
                   title={item.user.username}
                   description={item.user.email}
-                />{" "}
-                <div> {item.content} </div>{" "}
+                />
+                <div> {item.content} </div>
               </List.Item>
             )}
-          />{" "}
-        </Col>{" "}
+          />
+        </Col>
       </Row>
     )
   }
