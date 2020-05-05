@@ -11,6 +11,7 @@ import {
   Upload,
   Modal,
 } from "antd"
+import { UploadOutlined, InboxOutlined } from "@ant-design/icons"
 import img from "./1.jpg"
 import articleService from "../../service/article"
 // 日报时间选择器
@@ -98,7 +99,7 @@ class TheSlider extends Component {
       viewVisible: this.props.viewVisible,
       editVisible: this.props.editVisible,
       item: this.props.item,
-      isCreate: false,
+      isCreate: this.props.isCreate,
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -108,29 +109,38 @@ class TheSlider extends Component {
       item: nextProps.item,
     })
   }
+
   editCancel = () => {
     this.setState({
       viewVisible: false,
       editVisible: false,
     })
   }
-  editOk = () => {
-    let article = this.editform.props.form.getFieldsValue()
-    articleService[this.state.isCreate ? "create" : "update"](article).then(
-      (res) => {
-        if (res.code == 0) {
-          this.setState(
-            {
-              editVisible: false,
-            },
-            this.getList
-          )
-        }
-      }
-    )
+  componentWillUnmount() {
+    this.props.form.resetFields()
   }
   onChange = () => {
     this.setState(this.state.item)
+  }
+  handleSave = async () => {
+    let adopt = false
+    this.props.form.validateFields((err) => {
+      if (err) {
+        adopt = false
+      } else {
+        adopt = true
+      }
+    })
+    if (adopt) {
+      let json = this.props.form.getFieldsValue()
+      json["id"] = this.state.item._id
+      this.props.save(null, json, null)
+    }
+  }
+  viewTabs() {
+    return (
+      !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
+    )
   }
   render() {
     const layout = {
@@ -169,50 +179,56 @@ class TheSlider extends Component {
 
         <Tabs defaultActiveKey="1" onChange={callback} className="tabs">
           <Tabs.TabPane tab="Tab 1" key="1" className="common-tabs">
-            <Form
-              {...layout}
-              className="base-info"
-              onFieldsChange={(changedFields, allFields) => {
-                this.onChange(allFields)
-              }}
-            >
+            <Form {...layout} className="base-info">
               <Row gutter={24}>
                 <Collapse defaultActiveKey={["1", "2"]}>
                   <Collapse.Panel header="基本信息" key="1">
                     <Col span={12}>
                       <Form.Item label="中文名称">
                         {getFieldDecorator("name")(
-                          <Input placeholder="请输入英文名称" />
+                          <Input
+                            disabled={this.viewTabs()}
+                            placeholder="请输入英文名称"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="英文名称">
                         {getFieldDecorator("nameEn")(
-                          <Input placeholder="请输入英文名称" />
+                          <Input
+                            disabled={this.viewTabs()}
+                            placeholder="请输入英文名称"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="中文描述">
                         {getFieldDecorator("descript")(
-                          <Input.TextArea placeholder="请输入中文描述" />
+                          <Input.TextArea
+                            disabled={this.viewTabs()}
+                            placeholder="请输入中文描述"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="英文描述">
                         {getFieldDecorator("descriptEn")(
-                          <Input.TextArea placeholder="请输入英文描述" />
+                          <Input.TextArea
+                            disabled={this.viewTabs()}
+                            placeholder="请输入英文描述"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="分类">
                         {getFieldDecorator("category")(
-                          <Select>
+                          <Select disabled={this.viewTabs()}>
                             {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item._id}>
+                              <Select.Option key={item._id} value={item.name}>
                                 {item.name}
                               </Select.Option>
                             ))}
@@ -220,33 +236,54 @@ class TheSlider extends Component {
                         )}
                       </Form.Item>
                     </Col>
-                    <Col span={24}>
-                      <PicturesWall />
+                    <Col span={12}>
+                      {/* <PicturesWall /> */}
+                      <Form.Item name="upload" label="上传文件">
+                        <Upload
+                          name="logo"
+                          action="/upload.do"
+                          listType="picture"
+                        >
+                          <Button>
+                            <UploadOutlined /> Click to upload
+                          </Button>
+                        </Upload>
+                      </Form.Item>
                     </Col>
                   </Collapse.Panel>
                   <Collapse.Panel header="编辑信息" key="2">
                     <Col span={12}>
                       <Form.Item label="更新者">
                         {getFieldDecorator("updater")(
-                          <Input placeholder="请输入更新者" />
+                          <Input
+                            disabled={this.viewTabs()}
+                            placeholder="请输入更新者"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="创建者">
                         {getFieldDecorator("creater")(
-                          <Input placeholder="请输入创建者" />
+                          <Input
+                            disabled={this.viewTabs()}
+                            placeholder="请输入创建者"
+                          />
                         )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="更新时间">
-                        {getFieldDecorator("updateTime")(<DailyTimePicker />)}
+                        {getFieldDecorator("updateTime")(
+                          <DailyTimePicker disabled={this.viewTabs()} />
+                        )}
                       </Form.Item>
                     </Col>
                     <Col span={12}>
                       <Form.Item label="创建时间">
-                        {getFieldDecorator("creatTime")(<DailyTimePicker />)}
+                        {getFieldDecorator("creatTime")(
+                          <DailyTimePicker disabled={this.viewTabs()} />
+                        )}
                       </Form.Item>
                     </Col>
                   </Collapse.Panel>
@@ -257,10 +294,7 @@ class TheSlider extends Component {
               <Button type="primary" onClick={this.handleSave}>
                 保存
               </Button>
-              <Button
-                style={{ marginLeft: "20px" }}
-                onClick={this.handleCancel}
-              >
+              <Button style={{ marginLeft: "20px" }} onClick={this.editCancel}>
                 取消
               </Button>
             </Col>
@@ -273,7 +307,7 @@ class TheSlider extends Component {
 
 export let TheSliderEdit = Form.create({
   mapPropsToFields(props) {
-    let item = props.isCreate ? [] : props.item
+    let item = props.viewVisible || !props.isCreate ? props.item : []
     return item
       ? {
           name: Form.createFormField({
@@ -283,7 +317,7 @@ export let TheSliderEdit = Form.create({
             value: item.nameEn,
           }),
           category: Form.createFormField({
-            value: item.category,
+            value: props.categories.name,
           }),
           descript: Form.createFormField({
             value: item.descript,

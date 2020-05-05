@@ -21,7 +21,6 @@ import {
   DeleteTwoTone,
 } from "@ant-design/icons"
 import { TheSliderEdit } from "./TheSliderEdit"
-import { TheSliderView } from "./TheSliderView"
 
 import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"
@@ -36,7 +35,7 @@ export default class Article extends Component {
     loading: false,
     editVisible: false,
     commentVisible: false,
-    isCreate: true,
+    isCreate: false,
     item: {},
     keyword: "",
     pagination: {},
@@ -105,9 +104,8 @@ export default class Article extends Component {
         }
       })
   }
-  create = () => {
+  handleCreate = () => {
     this.setState({
-      title: "增加文章",
       editVisible: true,
       isCreate: true,
     })
@@ -136,20 +134,19 @@ export default class Article extends Component {
   edit = (item) => {
     this.setState({
       editVisible: true,
+      viewVisible: false,
       item,
       isCreate: false,
     })
   }
-  view = (item) => {
+  handleView = (item) => {
     articleService.addPv(item._id).then((res) => {
       if (res.code == 0) {
-        this.setState(
-          {
-            viewVisible: true,
-            item,
-          },
-          this.getList
-        )
+        this.setState({
+          viewVisible: true,
+          editVisible: false,
+          item,
+        })
       } else {
         message.error(res.data)
       }
@@ -160,7 +157,7 @@ export default class Article extends Component {
       viewVisible: false,
     })
   }
-  remove = (ids) => {
+  handleRemove = (ids) => {
     articleService.remove(ids).then((res) => {
       if (res.code == 0) {
         message.success("删除数据成功")
@@ -260,6 +257,49 @@ export default class Article extends Component {
       id: 0,
     })
   }
+  save = async (pagination, filters, sorter) => {
+    if (typeof filters === "undefined") {
+      filters = []
+    }
+    if (pagination === null) {
+      this.json = filters
+    }
+    for (let p in this.json) {
+      filters[p] = this.json[p]
+    }
+    filters["auditStatus"] = 1
+    filters["sort"] = this.state.sort
+    filters["order"] = this.state.order
+    if (pagination !== null && typeof pagination !== "undefined") {
+      filters["rows"] = pagination.pageSize
+      filters["page"] = pagination.current
+      this.setState({
+        page: pagination.current,
+      })
+    } else {
+      this.setState({
+        page: 1,
+      })
+    }
+    // 刷新表格
+    filters.current = 1
+    filters.pageSize = 10
+    let result = await articleService[
+      this.state.isCreate ? "create" : "update"
+    ](filters)
+    if (result.code == 0) {
+      this.setState({
+        openAdd: false,
+        openTableAddUp: false,
+        openUpdate: false,
+        dataSource: result.data,
+        total: result.data,
+        id: 0,
+      })
+      message.success(this.state.isCreate ? "创建数据成功" : "更新数据成功")
+      this.getList()
+    }
+  }
   close = async () => {
     this.setState({
       openAdd: false,
@@ -282,7 +322,7 @@ export default class Article extends Component {
         key: "name",
         render: (text, record) => (
           <a
-            onClick={() => this.view(record)}
+            onClick={() => this.handleView(record)}
             className={"text-ellipsis"}
             title={text}
           >
@@ -419,8 +459,8 @@ export default class Article extends Component {
           className={"search"}
         />
         <Button.Group className={"button"}>
-          <Button type="primary" icon="plus-circle" onClick={this.create}>
-            添加
+          <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
+            创建
           </Button>
           <Button
             style={{
@@ -428,7 +468,7 @@ export default class Article extends Component {
             }}
             type="danger"
             icon="minus-circle"
-            onClick={() => this.remove(this.state.selectedRowkKeys)}
+            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
           >
             删除
           </Button>
@@ -452,13 +492,10 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        {/* <TheSliderView
-          viewVisible={this.state.viewVisible}
-          categories={this.state.categories}
-          item={this.state.item}
-        /> */}
         <TheSliderEdit
+          save={this.save}
           viewVisible={this.state.viewVisible}
+          item={this.state.item}
           editVisible={this.state.editVisible}
           categories={this.state.categories}
           isCreate={this.state.isCreate}
