@@ -9,6 +9,7 @@ import Article from "../article"
 import Article1 from "../article/article1"
 import Article2 from "../article/article2"
 import article from "../article/article"
+import TagManager from "../tagManager/tagManager"
 
 export default class Admin extends Component {
   render() {
@@ -27,6 +28,7 @@ export default class Admin extends Component {
               <Route path="/admin/article1" component={Article1} />
               <Route path="/admin/article2" component={Article2} />
               <Route path="/admin/article/:id" component={article} />
+              <Route path="/admin/TagManager" component={TagManager} />
             </Col>
           </Row>
         </Col>

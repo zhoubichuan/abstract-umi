@@ -30,7 +30,12 @@ class Navleft extends Component {
             文章管理
           </Link>
         </Menu.Item>
-
+        <Menu.Item key="/admin/TagManager" title="标签管理">
+          <Link to="/admin/TagManager">
+            <Icon type="book" />
+            标签管理
+          </Link>
+        </Menu.Item>
         <SubMenu
           title={
             <span className="submenu-title-wrapper">
