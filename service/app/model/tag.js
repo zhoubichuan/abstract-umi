@@ -6,7 +6,6 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
-  const ObjectId = Schema.Types.ObjectId;
   const TagSchema = new Schema({
     name: String,
     nameEn: String,

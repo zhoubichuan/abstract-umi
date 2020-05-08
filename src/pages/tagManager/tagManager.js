@@ -16,10 +16,8 @@ import {
 } from "antd"
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
 import { TheSliderEdit } from "./TheSliderEdit"
-
 import { SearchForm } from "./SearchForm"
-import articleService from "../../service/article"
-import categoryService from "../../service/category"
+import tagService from "../../service/tag"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
@@ -37,19 +35,6 @@ export default class Article extends Component {
     selectedRowkKeys: [],
   }
   componentDidMount() {
-    categoryService
-      .list({
-        current: 1,
-        pageSize: 10,
-      })
-      .then((res) => {
-        if (res.code == 0) {
-          message.success("请求成功")
-          this.setState({
-            categories: res.data.items,
-          })
-        }
-      })
     this.getList()
   }
   pageChange = (current) => {
@@ -67,7 +52,7 @@ export default class Article extends Component {
     this.setState({
       loading: true,
     })
-    articleService
+    tagService
       .list({
         current: this.state.pagination.current,
         keyword: this.state.keyword,
@@ -116,7 +101,7 @@ export default class Article extends Component {
     })
   }
   handleView = (item) => {
-    articleService.addPv(item._id).then((res) => {
+    tagService.addPv(item._id).then((res) => {
       if (res.code == 0) {
         this.setState({
           viewVisible: true,
@@ -135,7 +120,7 @@ export default class Article extends Component {
     })
   }
   handleRemove = (ids) => {
-    articleService.remove(ids).then((res) => {
+    tagService.remove(ids).then((res) => {
       if (res.code == 0) {
         message.success("删除数据成功")
         this.setState({}, this.getList())
@@ -156,7 +141,7 @@ export default class Article extends Component {
   }
   commentOk = () => {
     let comment = this.commentForm.props.form.getFieldsValue()
-    articleService.addComment(this.state.item._id, comment).then((res) => {
+    tagService.addComment(this.state.item._id, comment).then((res) => {
       if (res.code == 0) {
         message.success("评论成功")
         this.setState(
@@ -182,7 +167,7 @@ export default class Article extends Component {
     })
   }
   deleteComment = (article_id, comment_id) => {
-    articleService.deleteComment(article_id, comment_id).then((res) => {
+    tagService.deleteComment(article_id, comment_id).then((res) => {
       if (res.code == 0) {
         message.success("删除评论成功")
         this.setState(
@@ -223,7 +208,7 @@ export default class Article extends Component {
     // 刷新表格
     filters.current = 1
     filters.pageSize = 10
-    let result = await articleService.search(filters)
+    let result = await tagService.search(filters)
 
     this.setState({
       openAdd: false,
@@ -256,9 +241,9 @@ export default class Article extends Component {
         page: 1,
       })
     }
-    let result = await articleService[
-      this.state.isCreate ? "create" : "update"
-    ](filters)
+    let result = await tagService[this.state.isCreate ? "create" : "update"](
+      filters
+    )
     if (result.code == 0) {
       this.setState({
         openAdd: false,
@@ -333,37 +318,6 @@ export default class Article extends Component {
         ),
       },
       {
-        title: "内容",
-        dataIndex: "content",
-        key: "content",
-        render: (text) => (
-          <div className={"text-ellipsis"} title={text}>
-            {text}
-          </div>
-        ),
-      },
-      {
-        title: "分类",
-        dataIndex: "category",
-        key: "category",
-        render: (text, record) => {
-          return text && text.name
-        },
-      },
-      {
-        title: "标签",
-        dataIndex: "tag",
-        key: "tag",
-        render: (text, record) => {
-          return text && text.name
-        },
-      },
-      {
-        title: "阅读量",
-        dataIndex: "pv",
-        key: "pv",
-      },
-      {
         title: "创建者",
         dataIndex: "creator",
         key: "creator",
@@ -394,12 +348,6 @@ export default class Article extends Component {
         dataIndex: "updateTime",
         key: "updateTime",
         render: (text) => moment(text).fromNow(),
-      },
-      {
-        title: "评论数",
-        dataIndex: "comments",
-        key: "comments",
-        render: (text) => text.length,
       },
       {
         title: "操作",

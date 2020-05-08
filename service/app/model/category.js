@@ -6,11 +6,11 @@
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
-  const ObjectId = Schema.Types.ObjectId;
   const CategorySchema = new Schema({
     name: String,
-    tags: String,
+    nameEn: String,
     descript: String,
+    descriptEn: String,
     creator: String,
     createTime: {
       type: Date,

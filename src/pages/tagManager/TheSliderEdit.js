@@ -159,45 +159,6 @@ class TheSlider extends Component {
                         )}
                       </Form.Item>
                     </Col>
-                    <Col span={12}>
-                      <Form.Item label="标签">
-                        {getFieldDecorator("tag")(
-                          <Select disabled={this.viewTabs()}>
-                            {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item._id}>
-                                {item.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item label="分类">
-                        {getFieldDecorator("category")(
-                          <Select disabled={this.viewTabs()}>
-                            {this.props.categories.map((item) => (
-                              <Select.Option key={item._id} value={item._id}>
-                                {item.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        )}
-                      </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                      <Form.Item name="upload" label="上传文件">
-                        <Upload
-                          name="logo"
-                          action="/upload.do"
-                          listType="picture"
-                        >
-                          <Button>
-                            <UploadOutlined /> Click to upload
-                          </Button>
-                        </Upload>
-                      </Form.Item>
-                    </Col>
                   </Collapse.Panel>
                   {!this.state.isCreate && (
                     <Collapse.Panel header="编辑信息" key="2">
@@ -272,13 +233,6 @@ export let TheSliderEdit = Form.create({
           content: Form.createFormField({
             value: item.content,
           }),
-          tag: Form.createFormField({
-            value: props.tag,
-          }),
-          category: Form.createFormField({
-            value: props.categories.name,
-          }),
-
           updater: Form.createFormField({
             value: item.updater,
           }),

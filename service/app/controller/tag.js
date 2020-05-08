@@ -6,7 +6,7 @@ const BaseController = require('./base');
 
 module.exports = class CategoriesController extends BaseController {
   // 查询分类
-  async get() {
+  async index() {
     try {
       await this.getPager({
         modName: 'Tag',
@@ -20,13 +20,13 @@ module.exports = class CategoriesController extends BaseController {
     const {
       ctx,
     } = this;
-    const Tag = ctx.request.body;
+    const tag = ctx.request.body;
     try {
-      let doc = await ctx.model.Tag.findOne(Tag);
+      let doc = await ctx.model.Tag.findOne(tag);
       if (doc) {
         this.error('此分类已存在！');
       } else {
-        doc = await ctx.model.Tag.create(Tag);
+        doc = await ctx.model.Tag.create(tag);
         this.success('保存分类成功');
       }
     } catch (error) {
