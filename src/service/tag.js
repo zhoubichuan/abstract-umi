@@ -17,12 +17,12 @@ function list({
   );
 }
 
-function create(category) {
-  return post(ENTITY, category);
+function create(tag) {
+  return post(ENTITY, tag);
 }
 
-function update(category) {
-  return put(`${ENTITY}/${category.id}`, category);
+function update(tag) {
+  return put(`${ENTITY}/${tag.id}`, tag);
 }
 
 function remove(ids) {

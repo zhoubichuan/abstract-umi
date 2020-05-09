@@ -20,6 +20,7 @@ import { TheSliderEdit } from "./TheSliderEdit"
 import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"
 import categoryService from "../../service/category"
+import tagService from "../../service/tag"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
@@ -32,6 +33,7 @@ export default class Article extends Component {
     commentVisible: false,
     isCreate: false,
     item: {},
+    tags: [],
     keyword: "",
     pagination: {},
     selectedRowkKeys: [],
@@ -47,6 +49,19 @@ export default class Article extends Component {
           message.success("请求成功")
           this.setState({
             categories: res.data.items,
+          })
+        }
+      })
+    tagService
+      .list({
+        current: 1,
+        pageSize: 10,
+      })
+      .then((res) => {
+        if (res.code == 0) {
+          message.success("请求成功")
+          this.setState({
+            tags: res.data.items,
           })
         }
       })
@@ -484,6 +499,7 @@ export default class Article extends Component {
           item={this.state.item}
           editVisible={this.state.editVisible}
           categories={this.state.categories}
+          tags={this.state.tags}
           isCreate={this.state.isCreate}
           item={this.state.item}
         />

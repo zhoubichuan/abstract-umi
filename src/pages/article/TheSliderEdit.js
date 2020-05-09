@@ -163,7 +163,7 @@ class TheSlider extends Component {
                       <Form.Item label="标签">
                         {getFieldDecorator("tag")(
                           <Select disabled={this.viewTabs()}>
-                            {this.props.categories.map((item) => (
+                            {this.props.tags.map((item) => (
                               <Select.Option key={item._id} value={item._id}>
                                 {item.name}
                               </Select.Option>
