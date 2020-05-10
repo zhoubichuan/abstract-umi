@@ -1,57 +1,26 @@
 import React, { Component } from "react"
-import {
-  Collapse,
-  Tabs,
-  Input,
-  Button,
-  Form,
-  Select,
-  Col,
-  Row,
-  Upload,
-} from "antd"
-import { UploadOutlined, CloseOutlined } from "@ant-design/icons"
+import { GlobalTheSlider } from "../../components/global/GlobalTheSlider"
+import Detail from "./Detail"
 
-function callback(key) {
-  console.log(key)
-}
+let ThemeContext = React.createContext()
+
 class TheSlider extends Component {
   constructor(props) {
     super(props)
-    this.newTabIndex = 0
-    const panes = [
-      { title: "Tab 1", content: "Content of Tab 1", key: "1" },
-      { title: "Tab 2", content: "Content of Tab 2", key: "2" },
-      {
-        title: "Tab 3",
-        content: "Content of Tab 3",
-        key: "3",
-        closable: false,
-      },
-    ]
     this.state = {
-      activeKey: panes[0].key,
-      panes,
       viewVisible: this.props.viewVisible,
       editVisible: this.props.editVisible,
       item: this.props.item,
       isCreate: this.props.isCreate,
     }
   }
+  static contextType = ThemeContext
   componentWillReceiveProps(nextProps) {
     this.setState({
       viewVisible: nextProps.viewVisible,
       isCreate: nextProps.isCreate,
       editVisible: nextProps.editVisible,
       item: nextProps.item,
-    })
-  }
-
-  handleCloseTabs = () => {
-    this.setState({
-      viewVisible: false,
-      editVisible: false,
-      isCreate: false,
     })
   }
   componentWillUnmount() {
@@ -81,416 +50,38 @@ class TheSlider extends Component {
     )
   }
   render() {
-    const layout = {
-      justify: "center",
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
+    let value = {
+      save: this.save,
+      viewVisible: this.state.viewVisible,
+      item: this.state.item,
+      editVisible: this.state.editVisible,
+      categories: this.state.categories,
+      tags: this.state.tags,
+      isCreate: this.state.isCreate,
     }
-    const { getFieldDecorator } = this.props.form
     return (
-      <div
-        className="global-slider"
-        style={{
-          display:
-            this.state.isCreate ||
-            this.state.editVisible ||
-            this.state.viewVisible
-              ? "block"
-              : "none",
-        }}
-      >
-        <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} />
-        <Tabs defaultActiveKey="1" onChange={callback} className="slider-tabs">
-          <Tabs.TabPane
-            className="slider-tabpane"
-            tab={this.state.item.name || "创建模型"}
-            key="1"
-          >
-            <Tabs className="common-tabs">
-              {this.state.panes.map((pane) => (
-                <Tabs.TabPane
-                  className="common-tabpane"
-                  tab={pane.title}
-                  key={pane.key}
-                  closable={pane.closable}
-                >
-                  <Form {...layout} className="base-info">
-                    <Row gutter={24}>
-                      <Collapse defaultActiveKey={["1", "2"]}>
-                        <Collapse.Panel header="基本信息" key="1">
-                          <Col span={12}>
-                            <Form.Item label="中文名称">
-                              {getFieldDecorator("name")(
-                                <Input
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文名称"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="英文名称">
-                              {getFieldDecorator("nameEn")(
-                                <Input
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文名称"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="中文描述">
-                              {getFieldDecorator("descript")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入中文描述"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="英文描述">
-                              {getFieldDecorator("descriptEn")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文描述"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="内容">
-                              {getFieldDecorator("content")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入内容"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="标签">
-                              {getFieldDecorator("tag")(
-                                <Select disabled={this.viewTabs()}>
-                                  {this.props.tags.map((item) => (
-                                    <Select.Option
-                                      key={item._id}
-                                      value={item._id}
-                                    >
-                                      {item.name}
-                                    </Select.Option>
-                                  ))}
-                                </Select>
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="分类">
-                              {getFieldDecorator("category")(
-                                <Select disabled={this.viewTabs()}>
-                                  {this.props.categories.map((item) => (
-                                    <Select.Option
-                                      key={item._id}
-                                      value={item._id}
-                                    >
-                                      {item.name}
-                                    </Select.Option>
-                                  ))}
-                                </Select>
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item name="upload" label="上传文件">
-                              <Upload
-                                name="logo"
-                                action="/upload.do"
-                                listType="picture"
-                              >
-                                <Button>
-                                  <UploadOutlined /> Click to upload
-                                </Button>
-                              </Upload>
-                            </Form.Item>
-                          </Col>
-                        </Collapse.Panel>
-                        {!this.state.isCreate && (
-                          <Collapse.Panel header="编辑信息" key="2">
-                            <Col span={12}>
-                              <Form.Item label="更新者">
-                                {getFieldDecorator("updater")(
-                                  <Input disabled placeholder="请输入更新者" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="创建者">
-                                {getFieldDecorator("creater")(
-                                  <Input disabled placeholder="请输入创建者" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="更新时间">
-                                {getFieldDecorator("updateTime")(
-                                  <Input disabled placeholder="更新时间" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="创建时间">
-                                {getFieldDecorator("creatTime")(
-                                  <Input disabled placeholder="创建时间" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                          </Collapse.Panel>
-                        )}
-                      </Collapse>
-                    </Row>
-                  </Form>
-                  <Col className="button">
-                    <Button type="primary" onClick={this.handleSave}>
-                      保存
-                    </Button>
-                    <Button
-                      style={{ marginLeft: "20px" }}
-                      onClick={this.handleCloseTabs}
-                    >
-                      取消
-                    </Button>
-                  </Col>
-                </Tabs.TabPane>
-              ))}
-            </Tabs>
-            <Col className="tabs-button">
-              <Button type="primary">编辑</Button>
-              <Button
-                style={{ marginLeft: "20px" }}
-                onClick={this.handleCloseTabs}
-              >
-                修改
-              </Button>
-            </Col>
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            className="slider-tabpane"
-            tab={this.state.item.name || "创建模型"}
-            key="2"
-          >
-            <Tabs className="common-tabs">
-              {this.state.panes.map((pane) => (
-                <Tabs.TabPane
-                  className="common-tabpane"
-                  tab={pane.title}
-                  key={pane.key}
-                  closable={pane.closable}
-                >
-                  <Form {...layout} className="base-info">
-                    <Row gutter={24}>
-                      <Collapse defaultActiveKey={["1", "2"]}>
-                        <Collapse.Panel header="基本信息" key="1">
-                          <Col span={12}>
-                            <Form.Item label="中文名称">
-                              {getFieldDecorator("name")(
-                                <Input
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文名称"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="英文名称">
-                              {getFieldDecorator("nameEn")(
-                                <Input
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文名称"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="中文描述">
-                              {getFieldDecorator("descript")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入中文描述"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="英文描述">
-                              {getFieldDecorator("descriptEn")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入英文描述"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="内容">
-                              {getFieldDecorator("content")(
-                                <Input.TextArea
-                                  disabled={this.viewTabs()}
-                                  placeholder="请输入内容"
-                                />
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="标签">
-                              {getFieldDecorator("tag")(
-                                <Select disabled={this.viewTabs()}>
-                                  {this.props.tags.map((item) => (
-                                    <Select.Option
-                                      key={item._id}
-                                      value={item._id}
-                                    >
-                                      {item.name}
-                                    </Select.Option>
-                                  ))}
-                                </Select>
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item label="分类">
-                              {getFieldDecorator("category")(
-                                <Select disabled={this.viewTabs()}>
-                                  {this.props.categories.map((item) => (
-                                    <Select.Option
-                                      key={item._id}
-                                      value={item._id}
-                                    >
-                                      {item.name}
-                                    </Select.Option>
-                                  ))}
-                                </Select>
-                              )}
-                            </Form.Item>
-                          </Col>
-                          <Col span={12}>
-                            <Form.Item name="upload" label="上传文件">
-                              <Upload
-                                name="logo"
-                                action="/upload.do"
-                                listType="picture"
-                              >
-                                <Button>
-                                  <UploadOutlined /> Click to upload
-                                </Button>
-                              </Upload>
-                            </Form.Item>
-                          </Col>
-                        </Collapse.Panel>
-                        {!this.state.isCreate && (
-                          <Collapse.Panel header="编辑信息" key="2">
-                            <Col span={12}>
-                              <Form.Item label="更新者">
-                                {getFieldDecorator("updater")(
-                                  <Input disabled placeholder="请输入更新者" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="创建者">
-                                {getFieldDecorator("creater")(
-                                  <Input disabled placeholder="请输入创建者" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="更新时间">
-                                {getFieldDecorator("updateTime")(
-                                  <Input disabled placeholder="更新时间" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                              <Form.Item label="创建时间">
-                                {getFieldDecorator("creatTime")(
-                                  <Input disabled placeholder="创建时间" />
-                                )}
-                              </Form.Item>
-                            </Col>
-                          </Collapse.Panel>
-                        )}
-                      </Collapse>
-                    </Row>
-                  </Form>
-                  <Col className="button">
-                    <Button type="primary" onClick={this.handleSave}>
-                      保存
-                    </Button>
-                    <Button
-                      style={{ marginLeft: "20px" }}
-                      onClick={this.handleCloseTabs}
-                    >
-                      取消
-                    </Button>
-                  </Col>
-                </Tabs.TabPane>
-              ))}
-            </Tabs>
-            <Col className="tabs-button">
-              <Button type="primary">编辑</Button>
-              <Button
-                style={{ marginLeft: "20px" }}
-                onClick={this.handleCloseTabs}
-              >
-                修改
-              </Button>
-            </Col>
-          </Tabs.TabPane>
-        </Tabs>
-      </div>
+      <ThemeContext.Provider value={value}>
+        <GlobalTheSlider
+          viewVisible={this.state.viewVisible}
+          item={this.state.item}
+          editVisible={this.state.editVisible}
+          categories={this.state.categories}
+          tags={this.state.tags}
+          isCreate={this.state.isCreate}
+        >
+          <Detail
+            save={this.save}
+            viewVisible={this.state.viewVisible}
+            item={this.state.item}
+            editVisible={this.state.editVisible}
+            categories={this.state.categories}
+            tags={this.state.tags}
+            isCreate={this.state.isCreate}
+          />
+        </GlobalTheSlider>
+      </ThemeContext.Provider>
     )
   }
 }
 
-export let TheSliderEdit = Form.create({
-  mapPropsToFields(props) {
-    let item = props.viewVisible || !props.isCreate ? props.item : []
-    return item
-      ? {
-          name: Form.createFormField({
-            value: item.name,
-          }),
-          nameEn: Form.createFormField({
-            value: item.nameEn,
-          }),
-          descript: Form.createFormField({
-            value: item.descript,
-          }),
-          descriptEn: Form.createFormField({
-            value: item.descriptEn,
-          }),
-          content: Form.createFormField({
-            value: item.content,
-          }),
-          tag: Form.createFormField({
-            value: props.tag,
-          }),
-          category: Form.createFormField({
-            value: props.categories.name,
-          }),
-
-          updater: Form.createFormField({
-            value: item.updater,
-          }),
-          creater: Form.createFormField({
-            value: item.creater,
-          }),
-          updateTime: Form.createFormField({
-            value: item.updateTime,
-          }),
-          creatTime: Form.createFormField({
-            value: item.creatTime,
-          }),
-        }
-      : {}
-  },
-})(TheSlider)
+export let TheSliderEdit = TheSlider

@@ -9,7 +9,6 @@ import {
   Button,
   Form,
   message,
-  Select,
   Col,
   Row,
   Modal,
@@ -19,8 +18,6 @@ import { TheSliderEdit } from "./TheSliderEdit"
 
 import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"
-import categoryService from "../../service/category"
-import tagService from "../../service/tag"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
@@ -39,32 +36,6 @@ export default class Article extends Component {
     selectedRowkKeys: [],
   }
   componentDidMount() {
-    categoryService
-      .list({
-        current: 1,
-        pageSize: 10,
-      })
-      .then((res) => {
-        if (res.code == 0) {
-          message.success("请求成功")
-          this.setState({
-            categories: res.data.items,
-          })
-        }
-      })
-    tagService
-      .list({
-        current: 1,
-        pageSize: 10,
-      })
-      .then((res) => {
-        if (res.code == 0) {
-          message.success("请求成功")
-          this.setState({
-            tags: res.data.items,
-          })
-        }
-      })
     this.getList()
   }
   pageChange = (current) => {
@@ -370,7 +341,7 @@ export default class Article extends Component {
         dataIndex: "tag",
         key: "tag",
         render: (text, record) => {
-          return text && text.name
+          return text
         },
       },
       {
@@ -516,99 +487,6 @@ export default class Article extends Component {
           />
         </Modal>
       </div>
-    )
-  }
-}
-
-class EditModal extends Component {
-  render() {
-    const { getFieldDecorator } = this.props.form
-    return (
-      <Form>
-        <Form.Item>
-          {getFieldDecorator("name", {
-            initialValue: this.props.isCreate ? "" : this.props.item.name,
-            rules: [
-              {
-                required: true,
-                message: "请输入中文名称",
-              },
-            ],
-          })(<Input placeholder="请输入中文名称" />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("nameEn", {
-            initialValue: this.props.isCreate ? "" : this.props.item.nameEn,
-            rules: [
-              {
-                required: true,
-                message: "请输入英文名称",
-              },
-            ],
-          })(<Input placeholder="请输入英文名称" />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("descript", {
-            initialValue: this.props.isCreate ? "" : this.props.item.descript,
-            rules: [
-              {
-                required: true,
-                message: "请输入中文描述",
-              },
-            ],
-          })(<Input.TextArea placeholder="请输入中文描述" />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("descriptEn", {
-            initialValue: this.props.isCreate ? "" : this.props.item.descriptEn,
-            rules: [
-              {
-                required: true,
-                message: "请输入英文描述",
-              },
-            ],
-          })(<Input.TextArea placeholder="请输入英文描述" />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("category", {
-            initialValue: this.props.isCreate
-              ? this.props.categories[0]._id
-              : this.props.item.title,
-            rules: [
-              {
-                required: true,
-                message: "请输入标题",
-              },
-            ],
-          })(
-            <Select placeholder="请输入标题">
-              {this.props.categories.map((item) => (
-                <Select.Option key={item._id} value={item._id}>
-                  {item.name}
-                </Select.Option>
-              ))}
-            </Select>
-          )}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator("content", {
-            initialValue: this.props.isCreate ? "" : this.props.item.content,
-            rules: [
-              {
-                required: true,
-                message: "请输入内容",
-              },
-            ],
-          })(<Input.TextArea placeholder="请输入内容" />)}
-        </Form.Item>
-        {!this.isCreate && (
-          <Form.Item>
-            {getFieldDecorator("id", {
-              initialValue: this.props.item._id,
-            })(<Input type="hidden" />)}
-          </Form.Item>
-        )}
-      </Form>
     )
   }
 }
