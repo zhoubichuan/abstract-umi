@@ -62,12 +62,9 @@ body,
   height: 40px;
 }
 
-.ant-tabs .ant-tabs-top-content.ant-tabs-content-animated {
-  height: 200px;
-  flex-grow: 1;
-}
 
-.the-slider {
+
+.global-slider {
   position: fixed;
   top: 0;
   right: 0;
@@ -77,8 +74,67 @@ body,
   z-index: 1000;
   box-shadow: 1px 1px 8px black;
 
+  .slider-ico {
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    z-index: 1000;
+    text-align: center;
+    cursor: pointer
+  }
+
   .ant-collapse>.ant-collapse-item>.ant-collapse-header {
     width: 200px;
+  }
+
+  .slider-tabs {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .ant-tabs-top-content {
+      height: 200px;
+      flex-grow: 1;
+    }
+
+    .slider-tabpane {
+      display: flex;
+      flex-direction: column;
+
+      .common-tabs {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .ant-tabs-top-content {
+          height: 100%;
+        }
+
+        .common-tabpane {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
+          .base-info {
+            height: 200px;
+            flex-grow: 1;
+            overflow: hidden auto;
+          }
+
+          .button {
+            height: 50px;
+            text-align: center;
+          }
+        }
+      }
+
+      .tabs-button {
+        height: 50px;
+        text-align: center;
+      }
+    }
   }
 
   .tabs {
@@ -124,8 +180,6 @@ body,
         height: 60px;
         text-align: center;
       }
-
-
     }
   }
 }
