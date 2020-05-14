@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { GlobalTheSlider } from "../../components/global/GlobalTheSlider"
-import Detail from "./Detail"
+import { GlobalTheSlider } from "../../components/global/GlobalTheSlider.jsx"
+import Detail from "./Detail.jsx"
 
 let ThemeContext = React.createContext()
 

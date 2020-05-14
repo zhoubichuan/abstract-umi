@@ -1,9 +1,9 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
-import BaseInfo from "./tabpane/BaseInfo"
-// import Attribute from "./tabpane/Attribute"
-// import Editor from "./tabpane/Editor"
-// import History from "./tabpane/History"
+import BaseInfo from "./tabpane/BaseInfo.jsx"
+import Attribute from "./tabpane/Attribute.jsx"
+// import Editor from "./tabpane/Editor.jsx"
+import History from "./tabpane/History.jsx"
 class Detail extends Component {
   constructor(props) {
     super(props)
@@ -79,7 +79,7 @@ class Detail extends Component {
             closable={true}
           >
             <Editor />
-          </Tabs.TabPane>
+          </Tabs.TabPane> */}
           <Tabs.TabPane
             className="common-tabpane"
             tab="属性"
@@ -95,7 +95,7 @@ class Detail extends Component {
             closable={true}
           >
             <History />
-          </Tabs.TabPane> */}
+          </Tabs.TabPane>
         </Tabs>
         <Col className="tabs-button">
           <Button type="primary">编辑</Button>

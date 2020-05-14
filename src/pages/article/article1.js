@@ -14,7 +14,7 @@ import {
   Modal,
 } from "antd"
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
-import { TheSliderEdit } from "./TheSliderEdit"
+import { TheSliderEdit } from "./TheSliderEdit.jsx"
 
 import { SearchForm } from "./SearchForm"
 import articleService from "../../service/article"

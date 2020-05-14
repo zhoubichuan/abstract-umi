@@ -126,6 +126,7 @@ class BaseInfo extends Component {
       !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
     )
   }
+  handleCloseTabs() {}
   render() {
     const layout = {
       justify: "center",
