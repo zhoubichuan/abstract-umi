@@ -70,7 +70,7 @@ export default class Demo extends React.Component {
         title={"创建任务"}
       >
         {isEdit ? null : (
-          <AddForm
+          <Editor
             wrappedComponentRef={(formData) => (this.addFormData = formData)}
           />
         )}
@@ -129,8 +129,7 @@ class AddForm extends React.Component {
     )
     return (
       <Row>
-        <Col span={4} />
-        <Col span={16}>
+        <Col span={24}>
           <Form>
             <Item label={"客户单位"} {...formItemLayout}>
               {getFieldDecorator("company", {
@@ -282,10 +281,9 @@ class AddForm extends React.Component {
             </Item>
           </Form>
         </Col>
-        <Col span={4} />
       </Row>
     )
   }
 }
 
-export let Editor = Form.create()(AddForm)
+const Editor = Form.create()(AddForm)
