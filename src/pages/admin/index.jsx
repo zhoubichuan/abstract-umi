@@ -5,10 +5,10 @@ import Navleft from "../../components/Navleft/index.jsx"
 import { Route } from "react-router-dom"
 import Welcome from "../welcome/index.jsx"
 import Category from "../category/index.jsx"
-import Article from "../article/index.jsx"
-import Article1 from "../article/article1.jsx"
-import Article2 from "../article/article2.jsx"
-import article from "../article/article.jsx"
+import DataModeManager from "../DataModeManager/DataModel.jsx"
+// import Article1 from "../article/article1.jsx"
+// import Article2 from "../article/article2.jsx"
+// import article from "../article/article.jsx"
 import TagManager from "../tagManager/tagManager.jsx"
 
 export default class Admin extends Component {
@@ -24,10 +24,13 @@ export default class Admin extends Component {
             <Col span={21} className="admin-page">
               <Route exact path="/admin" component={Welcome} />
               <Route path="/admin/category" component={Category} />
-              <Route path="/admin/article" component={Article} />
-              <Route path="/admin/article1" component={Article1} />
+              <Route
+                path="/admin/dataModeManager"
+                component={DataModeManager}
+              />
+              {/* <Route path="/admin/article1" component={Article1} />
               <Route path="/admin/article2" component={Article2} />
-              <Route path="/admin/article/:id" component={article} />
+              <Route path="/admin/article/:id" component={article} /> */}
               <Route path="/admin/TagManager" component={TagManager} />
             </Col>
           </Row>

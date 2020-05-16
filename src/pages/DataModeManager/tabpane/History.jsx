@@ -64,7 +64,7 @@ class App extends React.Component {
             disabled={!hasSelected}
             loading={loading}
           >
-            Reload
+            对比
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}

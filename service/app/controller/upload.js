@@ -6,7 +6,6 @@ const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
 const md5 = require('md5');
 module.exports = class CategoriesController extends BaseController {
-
   async index() {
     const ctx = this.ctx;
     const stream = await ctx.getFileStream();

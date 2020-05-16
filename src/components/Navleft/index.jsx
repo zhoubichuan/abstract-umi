@@ -40,20 +40,20 @@ class Navleft extends Component {
           title={
             <span className="submenu-title-wrapper">
               <Icon type="setting" />
-              前端知识点
+              全量数据实例管理
             </span>
           }
         >
-          <Menu.Item key="/admin/article1">
-            <Link to="/admin/article1">
+          <Menu.Item key="/admin/dataModeManager">
+            <Link to="/admin/dataModeManager">
               <Icon type="book" />
-              Vue相关知识点
+              数据模型项目
             </Link>
           </Menu.Item>
-          <Menu.Item key="/admin/article2">
-            <Link to="/admin/article2">
+          <Menu.Item key="/admin/relationShip">
+            <Link to="/admin/relationShip">
               <Icon type="book" />
-              Vuex
+              关系实体
             </Link>
           </Menu.Item>
         </SubMenu>

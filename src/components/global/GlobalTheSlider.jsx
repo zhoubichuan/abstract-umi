@@ -10,6 +10,7 @@ export class GlobalTheSlider extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      activeKey: "1",
       viewVisible: this.props.viewVisible,
       editVisible: this.props.editVisible,
       item: this.props.item,
@@ -32,8 +33,28 @@ export class GlobalTheSlider extends Component {
       isCreate: false,
     })
   }
+  onEdit = (targetKey, action) => {
+    this[action](targetKey)
+  }
+  remove = (targetKey) => {
+    let { activeKey } = this.state
+    let lastIndex
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1
+      }
+    })
+    const panes = this.state.panes.filter((pane) => pane.key !== targetKey)
+    if (panes.length && activeKey === targetKey) {
+      if (lastIndex >= 0) {
+        activeKey = panes[lastIndex].key
+      } else {
+        activeKey = panes[0].key
+      }
+    }
+    this.setState({ panes, activeKey })
+  }
   render() {
-    console.log(this.props)
     return (
       <Fragment>
         <div
@@ -52,8 +73,11 @@ export class GlobalTheSlider extends Component {
             onClick={this.handleCloseTabs}
           />
           <Tabs
-            defaultActiveKey="1"
+            // defaultActiveKey="1"
+            activeKey={this.state.activeKey}
+            type="editable-card"
             onChange={callback}
+            onEdit={this.onEdit}
             className="slider-tabs"
           >
             {Array.isArray(this.props.children)

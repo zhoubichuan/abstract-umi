@@ -74,19 +74,19 @@ class Detail extends Component {
           </Tabs.TabPane>
           <Tabs.TabPane
             className="common-tabpane"
+            tab="数据模型项属性"
+            key="attribute"
+            closable={true}
+          >
+            <Attribute />
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            className="common-tabpane"
             tab="内容编辑"
             key="content"
             closable={true}
           >
             <Editor />
-          </Tabs.TabPane>
-          <Tabs.TabPane
-            className="common-tabpane"
-            tab="属性"
-            key="attribute"
-            closable={true}
-          >
-            <Attribute />
           </Tabs.TabPane>
           <Tabs.TabPane
             className="common-tabpane"
