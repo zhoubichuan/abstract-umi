@@ -9,15 +9,15 @@ import {
   Button,
   Form,
   message,
+  Select,
   Col,
   Row,
   Modal,
 } from "antd"
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
 import { TheSliderEdit } from "./TheSliderEdit.jsx"
-
-import { SearchForm } from "./SearchForm"
-import articleService from "../../service/article"
+import { SearchForm } from "./SearchForm.jsx"
+import tagService from "../../service/tag.jsx"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
@@ -30,7 +30,6 @@ export default class Article extends Component {
     commentVisible: false,
     isCreate: false,
     item: {},
-    tags: [],
     keyword: "",
     pagination: {},
     selectedRowkKeys: [],
@@ -53,7 +52,7 @@ export default class Article extends Component {
     this.setState({
       loading: true,
     })
-    articleService
+    tagService
       .list({
         current: this.state.pagination.current,
         keyword: this.state.keyword,
@@ -102,7 +101,7 @@ export default class Article extends Component {
     })
   }
   handleView = (item) => {
-    articleService.addPv(item._id).then((res) => {
+    tagService.addPv(item._id).then((res) => {
       if (res.code == 0) {
         this.setState({
           viewVisible: true,
@@ -121,7 +120,7 @@ export default class Article extends Component {
     })
   }
   handleRemove = (ids) => {
-    articleService.remove(ids).then((res) => {
+    tagService.remove(ids).then((res) => {
       if (res.code == 0) {
         message.success("删除数据成功")
         this.setState({}, this.getList())
@@ -142,7 +141,7 @@ export default class Article extends Component {
   }
   commentOk = () => {
     let comment = this.commentForm.props.form.getFieldsValue()
-    articleService.addComment(this.state.item._id, comment).then((res) => {
+    tagService.addComment(this.state.item._id, comment).then((res) => {
       if (res.code == 0) {
         message.success("评论成功")
         this.setState(
@@ -168,7 +167,7 @@ export default class Article extends Component {
     })
   }
   deleteComment = (article_id, comment_id) => {
-    articleService.deleteComment(article_id, comment_id).then((res) => {
+    tagService.deleteComment(article_id, comment_id).then((res) => {
       if (res.code == 0) {
         message.success("删除评论成功")
         this.setState(
@@ -209,7 +208,7 @@ export default class Article extends Component {
     // 刷新表格
     filters.current = 1
     filters.pageSize = 10
-    let result = await articleService.search(filters)
+    let result = await tagService.search(filters)
 
     this.setState({
       openAdd: false,
@@ -242,9 +241,9 @@ export default class Article extends Component {
         page: 1,
       })
     }
-    let result = await articleService[
-      this.state.isCreate ? "create" : "update"
-    ](filters)
+    let result = await tagService[this.state.isCreate ? "create" : "update"](
+      filters
+    )
     if (result.code == 0) {
       this.setState({
         openAdd: false,
@@ -319,37 +318,6 @@ export default class Article extends Component {
         ),
       },
       {
-        title: "内容",
-        dataIndex: "content",
-        key: "content",
-        render: (text) => (
-          <div className={"text-ellipsis"} title={text}>
-            {text}
-          </div>
-        ),
-      },
-      {
-        title: "分类",
-        dataIndex: "category",
-        key: "category",
-        render: (text, record) => {
-          return text && text.name
-        },
-      },
-      {
-        title: "标签",
-        dataIndex: "tag",
-        key: "tag",
-        render: (text, record) => {
-          return text
-        },
-      },
-      {
-        title: "阅读量",
-        dataIndex: "pv",
-        key: "pv",
-      },
-      {
         title: "创建者",
         dataIndex: "creator",
         key: "creator",
@@ -380,12 +348,6 @@ export default class Article extends Component {
         dataIndex: "updateTime",
         key: "updateTime",
         render: (text) => moment(text).fromNow(),
-      },
-      {
-        title: "评论数",
-        dataIndex: "comments",
-        key: "comments",
-        render: (text) => text.length,
       },
       {
         title: "操作",
@@ -470,7 +432,6 @@ export default class Article extends Component {
           item={this.state.item}
           editVisible={this.state.editVisible}
           categories={this.state.categories}
-          tags={this.state.tags}
           isCreate={this.state.isCreate}
           item={this.state.item}
         />
@@ -487,6 +448,99 @@ export default class Article extends Component {
           />
         </Modal>
       </div>
+    )
+  }
+}
+
+class EditModal extends Component {
+  render() {
+    const { getFieldDecorator } = this.props.form
+    return (
+      <Form>
+        <Form.Item>
+          {getFieldDecorator("name", {
+            initialValue: this.props.isCreate ? "" : this.props.item.name,
+            rules: [
+              {
+                required: true,
+                message: "请输入中文名称",
+              },
+            ],
+          })(<Input placeholder="请输入中文名称" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("nameEn", {
+            initialValue: this.props.isCreate ? "" : this.props.item.nameEn,
+            rules: [
+              {
+                required: true,
+                message: "请输入英文名称",
+              },
+            ],
+          })(<Input placeholder="请输入英文名称" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("descript", {
+            initialValue: this.props.isCreate ? "" : this.props.item.descript,
+            rules: [
+              {
+                required: true,
+                message: "请输入中文描述",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入中文描述" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("descriptEn", {
+            initialValue: this.props.isCreate ? "" : this.props.item.descriptEn,
+            rules: [
+              {
+                required: true,
+                message: "请输入英文描述",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入英文描述" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("category", {
+            initialValue: this.props.isCreate
+              ? this.props.categories[0]._id
+              : this.props.item.title,
+            rules: [
+              {
+                required: true,
+                message: "请输入标题",
+              },
+            ],
+          })(
+            <Select placeholder="请输入标题">
+              {this.props.categories.map((item) => (
+                <Select.Option key={item._id} value={item._id}>
+                  {item.name}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator("content", {
+            initialValue: this.props.isCreate ? "" : this.props.item.content,
+            rules: [
+              {
+                required: true,
+                message: "请输入内容",
+              },
+            ],
+          })(<Input.TextArea placeholder="请输入内容" />)}
+        </Form.Item>
+        {!this.isCreate && (
+          <Form.Item>
+            {getFieldDecorator("id", {
+              initialValue: this.props.item._id,
+            })(<Input type="hidden" />)}
+          </Form.Item>
+        )}
+      </Form>
     )
   }
 }

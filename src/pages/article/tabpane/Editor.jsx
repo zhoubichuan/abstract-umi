@@ -45,10 +45,7 @@ export default class Demo extends React.Component {
           projectCategory: value.projectCategory.label,
         }
         axios
-          .post(
-            "https://www.easy-mock.com/mock/5bfbf83591ea222a361d8316/rich/task",
-            { param }
-          )
+          .post("http://127.0.0.1:7001/api/upload", { param })
           .then((res) => {
             console.log(res)
           })
@@ -58,23 +55,16 @@ export default class Demo extends React.Component {
   render() {
     const { isEdit } = this.state
     return (
-      <Card
-        extra={
-          <Button
-            onClick={isEdit ? null : this.handleAddSubmit}
-            type={"primary"}
-          >
-            保存
-          </Button>
-        }
-        title={"创建任务"}
-      >
+      <div style={{ textAlign: "center" }}>
         {isEdit ? null : (
           <Editor
             wrappedComponentRef={(formData) => (this.addFormData = formData)}
           />
         )}
-      </Card>
+        <Button onClick={isEdit ? null : this.handleAddSubmit} type={"primary"}>
+          保存
+        </Button>
+      </div>
     )
   }
 }
@@ -115,8 +105,7 @@ class AddForm extends React.Component {
     }
     const uploadProps = {
       name: "files",
-      action:
-        "https://www.easy-mock.com/mock/5bfbf83591ea222a361d8316/rich/file/upload",
+      action: "http://127.0.0.1:7001/api/upload",
       multiple: true,
       beforeUpload: this.beforeUpload,
       onChange: this.handleChange,

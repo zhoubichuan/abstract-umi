@@ -5,7 +5,6 @@
 const BaseController = require('./base');
 
 module.exports = class CategoriesController extends BaseController {
-  // 查询分类
   async index() {
     try {
       await this.getPager({

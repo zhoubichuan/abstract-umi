@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Row, Col, Icon, message, Popconfirm } from "antd"
-import user from "../../service/user"
 import { withRouter } from "react-router-dom"
+import user from "../../service/user.jsx"
 
 class Header extends Component {
   state = {

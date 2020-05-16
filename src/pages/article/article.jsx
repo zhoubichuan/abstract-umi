@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Row, Col, message } from "antd"
-import articleService from "../../service/article"
+import articleService from "../../service/article.jsx"
 
 export default class Article extends Component {
   state = {

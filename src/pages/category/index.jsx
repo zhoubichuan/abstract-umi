@@ -10,7 +10,7 @@ import {
   Input,
   Form,
 } from "antd"
-import categoryService from "../../service/category"
+import categoryService from "../../service/category.jsx"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
