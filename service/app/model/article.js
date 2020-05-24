@@ -25,7 +25,7 @@ module.exports = app => {
     },
     tag: { // 分类
       type: ObjectId,
-      ref: 'tag',
+      ref: 'Tag',
     },
     category: { // 分类
       type: ObjectId,

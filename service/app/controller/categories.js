@@ -42,6 +42,7 @@ module.exports = class CategoriesController extends BaseController {
     const category = ctx.request.body;
     try {
       const result = await ctx.model.Category.findByIdAndUpdate(id, category);
+      this.success('更新分类成功');
     } catch (error) {
       this.error(error);
     }

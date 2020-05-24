@@ -297,7 +297,7 @@ export default Form.create({
             value: item.tag,
           }),
           category: Form.createFormField({
-            value: (item.category && item.category.name) || "",
+            value: (item.category && item.category.id) || "",
           }),
           updater: Form.createFormField({
             value: item.updater,

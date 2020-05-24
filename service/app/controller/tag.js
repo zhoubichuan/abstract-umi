@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2018/5/14.
- */
 'use strict';
 const BaseController = require('./base');
 
@@ -23,10 +20,10 @@ module.exports = class CategoriesController extends BaseController {
     try {
       let doc = await ctx.model.Tag.findOne(tag);
       if (doc) {
-        this.error('此分类已存在！');
+        this.error('此标签已存在！');
       } else {
         doc = await ctx.model.Tag.create(tag);
-        this.success('保存分类成功');
+        this.success('保存标签成功');
       }
     } catch (error) {
       this.error(error);
@@ -40,6 +37,7 @@ module.exports = class CategoriesController extends BaseController {
     const Tag = ctx.request.body;
     try {
       const result = await ctx.model.Tag.findByIdAndUpdate(id, Tag);
+      this.success('更新标签成功');
     } catch (error) {
       this.error(error);
     }

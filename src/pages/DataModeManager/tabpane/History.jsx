@@ -3,7 +3,7 @@ import { Table, Button } from "antd"
 
 const columns = [
   {
-    title: "Name",
+    title: "版本",
     dataIndex: "name",
   },
   {

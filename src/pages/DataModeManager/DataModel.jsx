@@ -272,12 +272,14 @@ export default class Article extends Component {
         dataIndex: "index",
         key: "index",
         width: 60,
+        sorter: (a, b) => a.index - b.index,
         fixed: "left",
       },
       {
         title: "中文名称",
         dataIndex: "name",
         key: "name",
+        sorter: (a, b) => a.name.length - b.name.length,
         render: (text, record) => (
           <a
             onClick={() => this.handleView(record)}
@@ -292,6 +294,7 @@ export default class Article extends Component {
         title: "英文名称",
         dataIndex: "nameEn",
         key: "nameEn",
+        sorter: (a, b) => a.nameEn.length - b.nameEn.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -302,6 +305,7 @@ export default class Article extends Component {
         title: "中文描述",
         dataIndex: "descript",
         key: "descript",
+        sorter: (a, b) => a.descript.length - b.descript.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -312,6 +316,7 @@ export default class Article extends Component {
         title: "英文描述",
         dataIndex: "descriptEn",
         key: "descriptEn",
+        sorter: (a, b) => a.descriptEn.length - b.descriptEn.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -322,6 +327,7 @@ export default class Article extends Component {
         title: "内容",
         dataIndex: "content",
         key: "content",
+        sorter: (a, b) => a.content.length - b.content.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -332,6 +338,7 @@ export default class Article extends Component {
         title: "分类",
         dataIndex: "category",
         key: "category",
+        sorter: (a, b) => a.category.length - b.category.length,
         render: (text, record) => {
           return text && text.name
         },
@@ -340,6 +347,7 @@ export default class Article extends Component {
         title: "标签",
         dataIndex: "tag",
         key: "tag",
+        sorter: (a, b) => a.tag.length - b.tag.length,
         render: (text, record) => {
           return text
         },
@@ -348,11 +356,13 @@ export default class Article extends Component {
         title: "阅读量",
         dataIndex: "pv",
         key: "pv",
+        sorter: (a, b) => a.pv - b.pv,
       },
       {
         title: "创建者",
         dataIndex: "creator",
         key: "creator",
+        sorter: (a, b) => a.creator.length - b.creator.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -363,12 +373,14 @@ export default class Article extends Component {
         title: "创建时间",
         dataIndex: "creatTime",
         key: "createAt",
+        sorter: (a, b) => a.creatTime.length - b.creatTime.length,
         render: (text) => moment(text).fromNow(),
       },
       {
         title: "更新者",
         dataIndex: "updater",
         key: "updater",
+        sorter: (a, b) => a.updater.length - b.updater.length,
         render: (text) => (
           <div className={"text-ellipsis"} title={text}>
             {text}
@@ -379,12 +391,14 @@ export default class Article extends Component {
         title: "更新时间",
         dataIndex: "updateTime",
         key: "updateTime",
+        sorter: (a, b) => a.updateTime.length - b.updateTime.length,
         render: (text) => moment(text).fromNow(),
       },
       {
         title: "评论数",
         dataIndex: "comments",
         key: "comments",
+        sorter: (a, b) => a.comments.length - b.comments.length,
         render: (text) => text.length,
       },
       {

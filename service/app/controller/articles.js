@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2018/5/15.
- */
 'use strict';
 const BaseController = require('./base');
 

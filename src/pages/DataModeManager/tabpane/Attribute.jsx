@@ -3,16 +3,16 @@ import { Table, Button } from "antd"
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
+    title: "中文名称",
+    dataIndex: "nameCn",
   },
   {
-    title: "Age",
-    dataIndex: "age",
+    title: "英文名称",
+    dataIndex: "nameEn",
   },
   {
-    title: "Address",
-    dataIndex: "address",
+    title: "属性类型",
+    dataIndex: "type",
   },
 ]
 
@@ -20,9 +20,9 @@ const data = []
 for (let i = 0; i < 46; i++) {
   data.push({
     key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, Park Lane no. ${i}`,
+    nameCn: `Edward King ${i}`,
+    nameEn: 32,
+    type: `London, Park Lane no. ${i}`,
   })
 }
 
@@ -57,6 +57,7 @@ class App extends React.Component {
     const hasSelected = selectedRowKeys.length > 0
     return (
       <div>
+        系统基本属性
         <div style={{ marginBottom: 16 }}>
           <Button
             type="primary"
@@ -64,7 +65,15 @@ class App extends React.Component {
             disabled={!hasSelected}
             loading={loading}
           >
-            Reload
+            新增
+          </Button>
+          <Button
+            type="primary"
+            onClick={this.start}
+            disabled={!hasSelected}
+            loading={loading}
+          >
+            删除
           </Button>
           <span style={{ marginLeft: 8 }}>
             {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
