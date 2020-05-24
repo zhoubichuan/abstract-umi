@@ -141,7 +141,7 @@ class BaseInfo extends Component {
             <Collapse defaultActiveKey={["1", "2"]}>
               <Collapse.Panel header="基本信息" key="1">
                 <Col span={12}>
-                  <Form.Item label="中文名称">
+                  <Form.Item label="中文名称" name="name">
                     {getFieldDecorator("name")(
                       <Input
                         disabled={this.viewTabs()}
@@ -216,15 +216,6 @@ class BaseInfo extends Component {
                     )}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
-                  <Form.Item name="upload" label="上传文件">
-                    <Upload name="logo" action="/upload.do" listType="picture">
-                      <Button>
-                        <UploadOutlined /> Click to upload
-                      </Button>
-                    </Upload>
-                  </Form.Item>
-                </Col>
               </Collapse.Panel>
               {!this.state.isCreate && (
                 <Collapse.Panel header="编辑信息" key="2">
@@ -294,10 +285,10 @@ export default Form.create({
             value: item.content,
           }),
           tag: Form.createFormField({
-            value: item.tag,
+            value: (item.tag && item.tag._id) || "",
           }),
           category: Form.createFormField({
-            value: (item.category && item.category.id) || "",
+            value: (item.category && item.category._id) || "",
           }),
           updater: Form.createFormField({
             value: item.updater,

@@ -21,12 +21,23 @@ module.exports = class CategoriesController extends BaseController {
       ctx,
     } = this;
     const category = ctx.request.body;
+    let {
+      name,
+      nameEn = ''
+    } = category
     try {
-      let doc = await ctx.model.Category.findOne(category);
-      if (doc) {
-        this.error('此分类已存在！');
+      let findName = await ctx.model.Category.findOne({
+        name
+      });
+      let findNameEn = await ctx.model.Category.findOne({
+        nameEn
+      });
+      if (findName) {
+        this.error('分类中文名称已存在！');
+      } else if (findNameEn) {
+        this.error('分类英文名称已存在！');
       } else {
-        doc = await ctx.model.Category.create(category);
+        await ctx.model.Category.create(category);
         this.success('保存分类成功');
       }
     } catch (error) {

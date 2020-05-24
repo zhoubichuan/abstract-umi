@@ -26,7 +26,6 @@ export default class Demo extends React.Component {
       isEdit: false,
     }
   }
-
   //创建任务
   handleAddSubmit = () => {
     this.addFormData.props.form.validateFields((err, value) => {
@@ -45,7 +44,7 @@ export default class Demo extends React.Component {
           projectCategory: value.projectCategory.label,
         }
         axios
-          .post("http://127.0.0.1:7001/api/upload", { param })
+          .post("http://127.0.0.1:7001/api/upload/cteateContent", param)
           .then((res) => {
             console.log(res)
           })

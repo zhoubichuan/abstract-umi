@@ -1,6 +1,6 @@
 import React from "react"
 import {
-  Card,
+  Modal,
   Form,
   Input,
   Row,
@@ -24,9 +24,14 @@ export default class Demo extends React.Component {
     super(props)
     this.state = {
       isEdit: false,
+      visible: false,
     }
   }
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      visible: nextProps.visible,
+    })
+  }
   //创建任务
   handleAddSubmit = () => {
     this.addFormData.props.form.validateFields((err, value) => {
@@ -52,19 +57,54 @@ export default class Demo extends React.Component {
       }
     })
   }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    })
+  }
+
+  handleOk = (e) => {
+    console.log(e)
+    this.setState({
+      visible: false,
+    })
+  }
+
+  handleCancel = (e) => {
+    console.log(e)
+    this.setState({
+      visible: false,
+    })
+  }
   render() {
     const { isEdit } = this.state
     return (
-      <div style={{ textAlign: "center" }}>
-        {isEdit ? null : (
-          <Editor
-            wrappedComponentRef={(formData) => (this.addFormData = formData)}
-          />
-        )}
-        <Button onClick={isEdit ? null : this.handleAddSubmit} type={"primary"}>
-          保存
-        </Button>
-      </div>
+      <Modal
+        maskClosable={false}
+        width={"50%"}
+        title="Basic Modal"
+        visible={this.state.visible}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        okText={"保存"}
+        okType={"primary"}
+        title={"创建模型想属性"}
+      >
+        <div style={{ textAlign: "center" }}>
+          {isEdit ? null : (
+            <Editor
+              wrappedComponentRef={(formData) => (this.addFormData = formData)}
+            />
+          )}
+          <Button
+            onClick={isEdit ? null : this.handleAddSubmit}
+            type={"primary"}
+          >
+            保存
+          </Button>
+        </div>
+      </Modal>
     )
   }
 }
@@ -118,57 +158,77 @@ class AddForm extends React.Component {
     )
     return (
       <Row>
-        <Col span={24}>
-          <Form>
-            <Item label={"客户单位"} {...formItemLayout}>
-              {getFieldDecorator("company", {
+        <Form>
+          <Col span={12}>
+            <Item label={"中文名称"} {...formItemLayout}>
+              {getFieldDecorator("nameCn", {
                 rules: [
                   {
                     required: true,
-                    message: "客户单位不能为空",
+                    message: "中文名称不能为空",
                   },
                 ],
               })(<Input />)}
             </Item>
-            <Item label={"项目名称"} {...formItemLayout}>
-              {getFieldDecorator("projectName", {
+          </Col>
+          <Col span={12}>
+            <Item label={"英文名称"} {...formItemLayout}>
+              {getFieldDecorator("nameEn", {
                 rules: [
                   {
                     required: true,
-                    message: "项目名称不能为空",
+                    message: "英文名称不能为空",
                   },
                 ],
               })(<Input />)}
             </Item>
-            <Item label={"项目类型"} {...formItemLayout}>
+          </Col>
+          <Col span={12}>
+            <Item label={"属性类型"} {...formItemLayout}>
               {getFieldDecorator("projectCategory", {
                 rules: [
                   {
                     required: true,
-                    message: "项目类型不能为空",
+                    message: "属性类型不能为空",
                   },
                 ],
               })(
                 <Select labelInValue={true}>
-                  <Option key={"1"}>水库大坝</Option>
-                  <Option key={"2"}>隧洞</Option>
-                  <Option key={"3"}>桥梁</Option>
+                  <Option key={"1"}>数字</Option>
+                  <Option key={"2"}>布尔值</Option>
+                  <Option key={"3"}>字符串</Option>
                   <Option key={"4"}>铁路</Option>
                   <Option key={"5"}>地铁</Option>
                   <Option key={"6"}>其他</Option>
                 </Select>
               )}
             </Item>
-            <Item label={"项目介绍"} {...formItemLayout}>
-              {getFieldDecorator("projectDesc", {
+          </Col>
+          <Col span={12}>
+            <Item label={"中文描述"} {...formItemLayout}>
+              {getFieldDecorator("descriptCn", {
                 rules: [
                   {
                     required: true,
-                    message: "项目介绍不能为空",
+                    message: "中文描述不能为空",
                   },
                 ],
               })(<Input.TextArea />)}
             </Item>
+          </Col>
+          <Col span={12}>
+            <Item label={"英文描述"} {...formItemLayout}>
+              {getFieldDecorator("descriptEn", {
+                rules: [
+                  {
+                    required: true,
+                    message: "英文描述不能为空",
+                  },
+                ],
+              })(<Input.TextArea />)}
+            </Item>
+          </Col>
+          <Col span={12}>
             <Item label={"联系人员"} {...formItemLayout}>
               {getFieldDecorator("contact", {
                 rules: [
@@ -179,6 +239,8 @@ class AddForm extends React.Component {
                 ],
               })(<Input />)}
             </Item>
+          </Col>
+          <Col span={12}>
             <Item label={"联系方式"} {...formItemLayout}>
               {getFieldDecorator("phone", {
                 rules: [
@@ -189,7 +251,8 @@ class AddForm extends React.Component {
                 ],
               })(<Input />)}
             </Item>
-
+          </Col>
+          <Col span={12}>
             <Item
               label={"软件功能"}
               {...formItemLayout}
@@ -215,8 +278,8 @@ class AddForm extends React.Component {
                 </Select>
               )}
             </Item>
-          </Form>
-        </Col>
+          </Col>
+        </Form>
       </Row>
     )
   }

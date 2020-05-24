@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import {
+  Tag,
   List,
   Spin,
   Avatar,
@@ -128,18 +129,18 @@ export default class Article extends Component {
       }
     })
   }
-  handleSearch = (keyword) => {
-    this.setState(
-      {
-        keyword,
-        pagination: {
-          ...this.state.pagination,
-          current: 1,
-        },
-      },
-      this.getList()
-    )
-  }
+  // handleSearch = (keyword) => {
+  //   this.setState(
+  //     {
+  //       keyword,
+  //       pagination: {
+  //         ...this.state.pagination,
+  //         current: 1,
+  //       },
+  //     },
+  //     this.getList()
+  //   )
+  // }
   commentOk = () => {
     let comment = this.commentForm.props.form.getFieldsValue()
     articleService.addComment(this.state.item._id, comment).then((res) => {
@@ -271,7 +272,7 @@ export default class Article extends Component {
         title: "序号",
         dataIndex: "index",
         key: "index",
-        width: 60,
+        width: 100,
         sorter: (a, b) => a.index - b.index,
         fixed: "left",
       },
@@ -349,7 +350,11 @@ export default class Article extends Component {
         key: "tag",
         sorter: (a, b) => a.tag.length - b.tag.length,
         render: (text, record) => {
-          return text
+          return (
+            <Tag color={"green"} key={text}>
+              {text && text.name}
+            </Tag>
+          )
         },
       },
       {
@@ -473,7 +478,7 @@ export default class Article extends Component {
           className={"table"}
           loading={this.state.loading}
           columns={columns}
-          scroll={{ x: 1500 }}
+          scroll={{ x: 1700 }}
           dataSource={this.state.items}
           pagination={this.state.pagination}
           rowSelection={rowSelection}

@@ -1,7 +1,6 @@
 'use strict';
 const BaseController = require('./base');
-
-module.exports = class CategoriesController extends BaseController {
+module.exports = class TagController extends BaseController {
   async index() {
     try {
       await this.getPager({
@@ -17,12 +16,23 @@ module.exports = class CategoriesController extends BaseController {
       ctx,
     } = this;
     const tag = ctx.request.body;
+    let {
+      name,
+      nameEn
+    } = tag
     try {
-      let doc = await ctx.model.Tag.findOne(tag);
-      if (doc) {
-        this.error('此标签已存在！');
+      let findName = await ctx.model.Tag.findOne({
+        name
+      });
+      let findNameEn = await ctx.model.Tag.findOne({
+        nameEn
+      });
+      if (findName) {
+        this.error('标签中文名称已存在！');
+      } else if (findNameEn) {
+        this.error('标签英文名称已存在！');
       } else {
-        doc = await ctx.model.Tag.create(tag);
+        await ctx.model.Tag.create(tag);
         this.success('保存标签成功');
       }
     } catch (error) {

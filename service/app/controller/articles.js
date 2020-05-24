@@ -7,7 +7,7 @@ module.exports = class ArticlesController extends BaseController {
       await this.getPager({
         modName: 'Article',
         returnFiles: ['titlt', 'content'],
-        populateFields: ['category', 'user', 'comments.user'],
+        populateFields: ['category', 'tag', 'user', 'comments.user'],
       });
     } catch (error) {
       this.error(error);
@@ -18,7 +18,7 @@ module.exports = class ArticlesController extends BaseController {
       await this.getPager({
         modName: 'Article',
         returnFiles: ['titlt', 'content'],
-        populateFields: ['category', 'user', 'comments.user'],
+        populateFields: ['category', 'tag', 'user', 'comments.user'],
       });
     } catch (error) {
       this.error(error);

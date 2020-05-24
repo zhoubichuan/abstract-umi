@@ -5,7 +5,7 @@ const path = require('path');
 const awaitWriteStream = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
 const md5 = require('md5');
-module.exports = class CategoriesController extends BaseController {
+module.exports = class UploadController extends BaseController {
   async index() {
     const ctx = this.ctx;
     const stream = await ctx.getFileStream();
@@ -23,5 +23,18 @@ module.exports = class CategoriesController extends BaseController {
     ctx.body = {
       url: '/api/uploads/' + filename,
     };
+  }
+  async cteateContent() {
+    const ctx = this.ctx;
+    let context = ctx.request.body;
+    try {
+      let result = await ctx.model.Upload.create(context)
+      ctx.body = {
+        code: 0,
+        data: result
+      };
+    } catch (err) {
+      throw err;
+    }
   }
 };

@@ -18,14 +18,14 @@ module.exports = class BaseController extends Controller {
       ctx,
     } = this;
     let {
-      pageNum = 1, pageSize = 5, keyword = '',
+      pageNum = 1, pageSize = 5, name = '',
     } = ctx.query;
     pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum);
     pageSize = isNaN(pageSize) ? 5 : parseInt(pageSize);
     const query = {};
-    if (keyword && fields.length > 0) {
+    if (name && fields.length > 0) {
       query.$or = fields.map(field => ({
-        [field]: new RegExp(keyword),
+        [field]: new RegExp(name),
       }));
     }
     const total = await ctx.model[modName].count(query);

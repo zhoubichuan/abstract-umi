@@ -1,5 +1,6 @@
 import React from "react"
-import { Table, Button } from "antd"
+import { Table, Button, Modal } from "antd"
+import AttributeDialog from "./AttributeDialog.jsx"
 
 const columns = [
   {
@@ -30,60 +31,41 @@ class App extends React.Component {
   state = {
     selectedRowKeys: [], // Check here to configure the default column
     loading: false,
+    isAddAttribute: false,
   }
 
-  start = () => {
-    this.setState({ loading: true })
-    // ajax request after empty completing
-    setTimeout(() => {
-      this.setState({
-        selectedRowKeys: [],
-        loading: false,
-      })
-    }, 1000)
+  addAttribute = () => {
+    this.setState({ isAddAttribute: true })
   }
 
   onSelectChange = (selectedRowKeys) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys)
     this.setState({ selectedRowKeys })
   }
-
+  deleteAttribute = () => {}
   render() {
     const { loading, selectedRowKeys } = this.state
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
     }
-    const hasSelected = selectedRowKeys.length > 0
     return (
       <div>
         系统基本属性
         <div style={{ marginBottom: 16 }}>
-          <Button
-            type="primary"
-            onClick={this.start}
-            disabled={!hasSelected}
-            loading={loading}
-          >
+          <Button type="primary" onClick={this.addAttribute} loading={loading}>
             新增
           </Button>
-          <Button
-            type="primary"
-            onClick={this.start}
-            disabled={!hasSelected}
-            loading={loading}
-          >
+          <Button type="primary" onClick={this.deleteAttribute}>
             删除
           </Button>
-          <span style={{ marginLeft: 8 }}>
-            {hasSelected ? `Selected ${selectedRowKeys.length} items` : ""}
-          </span>
         </div>
         <Table
           rowSelection={rowSelection}
           columns={columns}
           dataSource={data}
         />
+        <AttributeDialog visible={this.state.isAddAttribute} />
       </div>
     )
   }
