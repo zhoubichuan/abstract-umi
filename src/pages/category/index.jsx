@@ -194,7 +194,7 @@ export default class Category extends Component {
     return (
       <div style={{ paddingLeft: 10 }}>
         <Row>
-          <Col span="6">
+          <Col span={6}>
             <Button.Group>
               <Button type="primary" icon="plus-circle" onClick={this.create}>
                 新建
@@ -209,7 +209,7 @@ export default class Category extends Component {
               </Button>
             </Button.Group>
           </Col>
-          <Col span="18">
+          <Col span={18}>
             <Input.Search
               enterButton
               placeholder="请输入关键字"

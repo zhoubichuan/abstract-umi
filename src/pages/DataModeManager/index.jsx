@@ -244,9 +244,9 @@ export default class Article extends Component {
     }
     return (
       <Row>
-        <Col span="24" style={{ padding: 8 }}>
+        <Col span={24} style={{ padding: 8 }}>
           <Row>
-            <Col span="12">
+            <Col span={12}>
               <Button.Group>
                 <Button type="primary" icon="plus-circle" onClick={this.create}>
                   添加
@@ -261,7 +261,7 @@ export default class Article extends Component {
                 </Button>
               </Button.Group>
             </Col>
-            <Col span="12">
+            <Col span={12}>
               <Input.Search enterButton onSearch={this.handleSearch} />
             </Col>
           </Row>

@@ -1,25 +1,21 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
-import BaseInfo from "./tabpane/BaseInfo.jsx"
-import Attribute from "./tabpane/Attribute.jsx"
-import Editor from "./tabpane/Editor.jsx"
-import History from "./tabpane/History.jsx"
+import BaseInfo from "./tabs/BaseInfo.jsx"
+import Attribute from "./tabs/Attribute.jsx"
+import Editor from "./tabs/Editor.jsx"
+import History from "./tabs/History.jsx"
 class Detail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       activeKey: "baseInfo",
       viewVisible: this.props.viewVisible,
-      editVisible: this.props.editVisible,
       item: this.props.item,
-      isCreate: this.props.isCreate,
     }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
       viewVisible: nextProps.viewVisible,
-      isCreate: nextProps.isCreate,
-      editVisible: nextProps.editVisible,
       item: nextProps.item,
     })
   }
@@ -45,9 +41,7 @@ class Detail extends Component {
     }
   }
   viewTabs() {
-    return (
-      !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
-    )
+    return this.state.viewVisible
   }
   render() {
     const layout = {
@@ -67,8 +61,6 @@ class Detail extends Component {
             <BaseInfo
               save={this.save}
               viewVisible={this.state.viewVisible}
-              editVisible={this.state.editVisible}
-              isCreate={this.state.isCreate}
               item={this.state.item}
             />
           </Tabs.TabPane>

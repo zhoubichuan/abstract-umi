@@ -10,10 +10,9 @@ import {
   Upload,
   message,
 } from "antd"
-import { UploadOutlined } from "@ant-design/icons"
-import categoryService from "../../../service/category.jsx"
-import tagService from "../../../service/tag.jsx"
-import articleService from "../../../service/article.jsx"
+import categoryService from "../../../../service/category.jsx"
+import tagService from "../../../../service/tag.jsx"
+import articleService from "../../../../service/article.jsx"
 class BaseInfo extends Component {
   constructor(props) {
     super(props)

@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import { GlobalTheSlider } from "../../components/global/GlobalTheSlider.jsx"
-import Detail from "./Detail.jsx"
+import ViewDetail from "./View/Detail.jsx"
+import EditDetail from "./Edit/Detail.jsx"
+import CreateDetail from "./Create/Detail.jsx"
 
 let ThemeContext = React.createContext()
 
@@ -10,6 +12,7 @@ class TheSlider extends Component {
     this.state = {
       viewVisible: this.props.viewVisible,
       editVisible: this.props.editVisible,
+      mode: this.props.mode,
       item: this.props.item,
       isCreate: this.props.isCreate,
     }
@@ -18,6 +21,7 @@ class TheSlider extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       viewVisible: nextProps.viewVisible,
+      mode: nextProps.mode,
       isCreate: nextProps.isCreate,
       editVisible: nextProps.editVisible,
       item: nextProps.item,
@@ -69,19 +73,34 @@ class TheSlider extends Component {
           tags={this.state.tags}
           isCreate={this.state.isCreate}
         >
-          <Detail
-            save={this.save}
-            viewVisible={this.state.viewVisible}
-            item={this.state.item}
-            editVisible={this.state.editVisible}
-            categories={this.state.categories}
-            tags={this.state.tags}
-            isCreate={this.state.isCreate}
-          />
+          {this.state.mode.includes("view") && (
+            <ViewDetail
+              save={this.save}
+              item={this.state.item}
+              categories={this.state.categories}
+              tags={this.state.tags}
+            />
+          )}
+          {/* {this.state.mode.includes("eidt") && (
+            <EditDetail
+              save={this.save}
+              item={this.state.item}
+              categories={this.state.categories}
+              tags={this.state.tags}
+            />
+          )}
+          {this.state.mode.includes("create") && (
+            <CreateDetail
+              save={this.save}
+              item={this.state.item}
+              categories={this.state.categories}
+              tags={this.state.tags}
+            />
+          )} */}
         </GlobalTheSlider>
       </ThemeContext.Provider>
     )
   }
 }
 
-export let TheSliderEdit = TheSlider
+export let SliderRight = TheSlider

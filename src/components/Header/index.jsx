@@ -26,8 +26,8 @@ class Header extends Component {
   render() {
     return (
       <Row className="admin-header" style={{ padding: "0 20px" }}>
-        <Col span="6">我的博客</Col>
-        <Col span="18">
+        <Col span={6}>我的博客</Col>
+        <Col span={18}>
           <div style={{ float: "right", fontSize: 16 }}>
             <Icon type="smile" />
             欢迎{this.state.username}

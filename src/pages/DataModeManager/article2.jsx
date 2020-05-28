@@ -323,7 +323,7 @@ export default class Article extends Component {
           }}
         >
           <Row>
-            <Col span="12">
+            <Col span={12}>
               <Button.Group>
                 <Button type="dashed" icon="plus-circle" onClick={this.create}>
                   添加
@@ -340,7 +340,7 @@ export default class Article extends Component {
                 </Button>
               </Button.Group>
             </Col>
-            <Col span="12">
+            <Col span={12}>
               <Input.Search enterButton onSearch={this.handleSearch} />
             </Col>
           </Row>
@@ -515,7 +515,7 @@ class CommentModal extends Component {
           marginTop: 15,
         }}
       >
-        <Col span="24">
+        <Col span={24}>
           <Form>
             <Form.Item>
               {getFieldDecorator("content")(

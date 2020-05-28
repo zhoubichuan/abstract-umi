@@ -15,8 +15,7 @@ import {
   Modal,
 } from "antd"
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
-import { TheSliderEdit } from "./TheSliderEdit.jsx"
-
+import { SliderRight } from "./SliderRight.jsx"
 import { SearchForm } from "./SearchForm.jsx"
 import articleService from "../../service/article.jsx"
 import moment from "moment"
@@ -30,6 +29,7 @@ export default class Article extends Component {
     editVisible: false,
     commentVisible: false,
     isCreate: false,
+    mode: "",
     item: {},
     tags: [],
     keyword: "",
@@ -91,6 +91,7 @@ export default class Article extends Component {
       viewVisible: false,
       editVisible: false,
       isCreate: true,
+      mode: "create",
       item: [],
     })
   }
@@ -99,6 +100,7 @@ export default class Article extends Component {
       editVisible: true,
       viewVisible: false,
       isCreate: false,
+      mode: "eidt",
       item,
     })
   }
@@ -107,6 +109,7 @@ export default class Article extends Component {
       if (res.code == 0) {
         this.setState({
           viewVisible: true,
+          mode: "view",
           editVisible: false,
           isCreate: false,
           item,
@@ -483,9 +486,10 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        <TheSliderEdit
+        <SliderRight
           save={this.save}
           viewVisible={this.state.viewVisible}
+          mode={this.state.mode}
           item={this.state.item}
           editVisible={this.state.editVisible}
           categories={this.state.categories}
@@ -560,7 +564,7 @@ class CommentModal extends Component {
           marginTop: 15,
         }}
       >
-        <Col span="24">
+        <Col span={24}>
           <Form>
             <Form.Item>
               {getFieldDecorator("content")(
