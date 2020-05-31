@@ -9,13 +9,11 @@ class Detail extends Component {
     super(props)
     this.state = {
       activeKey: "baseInfo",
-      viewVisible: this.props.viewVisible,
       item: this.props.item,
     }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      viewVisible: nextProps.viewVisible,
       item: nextProps.item,
     })
   }
@@ -40,29 +38,18 @@ class Detail extends Component {
       this.props.save(null, params, null)
     }
   }
-  viewTabs() {
-    return this.state.viewVisible
-  }
   render() {
-    const layout = {
-      justify: "center",
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
-    }
+    console.log(1111111111111, "mode")
     return (
       <Fragment>
-        <Tabs className="common-tabs">
+        <Tabs className="common-tabs view">
           <Tabs.TabPane
             className="common-tabpane"
             tab="基本信息"
             key="baseInfo"
             closable={false}
           >
-            <BaseInfo
-              save={this.save}
-              viewVisible={this.state.viewVisible}
-              item={this.state.item}
-            />
+            <BaseInfo save={this.save} item={this.state.item} />
           </Tabs.TabPane>
           <Tabs.TabPane
             className="common-tabpane"

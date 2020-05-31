@@ -26,10 +26,8 @@ export default class Article extends Component {
     categories: [],
     items: [],
     loading: false,
-    editVisible: false,
     commentVisible: false,
-    isCreate: false,
-    mode: "",
+    mode: "view",
     item: {},
     tags: [],
     keyword: "",
@@ -88,18 +86,12 @@ export default class Article extends Component {
   }
   handleCreate = () => {
     this.setState({
-      viewVisible: false,
-      editVisible: false,
-      isCreate: true,
       mode: "create",
       item: [],
     })
   }
   handleEdit = (item) => {
     this.setState({
-      editVisible: true,
-      viewVisible: false,
-      isCreate: false,
       mode: "eidt",
       item,
     })
@@ -108,10 +100,7 @@ export default class Article extends Component {
     articleService.addPv(item._id).then((res) => {
       if (res.code == 0) {
         this.setState({
-          viewVisible: true,
           mode: "view",
-          editVisible: false,
-          isCreate: false,
           item,
         })
       } else {
@@ -486,17 +475,15 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        <SliderRight
-          save={this.save}
-          viewVisible={this.state.viewVisible}
-          mode={this.state.mode}
-          item={this.state.item}
-          editVisible={this.state.editVisible}
-          categories={this.state.categories}
-          tags={this.state.tags}
-          isCreate={this.state.isCreate}
-          item={this.state.item}
-        />
+        {this.state.mode && (
+          <SliderRight
+            save={this.save}
+            mode={this.state.mode}
+            item={this.state.item}
+            categories={this.state.categories}
+            tags={this.state.tags}
+          />
+        )}
         <Modal
           visible={this.state.commentVisible}
           onCancel={this.commentCancel}
