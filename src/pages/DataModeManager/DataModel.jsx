@@ -101,7 +101,7 @@ export default class Article extends Component {
       if (res.code == 0) {
         this.setState({
           mode: "view",
-          item,
+          item: ((item.key = item._id), (item.title = item.name), item),
         })
       } else {
         message.error(res.data)

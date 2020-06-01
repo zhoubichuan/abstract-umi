@@ -39,7 +39,6 @@ class Detail extends Component {
     }
   }
   render() {
-    console.log(1111111111111, "mode")
     return (
       <Fragment>
         <Tabs className="common-tabs view">

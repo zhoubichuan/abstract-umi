@@ -9,50 +9,40 @@ import CreateDetail from "./Create/Detail.jsx"
 export class GlobalTheSlider extends Component {
   constructor(props) {
     super(props)
+    let { mode, item } = props
     const tabsItem = [
       {
         type: "view",
-        child: [
-          {
-            title: "view",
-            key: "1",
-          },
-        ],
+        child: [],
       },
       {
         type: "edit",
-        child: [
-          {
-            title: "edit",
-            key: "2",
-          },
-        ],
+        child: [],
       },
       {
         type: "create",
-        child: [
-          {
-            title: "create",
-            key: "3",
-          },
-        ],
+        child: [],
       },
     ]
+    tabsItem.find((item) => item.type.includes(mode)).child.push(item)
     this.state = {
-      tabsItem,
+      tabsItem: tabsItem,
       activeKey: tabsItem[0].child[0].key,
       mode: this.props.mode,
       item: this.props.item,
     }
+    console.log(tabsItem, "tabsItemtabsItemtabsItem")
     this.renderChild = this.renderChild.bind(this)
   }
   onChange = (activeKey) => {
     this.setState({ activeKey })
   }
   componentWillReceiveProps(nextProps) {
+    let { mode, item } = nextProps,
+      tabsItem = this.state.tabsItem
+    tabsItem.find((item) => item.type.includes(mode)).child.push(item)
     this.setState({
-      mode: nextProps.mode,
-      item: nextProps.item,
+      tabsItem: tabsItem,
     })
   }
   handleCloseTabs = () => {
@@ -73,6 +63,7 @@ export class GlobalTheSlider extends Component {
     })
   }
   render() {
+    console.log(this.state.tabsItem, "tabsItem")
     return (
       <Fragment>
         <div
