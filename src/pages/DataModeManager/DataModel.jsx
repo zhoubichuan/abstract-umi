@@ -20,14 +20,14 @@ import { SearchForm } from "./SearchForm.jsx"
 import articleService from "../../service/article.jsx"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
-
+let ThemeContext = React.createContext()
 export default class Article extends Component {
   state = {
     categories: [],
     items: [],
     loading: false,
     commentVisible: false,
-    mode: "view",
+    mode: "",
     item: {},
     tags: [],
     keyword: "",
@@ -426,6 +426,13 @@ export default class Article extends Component {
         })
       },
     }
+    let value = {
+      item: this.state.item,
+      mode: this.state.mode,
+      categories: this.state.categories,
+      tags: this.state.tags,
+    }
+    console.log(value)
     return (
       <div
         className="common-page"
@@ -475,15 +482,9 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        {this.state.mode && (
-          <SliderRight
-            save={this.save}
-            mode={this.state.mode}
-            item={this.state.item}
-            categories={this.state.categories}
-            tags={this.state.tags}
-          />
-        )}
+        <ThemeContext.Provider value={value}>
+          {this.state.mode && <SliderRight />}
+        </ThemeContext.Provider>
         <Modal
           visible={this.state.commentVisible}
           onCancel={this.commentCancel}

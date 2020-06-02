@@ -1,10 +1,10 @@
 import React, { Fragment, Component } from "react"
-// import { connect } from "react-redux"
 import { Tabs } from "antd"
 import { CloseOutlined } from "@ant-design/icons"
 import ViewDetail from "./View/Detail.jsx"
 import EditDetail from "./Edit/Detail.jsx"
 import CreateDetail from "./Create/Detail.jsx"
+let ThemeContext = React.createContext({})
 
 export class GlobalTheSlider extends Component {
   constructor(props) {
@@ -24,16 +24,15 @@ export class GlobalTheSlider extends Component {
         child: [],
       },
     ]
-    tabsItem.find((item) => item.type.includes(mode)).child.push(item)
     this.state = {
       tabsItem: tabsItem,
-      activeKey: tabsItem[0].child[0].key,
+      activeKey: "",
       mode: this.props.mode,
       item: this.props.item,
     }
-    console.log(tabsItem, "tabsItemtabsItemtabsItem")
     this.renderChild = this.renderChild.bind(this)
   }
+  static contextType = ThemeContext
   onChange = (activeKey) => {
     this.setState({ activeKey })
   }
@@ -42,6 +41,7 @@ export class GlobalTheSlider extends Component {
       tabsItem = this.state.tabsItem
     tabsItem.find((item) => item.type.includes(mode)).child.push(item)
     this.setState({
+      mode: item.key,
       tabsItem: tabsItem,
     })
   }
@@ -63,13 +63,17 @@ export class GlobalTheSlider extends Component {
     })
   }
   render() {
-    console.log(this.state.tabsItem, "tabsItem")
+    let { mode = {}, item = {} } = this.context
+    console.log(mode, item)
+    let tabsItem = this.state.tabsItem
+    Object.values(item).length &&
+      tabsItem.find((item) => item.type.includes(mode)).child.push(item)
     return (
       <Fragment>
         <div
           className="global-slider"
           style={{
-            display: this.state.mode ? "block" : "none",
+            display: mode ? "block" : "none",
           }}
         >
           <CloseOutlined
@@ -83,7 +87,7 @@ export class GlobalTheSlider extends Component {
             onEdit={this.onEdit}
             className="slider-tabs"
           >
-            {this.state.tabsItem.map((tabs) =>
+            {tabsItem.map((tabs) =>
               tabs.child.map((item) => {
                 console.log(tabs.type)
                 if (tabs.type.includes("view")) {
@@ -136,12 +140,6 @@ export class GlobalTheSlider extends Component {
                 }
               })
             )}
-
-            {/* {Array.isArray(this.props.children)
-              ? this.props.children.map((child, key) => {
-                  return this.renderChild(child, key)
-                })
-              : this.props.children && this.renderChild(this.props.children, 1)} */}
           </Tabs>
         </div>
       </Fragment>
@@ -160,12 +158,3 @@ export class GlobalTheSlider extends Component {
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {}
-}
-const mapDispatchToProps = (dispatch) => {
-  return {}
-}
-
-// export default connect(mapStateToProps, mapDispatchToProps)(GlobalTheSlider)
