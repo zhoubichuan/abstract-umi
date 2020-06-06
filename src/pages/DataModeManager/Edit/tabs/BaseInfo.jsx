@@ -101,7 +101,7 @@ class BaseInfo extends Component {
         total: result.data,
         id: 0,
       })
-      message.success(this.state.isCreate ? "创建数据成功" : "更新数据成功")
+      message.success("更新数据成功")
       // this.getList()
     }
   }
@@ -120,11 +120,6 @@ class BaseInfo extends Component {
       this.save(null, params, null)
     }
   }
-  viewTabs() {
-    return (
-      !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
-    )
-  }
   handleCloseTabs() {}
   render() {
     const layout = {
@@ -142,57 +137,42 @@ class BaseInfo extends Component {
                 <Col span={12}>
                   <Form.Item label="中文名称" name="name">
                     {getFieldDecorator("name")(
-                      <Input
-                        disabled={this.viewTabs()}
-                        placeholder="请输入英文名称"
-                      />
+                      <Input placeholder="请输入英文名称" />
                     )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="英文名称">
                     {getFieldDecorator("nameEn")(
-                      <Input
-                        disabled={this.viewTabs()}
-                        placeholder="请输入英文名称"
-                      />
+                      <Input placeholder="请输入英文名称" />
                     )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="中文描述">
                     {getFieldDecorator("descript")(
-                      <Input.TextArea
-                        disabled={this.viewTabs()}
-                        placeholder="请输入中文描述"
-                      />
+                      <Input.TextArea placeholder="请输入中文描述" />
                     )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="英文描述">
                     {getFieldDecorator("descriptEn")(
-                      <Input.TextArea
-                        disabled={this.viewTabs()}
-                        placeholder="请输入英文描述"
-                      />
+                      <Input.TextArea placeholder="请输入英文描述" />
                     )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="内容">
                     {getFieldDecorator("content")(
-                      <Input.TextArea
-                        disabled={this.viewTabs()}
-                        placeholder="请输入内容"
-                      />
+                      <Input.TextArea placeholder="请输入内容" />
                     )}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="标签">
                     {getFieldDecorator("tag")(
-                      <Select disabled={this.viewTabs()}>
+                      <Select>
                         {this.state.tags.map((item) => (
                           <Select.Option key={item._id} value={item._id}>
                             {item.name}

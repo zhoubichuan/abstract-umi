@@ -73,6 +73,7 @@ class Detail extends Component {
             />
           </Tabs.TabPane>
           <Tabs.TabPane
+            disabled={true}
             className="common-tabpane"
             tab="数据模型项属性"
             key="attribute"
@@ -81,6 +82,7 @@ class Detail extends Component {
             <Attribute />
           </Tabs.TabPane>
           <Tabs.TabPane
+            disabled={true}
             className="common-tabpane"
             tab="内容编辑"
             key="content"
@@ -89,6 +91,7 @@ class Detail extends Component {
             <Editor />
           </Tabs.TabPane>
           <Tabs.TabPane
+            disabled={true}
             className="common-tabpane"
             tab="历史记录"
             key="history"

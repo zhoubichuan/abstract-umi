@@ -35,9 +35,9 @@ require("moment/locale/zh-cn.js")
 //     child: [],
 //   },
 // ]
-const tabsItem = {}
 export default class Article extends Component {
   state = {
+    tabsItem: {},
     categories: [],
     items: [],
     loading: false,
@@ -100,23 +100,51 @@ export default class Article extends Component {
       })
   }
   handleCreate = () => {
+    let itemValue = {
+      type: "create",
+      title: "创建",
+      key: "create",
+      item: { key: "create" },
+      categories: this.state.categories,
+      tags: this.state.tags,
+    }
+    let tabsItem = this.state.tabsItem
+    itemValue.key && (tabsItem[itemValue.key] = itemValue)
     this.setState({
-      mode: "create",
-      item: [],
+      tabsItem,
     })
   }
   handleEdit = (item) => {
+    let itemValue = {
+      type: "edit",
+      title: item.name,
+      key: "create",
+      item: item,
+      categories: this.state.categories,
+      tags: this.state.tags,
+    }
+    let tabsItem = this.state.tabsItem
+    itemValue.key && (tabsItem[itemValue.key] = itemValue)
     this.setState({
-      mode: "edit",
-      item,
+      tabsItem,
     })
   }
   handleView = (item) => {
     articleService.addPv(item._id).then((res) => {
       if (res.code == 0) {
+        let itemValue = {
+          type: "view",
+          title: item.name,
+          key: item._id,
+          item: item,
+          mode: this.state.mode,
+          categories: this.state.categories,
+          tags: this.state.tags,
+        }
+        let tabsItem = this.state.tabsItem
+        itemValue.key && (tabsItem[itemValue.key] = itemValue)
         this.setState({
-          mode: "view",
-          item: ((item.key = item._id), (item.title = item.name), item),
+          tabsItem,
         })
       } else {
         message.error(res.data)
@@ -441,16 +469,7 @@ export default class Article extends Component {
         })
       },
     }
-    let itemValue = {
-      type: "view",
-      title: this.state.item.name,
-      key: this.state.item._id,
-      item: this.state.item,
-      mode: this.state.mode,
-      categories: this.state.categories,
-      tags: this.state.tags,
-    }
-    itemValue.key && (tabsItem[itemValue.key] = itemValue)
+
     return (
       <div
         className="common-page"
@@ -500,7 +519,7 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        <ThemeContext.Provider value={tabsItem}>
+        <ThemeContext.Provider value={this.state.tabsItem}>
           <SliderRight />
         </ThemeContext.Provider>
         <Modal
