@@ -13,7 +13,7 @@ module.exports = app => {
     },
     articleId: { // 分类
       type: ObjectId,
-      ref: 'article',
+      ref: 'Article',
     },
     projectCategory: {
       type: String,

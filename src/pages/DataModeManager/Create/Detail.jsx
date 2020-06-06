@@ -1,9 +1,6 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
 import BaseInfo from "./tabs/BaseInfo.jsx"
-import Attribute from "./tabs/Attribute.jsx"
-import Editor from "./tabs/Editor.jsx"
-import History from "./tabs/History.jsx"
 class Detail extends Component {
   constructor(props) {
     super(props)
@@ -15,17 +12,7 @@ class Detail extends Component {
       isCreate: this.props.isCreate,
     }
   }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      viewVisible: nextProps.viewVisible,
-      isCreate: nextProps.isCreate,
-      editVisible: nextProps.editVisible,
-      item: nextProps.item,
-    })
-  }
-  // componentWillUnmount() {
-  //   this.props.form.resetFields()
-  // }
+
   onChange = () => {
     this.setState(this.state.item)
   }
@@ -73,27 +60,21 @@ class Detail extends Component {
             tab="数据模型项属性"
             key="attribute"
             closable={true}
-          >
-            <Attribute />
-          </Tabs.TabPane>
+          ></Tabs.TabPane>
           <Tabs.TabPane
             disabled={true}
             className="common-tabpane"
             tab="内容编辑"
             key="content"
             closable={true}
-          >
-            <Editor />
-          </Tabs.TabPane>
+          ></Tabs.TabPane>
           <Tabs.TabPane
             disabled={true}
             className="common-tabpane"
             tab="历史记录"
             key="history"
             closable={true}
-          >
-            <History />
-          </Tabs.TabPane>
+          ></Tabs.TabPane>
         </Tabs>
         <Col className="tabs-button">
           <Button type="primary">编辑</Button>

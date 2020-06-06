@@ -24,6 +24,19 @@ module.exports = class UploadController extends BaseController {
       url: '/api/uploads/' + filename,
     };
   }
+  async getById() {
+    const ctx = this.ctx;
+    let context = ctx.request.body;
+    try {
+      let result = await ctx.model.Upload.find(context)
+      ctx.body = {
+        code: 0,
+        data: result
+      };
+    } catch (err) {
+      throw err;
+    }
+  }
   async cteateContent() {
     const ctx = this.ctx;
     let context = ctx.request.body;
