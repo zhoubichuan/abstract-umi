@@ -19,8 +19,23 @@ import { SliderRight } from "./SliderRight.jsx"
 import { SearchForm } from "./SearchForm.jsx"
 import articleService from "../../service/article.jsx"
 import moment from "moment"
+import ThemeContext from "./ThemeContext.js"
 require("moment/locale/zh-cn.js")
-let ThemeContext = React.createContext()
+// const tabsItem = [
+//   {
+//     type: "view",
+//     child: [],
+//   },
+//   {
+//     type: "edit",
+//     child: [],
+//   },
+//   {
+//     type: "create",
+//     child: [],
+//   },
+// ]
+const tabsItem = {}
 export default class Article extends Component {
   state = {
     categories: [],
@@ -92,7 +107,7 @@ export default class Article extends Component {
   }
   handleEdit = (item) => {
     this.setState({
-      mode: "eidt",
+      mode: "edit",
       item,
     })
   }
@@ -264,7 +279,7 @@ export default class Article extends Component {
         title: "序号",
         dataIndex: "index",
         key: "index",
-        width: 100,
+        width: 90,
         sorter: (a, b) => a.index - b.index,
         fixed: "left",
       },
@@ -426,13 +441,16 @@ export default class Article extends Component {
         })
       },
     }
-    let value = {
+    let itemValue = {
+      type: "view",
+      title: this.state.item.name,
+      key: this.state.item._id,
       item: this.state.item,
       mode: this.state.mode,
       categories: this.state.categories,
       tags: this.state.tags,
     }
-    console.log(value)
+    itemValue.key && (tabsItem[itemValue.key] = itemValue)
     return (
       <div
         className="common-page"
@@ -482,8 +500,8 @@ export default class Article extends Component {
           pagination={this.state.pagination}
           rowSelection={rowSelection}
         />
-        <ThemeContext.Provider value={value}>
-          {this.state.mode && <SliderRight />}
+        <ThemeContext.Provider value={tabsItem}>
+          <SliderRight />
         </ThemeContext.Provider>
         <Modal
           visible={this.state.commentVisible}
