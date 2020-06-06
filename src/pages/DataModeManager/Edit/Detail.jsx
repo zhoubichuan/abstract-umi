@@ -44,11 +44,6 @@ class Detail extends Component {
       this.props.save(null, params, null)
     }
   }
-  viewTabs() {
-    return (
-      !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
-    )
-  }
   render() {
     const layout = {
       justify: "center",

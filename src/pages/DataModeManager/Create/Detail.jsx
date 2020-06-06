@@ -23,9 +23,9 @@ class Detail extends Component {
       item: nextProps.item,
     })
   }
-  componentWillUnmount() {
-    this.props.form.resetFields()
-  }
+  // componentWillUnmount() {
+  //   this.props.form.resetFields()
+  // }
   onChange = () => {
     this.setState(this.state.item)
   }
@@ -43,11 +43,6 @@ class Detail extends Component {
       params["id"] = this.state.item._id
       this.props.save(null, params, null)
     }
-  }
-  viewTabs() {
-    return (
-      !(this.state.isCreate || this.state.editVisible) || this.state.viewVisible
-    )
   }
   render() {
     const layout = {

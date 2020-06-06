@@ -22,21 +22,10 @@ export class GlobalTheSlider extends Component {
     this.setState({ activeKey })
   }
   handleCloseTabs = () => {
-    this.setState({
-      mode: "",
-    })
+    this.props.handleCloseTabs()
   }
   onEdit = (targetKey, action) => {
     this[action](targetKey)
-  }
-  remove = (targetKey) => {
-    let { activeKey } = this.state
-    let lastIndex
-    this.state.panes.forEach((pane, i) => {
-      if (pane.key === targetKey) {
-        lastIndex = i - 1
-      }
-    })
   }
   render() {
     let tabsItem = this.context
@@ -56,7 +45,8 @@ export class GlobalTheSlider extends Component {
             onChange={this.onChange}
             activeKey={
               this.state.activeKey ||
-              (Object.values(tabsItem)[0] && Object.values(tabsItem)[0].key)
+              (Object.values(tabsItem)[0] &&
+                Object.values(tabsItem)[Object.values(tabsItem).length - 1].key)
             }
             type="editable-card"
             onEdit={this.onEdit}

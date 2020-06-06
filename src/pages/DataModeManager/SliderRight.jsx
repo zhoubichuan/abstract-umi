@@ -3,7 +3,11 @@ import { GlobalTheSlider } from "./GlobalTheSlider.jsx"
 
 class TheSlider extends Component {
   render() {
-    return <GlobalTheSlider></GlobalTheSlider>
+    return (
+      <GlobalTheSlider
+        handleCloseTabs={this.props.handleCloseTabs}
+      ></GlobalTheSlider>
+    )
   }
 }
 

@@ -301,6 +301,11 @@ export default class Article extends Component {
       openUpdate: false,
     })
   }
+  handleCloseTabs = () => {
+    this.setState({
+      tabsItem: {},
+    })
+  }
   render() {
     let columns = [
       {
@@ -520,7 +525,7 @@ export default class Article extends Component {
           rowSelection={rowSelection}
         />
         <ThemeContext.Provider value={this.state.tabsItem}>
-          <SliderRight />
+          <SliderRight handleCloseTabs={this.handleCloseTabs} />
         </ThemeContext.Provider>
         <Modal
           visible={this.state.commentVisible}

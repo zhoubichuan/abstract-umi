@@ -185,7 +185,7 @@ class BaseInfo extends Component {
                 <Col span={12}>
                   <Form.Item label="分类">
                     {getFieldDecorator("category")(
-                      <Select disabled={this.viewTabs()}>
+                      <Select>
                         {this.state.categories.map((item) => (
                           <Select.Option key={item._id} value={item._id}>
                             {item.name}

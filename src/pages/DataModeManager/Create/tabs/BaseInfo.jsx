@@ -89,9 +89,7 @@ class BaseInfo extends Component {
         page: 1,
       })
     }
-    let result = await articleService[
-      this.state.isCreate ? "create" : "update"
-    ](filters)
+    let result = await articleService["create"](filters)
     if (result.code == 0) {
       this.setState({
         openAdd: false,
@@ -201,38 +199,6 @@ class BaseInfo extends Component {
                   </Form.Item>
                 </Col>
               </Collapse.Panel>
-              {/* {!this.state.isCreate && (
-                <Collapse.Panel header="编辑信息" key="2">
-                  <Col span={12}>
-                    <Form.Item label="更新者">
-                      {getFieldDecorator("updater")(
-                        <Input  placeholder="请输入更新者" />
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="创建者">
-                      {getFieldDecorator("creater")(
-                        <Input disabled placeholder="请输入创建者" />
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="更新时间">
-                      {getFieldDecorator("updateTime")(
-                        <Input disabled placeholder="更新时间" />
-                      )}
-                    </Form.Item>
-                  </Col>
-                  <Col span={12}>
-                    <Form.Item label="创建时间">
-                      {getFieldDecorator("creatTime")(
-                        <Input disabled placeholder="创建时间" />
-                      )}
-                    </Form.Item>
-                  </Col>
-                </Collapse.Panel>
-              )} */}
             </Collapse>
           </Row>
         </Form>

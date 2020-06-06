@@ -32,12 +32,13 @@ class BaseInfo extends Component {
           <Collapse defaultActiveKey={["base", "edit"]}>
             <Collapse.Panel header="基本信息" key="base">
               {baseInfoConfig.map((config, index) => {
+                console.log(config.name, item[config.name])
                 return (
                   <Col span={12} key={index}>
                     <Form.Item label={config.header} name={config.name}>
                       <span>
                         {["tag", "category"].includes(config.name)
-                          ? item[config.name.name]
+                          ? item[config.name].name
                           : item[config.name]}
                       </span>
                     </Form.Item>
