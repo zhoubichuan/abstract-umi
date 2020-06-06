@@ -1,7 +1,3 @@
-/**
- * Created by Administrator on 2018/5/15.
- */
-'use strict';
 module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;

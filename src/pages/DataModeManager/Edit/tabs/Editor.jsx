@@ -31,11 +31,8 @@ export default class Demo extends React.Component {
   }
   //创建任务
   getItem = () => {
-    const param = {
-      projectName: "asdfasd",
-    }
     axios
-      .post("http://127.0.0.1:7001/api/upload/getById", param)
+      .get("http://127.0.0.1:7001/api/upload/:5edb8b19fef257095c321b34")
       .then((res) => {
         console.log(res)
       })

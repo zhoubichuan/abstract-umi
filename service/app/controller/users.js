@@ -1,6 +1,5 @@
 'use strict';
 const BaseController = require('./base');
-
 class UsersController extends BaseController {
   async signup() {
     const {
