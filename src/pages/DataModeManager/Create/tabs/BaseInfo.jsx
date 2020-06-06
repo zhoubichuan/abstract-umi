@@ -139,16 +139,26 @@ class BaseInfo extends Component {
               <Collapse.Panel header="基本信息" key="1">
                 <Col span={12}>
                   <Form.Item label="中文名称" name="name">
-                    {getFieldDecorator("name")(
-                      <Input placeholder="请输入英文名称" />
-                    )}
+                    {getFieldDecorator("name", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "中文名称不能为空",
+                        },
+                      ],
+                    })(<Input placeholder="请输入英文名称" />)}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
                   <Form.Item label="英文名称">
-                    {getFieldDecorator("nameEn")(
-                      <Input placeholder="请输入英文名称" />
-                    )}
+                    {getFieldDecorator("nameEn", {
+                      rules: [
+                        {
+                          required: true,
+                          message: "英文名称不能为空",
+                        },
+                      ],
+                    })(<Input placeholder="请输入英文名称" />)}
                   </Form.Item>
                 </Col>
                 <Col span={12}>

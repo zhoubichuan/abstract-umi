@@ -23,9 +23,9 @@ class Detail extends Component {
       item: nextProps.item,
     })
   }
-  componentWillUnmount() {
-    this.props.form.resetFields()
-  }
+  // componentWillUnmount() {
+  //   this.props.form.resetFields()
+  // }
   onChange = () => {
     this.setState(this.state.item)
   }
