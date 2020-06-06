@@ -112,9 +112,12 @@ body,
     }
 
     .slider-tabpane {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+      padding-bottom: 50px;
+
+      .ant-tabs-top-content {
+        height: 100% !important;
+        flex-grow: inherit;
+      }
 
       .common-tabs {
         height: 100%;
@@ -126,7 +129,7 @@ body,
         }
 
         .common-tabpane {
-          height: 100%;
+          height: 75vh;
           display: flex;
           flex-direction: column;
           overflow: hidden auto;
@@ -135,8 +138,6 @@ body,
             height: 200px;
             flex-grow: 1;
             overflow: hidden auto;
-
-
           }
 
           .button {
@@ -147,7 +148,12 @@ body,
       }
 
       .tabs-button {
+        border-top: 1px solid gray;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
         height: 50px;
+        line-height: 50px;
         text-align: center;
       }
     }
