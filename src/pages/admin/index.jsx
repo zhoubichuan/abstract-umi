@@ -9,7 +9,7 @@ import DataModeManager from "../DataModeManager/DataModel.jsx"
 // import Article1 from "../article/article1.jsx"
 // import Article2 from "../article/article2.jsx"
 // import article from "../article/article.jsx"
-import TagManager from "../tagManager/tagManager.jsx"
+import TagManager from "../TagManager/tagManager.jsx"
 
 export default class Admin extends Component {
   render() {

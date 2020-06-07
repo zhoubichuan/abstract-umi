@@ -10,7 +10,16 @@ import {
   DatePicker,
 } from "antd"
 import { DownOutlined, UpOutlined } from "@ant-design/icons"
-
+// 城市选择
+import { Cascader } from "antd"
+//城市选择数据
+import ChooseCity from "./ChooseCity"
+// 日报时间选择器
+import DailyTimePicker from "../../components/TimePicker/DailyTimePicker"
+//周报时间选择器
+import WeeklyPicker from "../../components/TimePicker/WeeklyPicker"
+//月报时间选择器
+import MonthlyPicker from "../../components/TimePicker/MonthlyPicker"
 const { RangePicker } = DatePicker
 export class Search extends Component {
   constructor(props) {
@@ -75,7 +84,7 @@ export class Search extends Component {
               <Col span={8}>
                 <Form.Item label="分类">
                   {getFieldDecorator("category")(
-                    <Select>
+                    <Select placeholder="请选择分类">
                       {this.props.categories.map((item) => (
                         <Select.Option key={item._id} value={item._id}>
                           {item.name}

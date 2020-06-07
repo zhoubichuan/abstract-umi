@@ -11,6 +11,9 @@ module.exports = class TagController extends BaseController {
       this.error(error);
     }
   }
+  async new() {
+
+  }
   async create() {
     const {
       ctx,
@@ -39,6 +42,22 @@ module.exports = class TagController extends BaseController {
       this.error(error);
     }
   }
+  async show() {
+    const {
+      ctx
+    } = this
+    const id = ctx.params.id
+    try {
+      const result = await ctx.model.Tag.findById(id)
+      this.success(result)
+    } catch (err) {
+      this.error(err)
+    }
+
+  }
+  async edit() {
+
+  }
   async update() {
     const {
       ctx,
@@ -52,7 +71,7 @@ module.exports = class TagController extends BaseController {
       this.error(error);
     }
   }
-  async delete() {
+  async destroy() {
     const {
       ctx,
     } = this;

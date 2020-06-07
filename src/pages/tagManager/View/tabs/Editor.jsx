@@ -26,17 +26,6 @@ export default class Demo extends React.Component {
       isEdit: false,
     }
   }
-  componentDidMount() {
-    this.getItem()
-  }
-  //创建任务
-  getItem = () => {
-    axios
-      .get("http://127.0.0.1:7001/api/upload/5edb8b19fef257095c321b34")
-      .then((res) => {
-        console.log(res)
-      })
-  }
   //创建任务
   handleAddSubmit = () => {
     this.addFormData.props.form.validateFields((err, value) => {

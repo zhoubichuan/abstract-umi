@@ -15,7 +15,7 @@ module.exports = app => {
   router.post('/api/users/signin', controller.users.signin); // 用户登录
   router.get('/api/users/signout', controller.users.signout); // 用户退出
   router.resources('categories', '/api/categories', controller.categories); //分类
-  router.resources('tag', '/api/tag', controller.tag); //标签
+  router.resources('tagManager', '/api/tag', controller.tag); //标签
   router.resources('articles', '/api/articles', controller.articles); //文章
   router.post('/api/articles/search', controller.articles.search); //浏览
   router.get('/api/articles/pv/:id', controller.articles.addPv); //评论

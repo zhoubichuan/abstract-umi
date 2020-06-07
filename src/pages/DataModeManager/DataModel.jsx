@@ -21,20 +21,7 @@ import articleService from "../../service/article.jsx"
 import moment from "moment"
 import ThemeContext from "./ThemeContext.js"
 require("moment/locale/zh-cn.js")
-// const tabsItem = [
-//   {
-//     type: "view",
-//     child: [],
-//   },
-//   {
-//     type: "edit",
-//     child: [],
-//   },
-//   {
-//     type: "create",
-//     child: [],
-//   },
-// ]
+
 export default class Article extends Component {
   state = {
     tabsItem: {},
@@ -312,8 +299,7 @@ export default class Article extends Component {
         title: "序号",
         dataIndex: "index",
         key: "index",
-        width: 90,
-        sorter: (a, b) => a.index - b.index,
+        width: 60,
         fixed: "left",
       },
       {
