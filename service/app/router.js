@@ -10,7 +10,7 @@ module.exports = app => {
   } = app;
   router.post('/api/upload', controller.upload.index);
   router.post('/api/upload/cteateContent', controller.upload.cteateContent);
-  router.resources('/api/upload', controller.upload);
+  router.resources('uploadManager', '/api/upload', controller.upload);
   router.post('/api/users/signup', controller.users.signup); // 用户注册
   router.post('/api/users/signin', controller.users.signin); // 用户登录
   router.get('/api/users/signout', controller.users.signout); // 用户退出

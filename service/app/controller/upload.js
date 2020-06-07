@@ -25,12 +25,12 @@ module.exports = class UploadController extends BaseController {
     };
   }
   async show() {
-    const ctx = this.ctx;
-    let id = ctx.query.id;
+    const {
+      ctx
+    } = this.ctx;
+    const id = ctx.params.id
     try {
-      let result = await ctx.model.Upload.find({
-        _id: id
-      })
+      let result = await ctx.model.Upload.findById(id)
       ctx.body = {
         code: 0,
         data: result
