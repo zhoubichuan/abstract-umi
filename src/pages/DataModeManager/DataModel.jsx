@@ -557,6 +557,28 @@ class CommentModal extends Component {
       )
     }, 2000)
   }
+  remove = (targetKey) => {
+    const { tabsItem, activeKey } = this.state
+    let newActiveKey = activeKey
+    let lastIndex
+    tabsItem.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1
+      }
+    })
+    const newPanes = tabsItem.filter((pane) => pane.key !== targetKey)
+    if (newPanes.length && newActiveKey === targetKey) {
+      if (lastIndex >= 0) {
+        newActiveKey = newPanes[lastIndex].key
+      } else {
+        newActiveKey = newPanes[0].key
+      }
+    }
+    this.setState({
+      panes: newPanes,
+      activeKey: newActiveKey,
+    })
+  }
   render() {
     const { getFieldDecorator } = this.props.form
     const loadMore = this.state.start + this.state.limit <

@@ -35,17 +35,15 @@ module.exports = app => {
       type: Object,
       ref: 'User',
     },
-    creater: { // 创建人
-      type: ObjectId,
-      ref: 'User',
+    creater: {
+      type: String,
     },
     createTime: { // 创建时间
       type: Date,
       default: Date.now,
     },
-    updater: { // 申请人
-      type: ObjectId,
-      ref: 'User',
+    updater: {
+      type: String,
     },
     updateTime: { // 申请时间
       type: Date,

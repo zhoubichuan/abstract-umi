@@ -35,8 +35,10 @@ module.exports = class TagController extends BaseController {
       } else if (findNameEn) {
         this.error('标签英文名称已存在！');
       } else {
-        await ctx.model.Tag.create(tag);
-        this.success('保存标签成功');
+        tag.creater = this.user.username;
+        tag.updater = this.user.username;
+        let result = await ctx.model.Tag.create(tag);
+        this.success(result);
       }
     } catch (error) {
       this.error(error);

@@ -29,11 +29,11 @@ module.exports = class ArticlesController extends BaseController {
       ctx,
     } = this;
     let article = ctx.request.body;
-    article.creater = this.user;
-    article.updater = this.user;
+    article.creater = this.user.username;
+    article.updater = this.user.username;
     try {
-      article = await ctx.model.Article.create(article);
-      this.success('文章发表成功');
+      let result = await ctx.model.Article.create(article);
+      this.success(result);
     } catch (error) {
       this.error(error);
     }
@@ -46,8 +46,8 @@ module.exports = class ArticlesController extends BaseController {
     const article = ctx.request.body;
     article.updater = this.user;
     try {
-      await ctx.model.Article.findByIdAndUpdate(id, article);
-      this.success('更新成功');
+      let result = await ctx.model.Article.findByIdAndUpdate(id, article);
+      this.success(result);
     } catch (error) {
       this.error(error);
     }

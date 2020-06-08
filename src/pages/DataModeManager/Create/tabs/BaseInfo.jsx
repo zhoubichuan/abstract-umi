@@ -40,7 +40,7 @@ class BaseInfo extends Component {
         }
       })
     tagService
-      .list({
+      .searchTagList({
         current: 1,
         pageSize: 10,
       })

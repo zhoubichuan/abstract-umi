@@ -9,11 +9,10 @@ import ThemeContext from "./ThemeContext.js"
 export class GlobalTheSlider extends Component {
   constructor(props) {
     super(props)
-    let { mode, item } = props
     this.state = {
       activeKey: "",
-      mode: this.props.mode,
-      item: this.props.item,
+      tabsItem: this.context,
+      move: this.props.move,
     }
     this.renderChild = this.renderChild.bind(this)
   }
@@ -23,6 +22,28 @@ export class GlobalTheSlider extends Component {
   }
   handleCloseTabs = () => {
     this.props.handleCloseTabs()
+  }
+  remove = (targetKey) => {
+    const { panes, activeKey } = this.state
+    let newActiveKey = activeKey
+    let lastIndex
+    panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1
+      }
+    })
+    const newPanes = panes.filter((pane) => pane.key !== targetKey)
+    if (newPanes.length && newActiveKey === targetKey) {
+      if (lastIndex >= 0) {
+        newActiveKey = newPanes[lastIndex].key
+      } else {
+        newActiveKey = newPanes[0].key
+      }
+    }
+    this.setState({
+      panes: newPanes,
+      activeKey: newActiveKey,
+    })
   }
   onEdit = (targetKey, action) => {
     this[action](targetKey)
