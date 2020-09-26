@@ -22,6 +22,5 @@ module.exports = appInfo => {
   config.cors = {
     credentials: true,
   };
-
   return config;
 };

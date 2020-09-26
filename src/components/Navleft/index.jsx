@@ -24,18 +24,6 @@ class Navleft extends Component {
             数据模型项目
           </Link>
         </Menu.Item>
-        <Menu.Item key="/admin/article" title="文章管理">
-          <Link to="/admin/article">
-            <Icon type="book" />
-            文章管理
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/admin/TagManager" title="标签管理">
-          <Link to="/admin/TagManager">
-            <Icon type="book" />
-            标签管理
-          </Link>
-        </Menu.Item>
         <SubMenu
           title={
             <span className="submenu-title-wrapper">
@@ -54,6 +42,27 @@ class Navleft extends Component {
             <Link to="/admin/relationShip">
               <Icon type="book" />
               关系实体
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="/admin/relationShip">
+            <Link to="/admin/relationShip">
+              <Icon type="book" />
+              数据实例
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          title={
+            <span className="submenu-title-wrapper">
+              <Icon type="setting" />
+              系统详情管理
+            </span>
+          }
+        >
+          <Menu.Item key="/admin/TagManager" title="标签管理">
+            <Link to="/admin/TagManager">
+              <Icon type="book" />
+              标签管理
             </Link>
           </Menu.Item>
         </SubMenu>

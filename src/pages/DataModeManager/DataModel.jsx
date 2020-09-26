@@ -18,11 +18,12 @@ import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from "@ant-design/icons"
 import { SliderRight } from "./SliderRight.jsx"
 import { SearchForm } from "./SearchForm.jsx"
 import articleService from "../../service/article.jsx"
+// import ComButton from "./Button.jsx"
 import moment from "moment"
 import ThemeContext from "./ThemeContext.js"
 require("moment/locale/zh-cn.js")
 
-export default class Article extends Component {
+export default class DataModel extends Component {
   state = {
     tabsItem: {},
     categories: [],
@@ -453,6 +454,38 @@ export default class Article extends Component {
         },
       },
     ]
+    let dataList = [
+      {
+        attrs: {
+          type: "primary",
+          icon: "plus-circle",
+        },
+        click: this.handleCreate,
+        text: "创建",
+      },
+      {
+        attrs: {
+          type: "danger",
+          icon: "minus-circle",
+        },
+        click: this.handleRemove,
+        text: "删除",
+      },
+      {
+        attrs: {
+          type: "primary",
+          icon: "plus-circle",
+        },
+        text: "导出表格",
+      },
+      {
+        attrs: {
+          type: "primary",
+          icon: "plus-circle",
+        },
+        text: "预发布",
+      },
+    ]
     let rowSelection = {
       onChange: (selectedRowkKeys) => {
         this.setState({
@@ -476,7 +509,7 @@ export default class Article extends Component {
           type={1}
           className={"search"}
         />
-        <Button.Group className={"button"}>
+        {/* <Button.Group className={"button"}>
           <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
             创建
           </Button>
@@ -500,7 +533,8 @@ export default class Article extends Component {
           >
             导出表格
           </Button>
-        </Button.Group>
+        </Button.Group> */}
+        <SeButton data={dataList}></SeButton>
         <Table
           className={"table"}
           loading={this.state.loading}
@@ -526,6 +560,22 @@ export default class Article extends Component {
           />
         </Modal>
       </div>
+    )
+  }
+}
+
+class SeButton extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    console.log(this.props.data)
+    return (
+      <Button.Group>
+        {this.props.data.forEach((item) => (
+          <Button {...item.attrs}>{item.text}</Button>
+        ))}
+      </Button.Group>
     )
   }
 }

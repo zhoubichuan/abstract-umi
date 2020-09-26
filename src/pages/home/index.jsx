@@ -5,6 +5,7 @@ import service from "../../service/user.jsx"
 export default class Home extends Component {
   handleSubmit = (isSignUp, user) => {
     service[isSignUp ? "signup" : "signin"](user).then((res) => {
+      debugger
       if (res.code == 0) {
         if (!isSignUp) {
           sessionStorage.setItem("username", res.data.user.username)

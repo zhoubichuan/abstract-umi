@@ -21,7 +21,7 @@ import { Link } from "react-router-dom"
 import moment from "moment"
 require("moment/locale/zh-cn.js")
 
-export default class Article extends Component {
+export default class DataModel extends Component {
   state = {
     categories: [],
     items: [],
