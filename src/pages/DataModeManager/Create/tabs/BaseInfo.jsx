@@ -161,15 +161,15 @@ class BaseInfo extends Component {
                     })(<Input placeholder="请输入英文名称" />)}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
-                  <Form.Item label="中文描述">
+                <Col span={24}>
+                  <Form.Item label="中文描述" labelCol={{ span: 2 }}>
                     {getFieldDecorator("descript")(
                       <Input.TextArea placeholder="请输入中文描述" />
                     )}
                   </Form.Item>
                 </Col>
-                <Col span={12}>
-                  <Form.Item label="英文描述">
+                <Col span={24}>
+                  <Form.Item label="英文描述" labelCol={{ span: 2 }}>
                     {getFieldDecorator("descriptEn")(
                       <Input.TextArea placeholder="请输入英文描述" />
                     )}

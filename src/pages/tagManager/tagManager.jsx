@@ -389,47 +389,53 @@ export default class Article extends Component {
           padding: 8,
         }}
       >
-        <SearchForm
-          search={this.handleSearch}
-          categories={this.state.categories}
-          close={this.close}
-          type={1}
-          className={"search"}
-        />
-        <Button.Group className={"button"}>
-          <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
-            创建
-          </Button>
-          <Button
-            style={{
-              marginLeft: 5,
-            }}
-            type="danger"
-            icon="minus-circle"
-            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-          >
-            删除
-          </Button>
-          <Button
-            style={{
-              marginLeft: 5,
-            }}
-            type="danger"
-            icon="download"
-            className="export-table"
-          >
-            导出表格
-          </Button>
-        </Button.Group>
-        <Table
-          className={"table"}
-          loading={this.state.loading}
-          columns={columns}
-          scroll={{ x: 1700 }}
-          dataSource={this.state.items}
-          pagination={this.state.pagination}
-          rowSelection={rowSelection}
-        />
+        <div className="common-content">
+          <SearchForm
+            search={this.handleSearch}
+            categories={this.state.categories}
+            close={this.close}
+            type={1}
+            className={"search"}
+          />
+          <Button.Group className={"common-button"}>
+            <Button
+              type="primary"
+              icon="plus-circle"
+              onClick={this.handleCreate}
+            >
+              创建
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              删除
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="download"
+              className="export-table"
+            >
+              导出表格
+            </Button>
+          </Button.Group>
+          <Table
+            className={"common-table"}
+            loading={this.state.loading}
+            columns={columns}
+            scroll={{ x: 1700 }}
+            dataSource={this.state.items}
+            pagination={this.state.pagination}
+            rowSelection={rowSelection}
+          />
+        </div>
         <ThemeContext.Provider value={this.state.tabsItem}>
           <SliderRight handleCloseTabs={this.handleCloseTabs} />
         </ThemeContext.Provider>

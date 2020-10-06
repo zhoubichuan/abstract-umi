@@ -7,10 +7,12 @@ class Navleft extends Component {
   render() {
     return (
       <Menu
+        theme="dark"
         mode="inline"
         theme="light"
         onClick={this.handleClick}
         defaultSelectedKeys={[window.location.hash.slice(1)]}
+        defaultOpenKeys={[window.location.hash.slice(1)]}
       >
         <Menu.Item key="/admin" title="首页">
           <Link to="/admin">
@@ -32,19 +34,19 @@ class Navleft extends Component {
             </span>
           }
         >
-          <Menu.Item key="/admin/dataModeManager">
+          <Menu.Item key="/admin/dataModeManager" title="数据模型">
             <Link to="/admin/dataModeManager">
               <Icon type="book" />
               数据模型
             </Link>
           </Menu.Item>
-          <Menu.Item key="/admin/relationShip">
+          <Menu.Item key="/admin/relationShip" title="关系实体">
             <Link to="/admin/relationShip">
               <Icon type="book" />
               关系实体
             </Link>
           </Menu.Item>
-          <Menu.Item key="/admin/dataInstance">
+          <Menu.Item key="/admin/dataInstance" title="数据实例">
             <Link to="/admin/dataInstance">
               <Icon type="book" />
               数据实例

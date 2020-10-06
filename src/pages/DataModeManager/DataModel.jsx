@@ -454,38 +454,6 @@ export default class DataModel extends Component {
         },
       },
     ]
-    let dataList = [
-      {
-        attrs: {
-          type: "primary",
-          icon: "plus-circle",
-        },
-        click: this.handleCreate,
-        text: "创建",
-      },
-      {
-        attrs: {
-          type: "danger",
-          icon: "minus-circle",
-        },
-        click: this.handleRemove,
-        text: "删除",
-      },
-      {
-        attrs: {
-          type: "primary",
-          icon: "plus-circle",
-        },
-        text: "导出表格",
-      },
-      {
-        attrs: {
-          type: "primary",
-          icon: "plus-circle",
-        },
-        text: "预发布",
-      },
-    ]
     let rowSelection = {
       onChange: (selectedRowkKeys) => {
         this.setState({
@@ -502,48 +470,106 @@ export default class DataModel extends Component {
           padding: 8,
         }}
       >
-        <SearchForm
-          search={this.handleSearch}
-          categories={this.state.categories}
-          close={this.close}
-          type={1}
-          className={"search"}
-        />
-        {/* <Button.Group className={"button"}>
-          <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
-            创建
-          </Button>
-          <Button
-            style={{
-              marginLeft: 5,
-            }}
-            type="danger"
-            icon="minus-circle"
-            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-          >
-            删除
-          </Button>
-          <Button
-            style={{
-              marginLeft: 5,
-            }}
-            type="danger"
-            icon="download"
-            className="export-table"
-          >
-            导出表格
-          </Button>
-        </Button.Group> */}
-        <SeButton data={dataList}></SeButton>
-        <Table
-          className={"table"}
-          loading={this.state.loading}
-          columns={columns}
-          scroll={{ x: 1700 }}
-          dataSource={this.state.items}
-          pagination={this.state.pagination}
-          rowSelection={rowSelection}
-        />
+        <div className={"common-content"}>
+          {/* 搜索组件 */}
+          <SearchForm
+            className={"common-search"}
+            search={this.handleSearch}
+            categories={this.state.categories}
+            close={this.close}
+            type={1}
+          />
+          {/* 按钮组 */}
+          <Button.Group className={"common-button"}>
+            <Button
+              type="primary"
+              icon="plus-circle"
+              onClick={this.handleCreate}
+            >
+              创建
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              删除
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              预发布
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              已发布
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              修订
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              失效
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="minus-circle"
+              onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
+            >
+              作废
+            </Button>
+            <Button
+              style={{
+                marginLeft: 5,
+              }}
+              type="danger"
+              icon="download"
+              className="export-table"
+            >
+              导出表格
+            </Button>
+          </Button.Group>
+          {/* 表格部分 */}
+          <Table
+            className={"common-table"}
+            loading={this.state.loading}
+            columns={columns}
+            scroll={{ x: 1700 }}
+            dataSource={this.state.items}
+            pagination={this.state.pagination}
+            rowSelection={rowSelection}
+          />
+        </div>
         <ThemeContext.Provider value={this.state.tabsItem}>
           <SliderRight handleCloseTabs={this.handleCloseTabs} />
         </ThemeContext.Provider>
