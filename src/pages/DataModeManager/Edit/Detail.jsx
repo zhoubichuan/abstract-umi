@@ -4,9 +4,10 @@ import BaseInfo from "./tabs/BaseInfo.jsx"
 import Attribute from "./tabs/Attribute.jsx"
 import Editor from "./tabs/Editor.jsx"
 import History from "./tabs/History.jsx"
+import File from "./tabs/File.jsx"
 class Detail extends Component {
   constructor(props) {
-    super(props)
+    super()
     this.state = {
       activeKey: "baseInfo",
       viewVisible: this.props.viewVisible,
@@ -90,6 +91,14 @@ class Detail extends Component {
             closable={true}
           >
             <History />
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            className="common-tabpane"
+            tab="上传下载"
+            key="down"
+            closable={true}
+          >
+            <File />
           </Tabs.TabPane>
         </Tabs>
         <Col className="tabs-button">

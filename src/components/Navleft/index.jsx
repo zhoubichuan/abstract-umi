@@ -35,7 +35,7 @@ class Navleft extends Component {
           <Menu.Item key="/admin/dataModeManager">
             <Link to="/admin/dataModeManager">
               <Icon type="book" />
-              数据模型项目
+              数据模型
             </Link>
           </Menu.Item>
           <Menu.Item key="/admin/relationShip">
@@ -44,8 +44,8 @@ class Navleft extends Component {
               关系实体
             </Link>
           </Menu.Item>
-          <Menu.Item key="/admin/relationShip">
-            <Link to="/admin/relationShip">
+          <Menu.Item key="/admin/dataInstance">
+            <Link to="/admin/dataInstance">
               <Icon type="book" />
               数据实例
             </Link>
