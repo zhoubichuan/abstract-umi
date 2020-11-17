@@ -415,16 +415,6 @@ export default class Article extends Component {
             >
               删除
             </Button>
-            <Button
-              style={{
-                marginLeft: 5,
-              }}
-              type="danger"
-              icon="download"
-              className="export-table"
-            >
-              导出表格
-            </Button>
           </Button.Group>
           <Table
             className={"common-table"}

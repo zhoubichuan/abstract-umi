@@ -20,7 +20,7 @@ export default class Home extends Component {
     return (
       <div className="home-page">
         <div className="login-form">
-          <h1>欢迎光临我的博客</h1>
+          <h1>欢迎光临数据管理系统</h1>
           <WrappedUserForm onSubmit={this.handleSubmit} />
         </div>
       </div>

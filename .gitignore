@@ -1,4 +1,8 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+.idea
+node_modules
+dist
+bower_components
+/.vscode
 
 # dependencies
 /node_modules
