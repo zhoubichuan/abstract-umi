@@ -33,7 +33,6 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewire-less": "^2.1.1",
     "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
@@ -55,6 +54,7 @@
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.13.0",
+    "braft-convert": "^2.3.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "cross-env": "^7.0.2",
@@ -70,6 +70,7 @@
     "html-webpack-externals-plugin": "^3.8.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
+    "immutable": "^4.0.0-rc.12",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "lint-staged": "^10.0.8",
@@ -80,6 +81,7 @@
     "postcss-safe-parser": "^4.0.2",
     "prettier": "^1.19.1",
     "purgecss-webpack-plugin": "^2.1.0",
+    "react-app-rewire-less": "^2.1.1",
     "sass-loader": "^8.0.2",
     "speed-measure-webpack-plugin": "^1.3.1",
     "style-loader": "^1.1.3",

@@ -1,5 +1,4 @@
 /**
- * @author：姚嘉东
  * @description：路由配置入口文件
  * @date：2020/3/17
  */
@@ -103,9 +102,34 @@ export const routesConfig: RouteConfigDeclaration[] = [
               component: React.lazy(() =>
                   import(
                       /* webpackChunkName: "Admin" */
-                      '@src/views/admin/Admin'
+                      '@src/pages/welcome/index.jsx'
                   ),
                 ),
+                routes: [
+                  {
+                      path: '/admin/category',
+                      isDynamic: true,
+                      component: React.lazy(() =>
+                          import(/* webpackChunkName: "child-one" */ '@src/pages/category/index.jsx'),
+                      ),
+                  },
+                  {
+                      path: '/admin/dataModeManager',
+                      isRedirect: true,
+                      isDynamic: true,
+                      component: React.lazy(() =>
+                          import(/* webpackChunkName: "child-two" */ '@src/pages/DataModeManager/DataModel.jsx'),
+                      ),
+                  },
+                  {
+                    path: '/admin/TagManager',
+                    isRedirect: true,
+                    isDynamic: true,
+                    component: React.lazy(() =>
+                        import(/* webpackChunkName: "child-two" */ '@src/pages/TagManager/tagManager.jsx'),
+                    ),
+                },
+              ],
             },
             {
                 path: '/login',
