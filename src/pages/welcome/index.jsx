@@ -52,7 +52,7 @@ export default class Welcome extends Component {
         return (
             <div>
                 <h1>我的工作记录</h1>
-                <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+                {/* <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} /> */}
             </div>
         );
     }

@@ -108,6 +108,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
     "cross-env": "^7.0.2",
+    "draftjs-utils": "^0.10.2",
     "events": "^3.1.0",
     "history": "^4.10.1",
     "lodash": "^4.17.15",
