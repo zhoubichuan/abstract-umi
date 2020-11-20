@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import './App.less';
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -39,8 +40,8 @@ class App extends React.Component {
       collapsed: !this.state.collapsed,
     });
   };
-  handleLinkToRegisterBtnClick = () => {
-    this.props.history.push('/category');
+  handleLinkToRegisterBtnClick = (route) => {
+    this.props.history.push(`/${route}`);
 };
   render() {
     const routes = renderAllRoutes(this.props.routes);
@@ -54,19 +55,23 @@ class App extends React.Component {
                 theme="light"
                 onClick={this.handleClick}
                 defaultSelectedKeys={[window.location.hash.slice(1)]}
-                defaultOpenKeys={[window.location.hash.slice(1)]}
             >
-                <Menu.Item key="/admin" title="首页">
-                    <Link to="/admin">
-                        <Icon type="home" />
-                        首页
-                    </Link>
+                <Menu.Item 
+                key="/admin" 
+                title="首页"
+                icon={<UserOutlined />}
+                onClick={() => this.handleLinkToRegisterBtnClick('admin')}>
+                    首页
                 </Menu.Item>
-                <Menu.Item key="/category" title="数据模型项目" onClick={this.handleLinkToRegisterBtnClick}>
-                  <Icon type="bars" />
+                <Menu.Item 
+                key="/category" 
+                title="数据模型项目"
+                icon={<VideoCameraOutlined />}
+                onClick={() => this.handleLinkToRegisterBtnClick('category')}>
                   数据模型项目
                 </Menu.Item>
                 <SubMenu
+                  icon={<UploadOutlined />}
                     title={
                         <span className="submenu-title-wrapper">
                             <Icon type="setting" />
@@ -74,19 +79,28 @@ class App extends React.Component {
                         </span>
                     }
                 >
-                    <Menu.Item key="/dataModeManager" title="数据模型">
+                    <Menu.Item 
+                    key="/dataModeManager" 
+                    title="数据模型"
+                    onClick={() => this.handleLinkToRegisterBtnClick('dataModeManager')}>
                         <Link to="/dataModeManager">
                             <Icon type="book" />
                             数据模型
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/relationShip" title="关系实体">
+                    <Menu.Item 
+                    key="/relationShip" 
+                    title="关系实体"
+                    onClick={() => this.handleLinkToRegisterBtnClick('relationShip')}>
                         <Link to="/relationShip">
                             <Icon type="book" />
                             关系实体
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="/dataInstance" title="数据实例">
+                    <Menu.Item 
+                    key="/dataInstance" 
+                    title="数据实例"
+                    onClick={() => this.handleLinkToRegisterBtnClick('dataInstance')}>
                         <Link to="/dataInstance">
                             <Icon type="book" />
                             数据实例
