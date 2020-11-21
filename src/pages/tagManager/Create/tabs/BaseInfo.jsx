@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Collapse, Input, Button, Form, Select, Col, Row, Upload, message } from 'antd';
-import categoryService from '@src/services/category.jsx';
-import tagService from '@src/services/tag.jsx';
+import categoryService from '@src/services/category';
+import tagService from '@src/services/tag';
 class BaseInfo extends Component {
     constructor(props) {
         super(props);

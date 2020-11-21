@@ -15,8 +15,8 @@ import {
     Modal,
     Card,
 } from 'antd';
-import articleService from '@src/service/article.jsx';
-import categoryService from '@src/service/category.jsx';
+import articleService from '@src/service/article';
+import categoryService from '@src/service/category';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 require('moment/locale/zh-cn.js');
@@ -147,6 +147,10 @@ export default class DataModel extends Component {
             }
         });
     };
+    cancel = e => {
+        console.log(e);
+        message.error('Click on No');
+    };
     render() {
         const columns = [
             {
@@ -222,8 +226,14 @@ export default class DataModel extends Component {
                             >
                                 评论
                             </Button>
-                            <Popconfirm onConfirm={() => this.remove(record._id)}>
-                                <Button icon="delete" type="danger" style={{ marginLeft: 5 }}>
+                            <Popconfirm
+                                title="Are you sure to delete this task?"
+                                onConfirm={() => this.remove(record._id)}
+                                onCancel={this.cancel}
+                                okText="Yes"
+                                cancelText="No"
+                            >
+                                <Button icon="delete" type="primary" style={{ marginLeft: 5 }}>
                                     删除
                                 </Button>
                             </Popconfirm>
@@ -248,7 +258,7 @@ export default class DataModel extends Component {
                                 </Button>
                                 <Button
                                     style={{ marginLeft: 5 }}
-                                    type="danger"
+                                    type="primary"
                                     icon="minus-circle"
                                     onClick={() => this.remove(this.state.selectedRowkKeys)}
                                 >
@@ -275,12 +285,12 @@ export default class DataModel extends Component {
                         onOk={this.editOk}
                         destroyOnClose
                     >
-                        <WrappedEditModal
+                        {/* <WrappedEditModal
                             wrappedComponentRef={inst => (this.editform = inst)}
                             isCreate={this.state.isCreate}
                             item={this.state.item}
                             categories={this.state.categories}
-                        />
+                        /> */}
                     </Modal>
                     <Modal
                         visible={this.state.viewVisible}
@@ -288,7 +298,7 @@ export default class DataModel extends Component {
                         onCancel={this.viewCancel}
                         destroyOnClose
                     >
-                        <WrappedViewModal item={this.state.item} />
+                        {/* <WrappedViewModal item={this.state.item} /> */}
                     </Modal>
                     <Modal
                         visible={this.state.commentVisible}
@@ -296,11 +306,11 @@ export default class DataModel extends Component {
                         onOk={this.commentOk}
                         destroyOnClose
                     >
-                        <WrappedCommentModal
+                        {/* <WrappedCommentModal
                             wrappedComponentRef={inst => (this.commentForm = inst)}
                             item={this.state.item}
                             deleteComment={this.deleteComment}
-                        />
+                        /> */}
                     </Modal>
                 </Col>
             </Row>
@@ -309,43 +319,40 @@ export default class DataModel extends Component {
 }
 class EditModal extends Component {
     render() {
-        const { getFieldDecorator } = this.props.form;
-        debugger;
         return (
             <Form>
-                <Form.Item>
-                    {getFieldDecorator('category', {
-                        initialValue: this.props.isCreate
-                            ? this.props.categories[0]._id
-                            : this.props.item._id,
-                        rules: [{ required: true, message: '请输入标题' }],
-                    })(
-                        <Select>
-                            {this.props.categories.map(item => (
-                                <Select.Option key={item._id} value={item._id}>
-                                    {item.name}
-                                </Select.Option>
-                            ))}
-                        </Select>,
-                    )}
+                <Form.Item
+                    name="category"
+                    initialValue={
+                        this.props.isCreate ? this.props.categories[0]._id : this.props.item._id
+                    }
+                    rules={[{ required: true, message: '请输入标题' }]}
+                >
+                    <Select>
+                        {this.props.categories.map(item => (
+                            <Select.Option key={item._id} value={item._id}>
+                                {item.name}
+                            </Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('title', {
-                        initialValue: this.props.isCreate ? '' : this.props.item.title,
-                        rules: [{ required: true, message: '请输入标题' }],
-                    })(<Input placeholder="请输入标题" />)}
+                <Form.Item
+                    name="title"
+                    initialValue={this.props.isCreate ? '' : this.props.item.title}
+                    rules={[{ required: true, message: '请输入标题' }]}
+                >
+                    <Input placeholder="请输入标题" />
                 </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('content', {
-                        initialValue: this.props.isCreate ? '' : this.props.item.content,
-                        rules: [{ required: true, message: '请输入内容' }],
-                    })(<Input.TextArea placeholder="请输入内容" />)}
+                <Form.Item
+                    name="content"
+                    initialValue={this.props.isCreate ? '' : this.props.item.content}
+                    rules={[{ required: true, message: '请输入标题' }]}
+                >
+                    <Input.TextArea placeholder="请输入内容" />
                 </Form.Item>
                 {!this.isCreate && (
-                    <Form.Item>
-                        {getFieldDecorator('id', {
-                            initialValue: this.props.item._id,
-                        })(<Input type="hidden" />)}
+                    <Form.Item name="id" initialValue={this.props.item._id}>
+                        <Input type="hidden" />
                     </Form.Item>
                 )}
             </Form>
@@ -407,14 +414,16 @@ class CommentModal extends Component {
                         loading={this.state.loading}
                         dataSource={this.state.comments}
                         loadMore={loadMore}
-                        renderItem={item => (
+                        renderItem={(item, index) => (
                             <List.Item
+                                key={index}
                                 actions={[
                                     <Button
+                                        key={index}
                                         onClick={() =>
                                             this.props.deleteComment(this.props.item._id, item._id)
                                         }
-                                        type="danger"
+                                        type="primary"
                                         icon="delete"
                                     >
                                         删除
@@ -437,6 +446,3 @@ class CommentModal extends Component {
         );
     }
 }
-const WrappedEditModal = Form.create()(EditModal);
-const WrappedViewModal = Form.create()(ViewModal);
-const WrappedCommentModal = Form.create()(CommentModal);

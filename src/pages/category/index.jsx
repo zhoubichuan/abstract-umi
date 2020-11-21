@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Table, Button, Modal, message, Popconfirm, Input, Form } from 'antd';
-import categoryService from '@src/services/category.jsx';
+import categoryService from '@src/services/category';
 import moment from 'moment';
 require('moment/locale/zh-cn.js');
 

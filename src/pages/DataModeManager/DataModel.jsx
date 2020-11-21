@@ -17,7 +17,7 @@ import {
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import { SliderRight } from './SliderRight.jsx';
 import { SearchForm } from './SearchForm.jsx';
-import articleService from '@src/services/article.jsx';
+import articleService from '@src/services/article';
 // import ComButton from "./Button.jsx"
 import moment from 'moment';
 import ThemeContext from './ThemeContext.js';

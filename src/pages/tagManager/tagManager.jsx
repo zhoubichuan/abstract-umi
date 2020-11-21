@@ -17,7 +17,7 @@ import {
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import { SliderRight } from './SliderRight.jsx';
 import { SearchForm } from './SearchForm.jsx';
-import tagService from '@src/services/tag.jsx';
+import tagService from '@src/services/tag';
 import moment from 'moment';
 import ThemeContext from './ThemeContext.js';
 require('moment/locale/zh-cn.js');
