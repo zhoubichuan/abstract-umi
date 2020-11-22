@@ -20,7 +20,7 @@ import { SearchForm } from './SearchForm.jsx';
 import tagService from '@src/services/tag';
 import moment from 'moment';
 import ThemeContext from './ThemeContext.js';
-require('moment/locale/zh-cn.js');
+// require('moment/locale/zh-cn.js');
 
 export default class Article extends Component {
     state = {
@@ -489,14 +489,16 @@ class CommentModal extends Component {
                         loading={this.state.loading}
                         dataSource={this.state.comments}
                         loadMore={loadMore}
-                        renderItem={item => (
+                        renderItem={(item, index) => (
                             <List.Item
+                                key={index}
                                 actions={[
                                     <Button
+                                        key={index}
                                         onClick={() =>
                                             this.props.deleteComment(this.props.item._id, item._id)
                                         }
-                                        type="danger"
+                                        type="primary"
                                         icon="delete"
                                     >
                                         删除

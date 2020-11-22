@@ -19,7 +19,7 @@ import articleService from '@src/service/article';
 import categoryService from '@src/service/category';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-require('moment/locale/zh-cn.js');
+// require('moment/locale/zh-cn.js');
 
 export default class DataModel extends Component {
     state = {
@@ -285,12 +285,12 @@ export default class DataModel extends Component {
                         onOk={this.editOk}
                         destroyOnClose
                     >
-                        {/* <WrappedEditModal
+                        <EditModal
                             wrappedComponentRef={inst => (this.editform = inst)}
                             isCreate={this.state.isCreate}
                             item={this.state.item}
                             categories={this.state.categories}
-                        /> */}
+                        />
                     </Modal>
                     <Modal
                         visible={this.state.viewVisible}
@@ -298,7 +298,7 @@ export default class DataModel extends Component {
                         onCancel={this.viewCancel}
                         destroyOnClose
                     >
-                        {/* <WrappedViewModal item={this.state.item} /> */}
+                        <ViewModal item={this.state.item} />
                     </Modal>
                     <Modal
                         visible={this.state.commentVisible}
@@ -306,11 +306,11 @@ export default class DataModel extends Component {
                         onOk={this.commentOk}
                         destroyOnClose
                     >
-                        {/* <WrappedCommentModal
+                        <CommentModal
                             wrappedComponentRef={inst => (this.commentForm = inst)}
                             item={this.state.item}
                             deleteComment={this.deleteComment}
-                        /> */}
+                        />
                     </Modal>
                 </Col>
             </Row>

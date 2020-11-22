@@ -113,7 +113,7 @@ export const routesConfig: RouteConfigDeclaration[] = [
               component: React.lazy(() =>
                   import(
                       /* webpackChunkName: "login" */
-                      '@src/pages/DataModeManager/DataModel.jsx'
+                      '@src/pages/category/index.jsx'
                   ),  
               ),
             },

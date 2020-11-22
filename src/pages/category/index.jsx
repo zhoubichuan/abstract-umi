@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col, Table, Button, Modal, message, Popconfirm, Input, Form } from 'antd';
 import categoryService from '@src/services/category';
 import moment from 'moment';
-require('moment/locale/zh-cn.js');
+// require('moment/locale/zh-cn.js');
 
 export default class Category extends Component {
     state = {
@@ -162,7 +162,7 @@ export default class Category extends Component {
                                 title="Are you sure？"
                                 onConfirm={() => this.remove(record._id)}
                             >
-                                <Button style={{ marginLeft: 10 }} type="danger">
+                                <Button style={{ marginLeft: 10 }} type="primary">
                                     删除
                                 </Button>
                             </Popconfirm>
@@ -218,7 +218,7 @@ export default class Category extends Component {
                     closable
                     destroyOnClose
                 >
-                    <WrappedEditModal
+                    <EditModal
                         wrappedComponentRef={inst => (this.editform = inst)}
                         isCreate={this.state.isCreate}
                         item={this.state.item}
@@ -230,46 +230,35 @@ export default class Category extends Component {
 }
 class EditModal extends Component {
     render() {
-        const { getFieldDecorator } = this.props.form;
         return (
             <Form>
-                <Form.Item>
-                    {getFieldDecorator('name', {
-                        intialValue: this.props.isCreate ? '' : this.props.item.name,
-                        rules: [{ required: true, message: '请输入分类名称' }],
-                    })(<Input placeholder="请输入分类名称 " />)}
+                <Form.Item
+                    name="name"
+                    intialValue={this.props.isCreate ? '' : this.props.item.name}
+                    rules={[{ required: true, message: '请输入分类名称' }]}
+                >
+                    <Input placeholder="请输入分类名称 " />
                 </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('tags', {
-                        initialValue: this.props.isCreate ? '' : this.props.item.tags,
-                        rules: [
-                            {
-                                required: true,
-                                message: '请输入标签',
-                            },
-                        ],
-                    })(<Input placeholder="请输入标签" />)}
+                <Form.Item
+                    name="tags"
+                    intialValue={this.props.isCreate ? '' : this.props.item.tags}
+                    rules={[{ required: true, message: '请输入标签' }]}
+                >
+                    <Input placeholder="请输入标签" />
                 </Form.Item>
-                <Form.Item>
-                    {getFieldDecorator('descript', {
-                        initialValue: this.props.isCreate ? '' : this.props.item.descript,
-                        rules: [
-                            {
-                                required: true,
-                                message: '请输入描述',
-                            },
-                        ],
-                    })(<Input.TextArea placeholder="请输入描述" />)}
+                <Form.Item
+                    name="descript"
+                    intialValue={this.props.isCreate ? '' : this.props.item.descript}
+                    rules={[{ required: true, message: '请输入标签' }]}
+                >
+                    <Input.TextArea placeholder="请输入描述" />
                 </Form.Item>
                 {!this.props.isCreate && (
-                    <Form.Item>
-                        {getFieldDecorator('id', {
-                            initialValue: this.props.item._id,
-                        })(<Input type="hidden" />)}
+                    <Form.Item name="id" intialValue={this.props.item._id}>
+                        <Input type="hidden" />
                     </Form.Item>
                 )}
             </Form>
         );
     }
 }
-const WrappedEditModal = Form.create()(EditModal);
