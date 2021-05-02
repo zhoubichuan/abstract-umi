@@ -13,7 +13,7 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons"
 // 城市选择
 import { Cascader } from "antd"
 //城市选择数据
-import ChooseCity from "./ChooseCity"
+// import ChooseCity from "./ChooseCity"
 // 日报时间选择器
 import DailyTimePicker from "../../components/TimePicker/DailyTimePicker"
 //周报时间选择器

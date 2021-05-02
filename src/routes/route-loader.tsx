@@ -74,8 +74,7 @@ export function renderRoutes(routesConfig: RouteConfigDeclaration[], extraProps:
                         );
                     }
                     return <Component {...props} {...extraProps} routes={routes} />;
-                }}
-            />
+                }}/>
         );
     });
 }

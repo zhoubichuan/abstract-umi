@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './App.less';
+
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import GlobalContext from '@common/global-context';
@@ -16,6 +16,7 @@ import {
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
+import './App.less';
 const { SubMenu } = Menu;
 
 const { Header, Sider, Content } = Layout;
