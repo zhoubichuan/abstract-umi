@@ -10,7 +10,15 @@ import React from 'react';
  */
 
 import App from '@src/entry/App';
-
+import Home from '@src/views/home/Home';
+import ChildOne from '@src/views/home/ChildOne';
+import ChildTwo from '@src/views/home/ChildTwo';
+import welcome from '@src/pages/welcome/index';
+import category from '@src/pages/category/index';
+// import DataModel from '@src/pages/DataModeManager/DataModel';
+// import tagManager from '@src/pages/TagManager/tagManager';
+import Login from '@src/views/login/Login';
+import Register from '@src/views/register/Register';
 export interface RouteConfigDeclaration {
     /**
      * 当前路由路径
@@ -74,88 +82,97 @@ export const routesConfig: RouteConfigDeclaration[] = [
                 //             ),
                 //         ),
                 // ),
-                component: React.lazy(() =>
-                    import(/* webpackChunkName: "home"*/ '@src/views/home/Home'),
-                ),
+                // component: React.lazy(() =>
+                //     import(/* webpackChunkName: "home"*/ '@src/views/home/Home'),
+                // ),
+                component: Home,
                 routes: [
                     {
                         path: '/home/child-one',
                         isDynamic: true,
-                        component: React.lazy(() =>
-                            import(/* webpackChunkName: "child-one" */ '@src/views/home/ChildOne'),
-                        ),
+                        // component: React.lazy(() =>
+                        //     import(/* webpackChunkName: "child-one" */ '@src/views/home/ChildOne'),
+                        // ),
+                        component: ChildOne,
                     },
                     {
                         path: '/home/child-two',
                         isRedirect: true,
                         isDynamic: true,
-                        component: React.lazy(() =>
-                            import(/* webpackChunkName: "child-two" */ '@src/views/home/ChildTwo'),
-                        ),
+                        // component: React.lazy(() =>
+                        //     import(/* webpackChunkName: "child-two" */ '@src/views/home/ChildTwo'),
+                        // ),
+                        component: ChildTwo,
                     },
                 ],
             },
             {
-              path: '/admin',
-              isDynamic: true,
-              isRedirect: true,
-              component: React.lazy(() =>
-                  import(
-                      /* webpackChunkName: "Admin" */
-                      '@src/pages/welcome/index.jsx'
-                  ),
-                )
+                path: '/admin',
+                isDynamic: true,
+                isRedirect: true,
+                //   component: React.lazy(() =>
+                //       import(
+                //           /* webpackChunkName: "Admin" */
+                //           '@src/pages/welcome/index'
+                //       ),
+                //     )
+                component: welcome,
             },
-            {
-              path: '/category',
-              isDynamic: true,
-              isRedirect: true,
-              component: React.lazy(() =>
-                  import(
-                      /* webpackChunkName: "login" */
-                      '@src/pages/category/index.jsx'
-                  ),  
-              ),
-            },
-            {
-              path: '/dataModeManager',
-              isDynamic: true,
-              isRedirect: true,
-              component: React.lazy(() =>
-                  import(
-                      /* webpackChunkName: "login" */
-                      '@src/pages/DataModeManager/DataModel.jsx'
-                  ),  
-              ),
-            },
-            {
-              path: '/TagManager',
-              isDynamic: true,
-              isRedirect: true,
-              component: React.lazy(() =>
-                  import(
-                      /* webpackChunkName: "login" */
-                      '@src/pages/TagManager/tagManager.jsx'
-                  ),  
-              ),
-            },
+            // {
+            //     path: '/category',
+            //     isDynamic: true,
+            //     isRedirect: true,
+            //     //   component: React.lazy(() =>
+            //     //       import(
+            //     //           /* webpackChunkName: "login" */
+            //     //           '@src/pages/category/index'
+            //     //       ),
+            //     //   ),
+            //     component: category,
+            // },
+            // {
+            //     path: '/dataModeManager',
+            //     isDynamic: true,
+            //     isRedirect: true,
+            //     //   component: React.lazy(() =>
+            //     //       import(
+            //     //           /* webpackChunkName: "login" */
+            //     //           '@src/pages/DataModeManager/DataModel'
+            //     //       ),
+            //     //   ),
+            //     component: DataModel,
+            // },
+            // {
+            //     path: '/TagManager',
+            //     isDynamic: true,
+            //     isRedirect: true,
+            //     //   component: React.lazy(() =>
+            //     //       import(
+            //     //           /* webpackChunkName: "login" */
+            //     //           '@src/pages/TagManager/tagManager'
+            //     //       ),
+            //     //   ),
+            //     component: tagManager,
+            // },
             {
                 path: '/login',
                 isDynamic: true,
                 isRedirect: true,
-                component: React.lazy(() =>
-                    import(
-                        /* webpackChunkName: "login" */
-                        '@src/views/login/Login'
-                    ),  
-                ),
+                // component: React.lazy(() =>
+                //     import(
+                //         /* webpackChunkName: "login" */
+                //         '@src/views/login/Login'
+                //     ),
+                // ),
+                component: Login,
             },
             {
                 path: '/register',
                 isDynamic: true,
-                component: React.lazy(() =>
-                    import(/* webpackChunkName: "register"*/ '@src/views/register/Register'),
-                ),
+                // component: React.lazy(() =>
+                //     import(/* webpackChunkName: "register"*/ '@src/views/register/Register'),
+                // ),
+                component: Register,
             },
         ],
     },

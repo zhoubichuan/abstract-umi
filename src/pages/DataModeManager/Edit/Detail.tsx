@@ -1,10 +1,10 @@
 import React, { Fragment, Component } from 'react';
 import { Tabs, Button, Col } from 'antd';
-import BaseInfo from './tabs/BaseInfo.jsx';
-import Attribute from './tabs/Attribute.jsx';
-import Editor from './tabs/Editor.jsx';
-import History from './tabs/History.jsx';
-import File from './tabs/File.jsx';
+import BaseInfo from './tabs/BaseInfo';
+import Attribute from './tabs/Attribute';
+import Editor from './tabs/Editor';
+import History from './tabs/History';
+import File from './tabs/File';
 class Detail extends Component {
     constructor(props) {
         super();

@@ -1,10 +1,10 @@
 import React, { Fragment, Component } from 'react';
 import { Tabs } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import ViewDetail from './View/Detail.jsx';
-import EditDetail from './Edit/Detail.jsx';
-import CreateDetail from './Create/Detail.jsx';
-import ThemeContext from './ThemeContext.js';
+import ViewDetail from './View/Detail';
+import EditDetail from './Edit/Detail';
+import CreateDetail from './Create/Detail';
+import ThemeContext from './ThemeContext';
 
 export class GlobalTheSlider extends Component {
     constructor(props) {

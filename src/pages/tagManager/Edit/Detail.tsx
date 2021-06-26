@@ -1,6 +1,9 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
-import BaseInfo from "./tabs/BaseInfo.jsx"
+import BaseInfo from "./tabs/BaseInfo"
+import Attribute from "./tabs/Attribute"
+import Editor from "./tabs/Editor"
+import History from "./tabs/History"
 class Detail extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +15,17 @@ class Detail extends Component {
       isCreate: this.props.isCreate,
     }
   }
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      viewVisible: nextProps.viewVisible,
+      isCreate: nextProps.isCreate,
+      editVisible: nextProps.editVisible,
+      item: nextProps.item,
+    })
+  }
+  // componentWillUnmount() {
+  //   this.props.form.resetFields()
+  // }
   onChange = () => {
     this.setState(this.state.item)
   }
@@ -55,26 +68,29 @@ class Detail extends Component {
             />
           </Tabs.TabPane>
           <Tabs.TabPane
-            disabled={true}
             className="common-tabpane"
             tab="数据模型项属性"
             key="attribute"
             closable={true}
-          ></Tabs.TabPane>
+          >
+            <Attribute />
+          </Tabs.TabPane>
           <Tabs.TabPane
-            disabled={true}
             className="common-tabpane"
             tab="内容编辑"
             key="content"
             closable={true}
-          ></Tabs.TabPane>
+          >
+            <Editor />
+          </Tabs.TabPane>
           <Tabs.TabPane
-            disabled={true}
             className="common-tabpane"
             tab="历史记录"
             key="history"
             closable={true}
-          ></Tabs.TabPane>
+          >
+            <History />
+          </Tabs.TabPane>
         </Tabs>
         <Col className="tabs-button">
           <Button type="primary">编辑</Button>

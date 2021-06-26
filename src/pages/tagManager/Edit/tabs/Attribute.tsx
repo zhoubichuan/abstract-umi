@@ -1,6 +1,6 @@
 import React from "react"
 import { Table, Button, Modal } from "antd"
-import AttributeDialog from "./AttributeDialog.jsx"
+import AttributeDialog from "./AttributeDialog"
 
 const columns = [
   {

@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
-import BaseInfo from "./tabs/BaseInfo.jsx"
+import BaseInfo from "./tabs/BaseInfo"
 class Detail extends Component {
   constructor(props) {
     super(props)

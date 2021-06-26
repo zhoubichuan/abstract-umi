@@ -15,11 +15,11 @@ import {
     Modal,
 } from 'antd';
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
-import { SliderRight } from './SliderRight.jsx';
-import { SearchForm } from './SearchForm.jsx';
+import { SliderRight } from './SliderRight';
+import { SearchForm } from './SearchForm';
 import tagService from '@src/services/tag';
 import moment from 'moment';
-import ThemeContext from './ThemeContext.js';
+import ThemeContext from './ThemeContext';
 // require('moment/locale/zh-cn.js');
 
 export default class Article extends Component {

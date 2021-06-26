@@ -1,31 +1,22 @@
 import React, { Fragment, Component } from "react"
 import { Tabs, Button, Col } from "antd"
-import BaseInfo from "./tabs/BaseInfo.jsx"
-import Attribute from "./tabs/Attribute.jsx"
-import Editor from "./tabs/Editor.jsx"
-import History from "./tabs/History.jsx"
+import BaseInfo from "./tabs/BaseInfo"
+import Attribute from "./tabs/Attribute"
+import Editor from "./tabs/Editor"
+import History from "./tabs/History"
 class Detail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       activeKey: "baseInfo",
-      viewVisible: this.props.viewVisible,
-      editVisible: this.props.editVisible,
       item: this.props.item,
-      isCreate: this.props.isCreate,
     }
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      viewVisible: nextProps.viewVisible,
-      isCreate: nextProps.isCreate,
-      editVisible: nextProps.editVisible,
       item: nextProps.item,
     })
   }
-  // componentWillUnmount() {
-  //   this.props.form.resetFields()
-  // }
   onChange = () => {
     this.setState(this.state.item)
   }
@@ -45,27 +36,16 @@ class Detail extends Component {
     }
   }
   render() {
-    const layout = {
-      justify: "center",
-      labelCol: { span: 4 },
-      wrapperCol: { span: 20 },
-    }
     return (
       <Fragment>
-        <Tabs className="common-tabs">
+        <Tabs className="common-tabs view">
           <Tabs.TabPane
             className="common-tabpane"
             tab="基本信息"
             key="baseInfo"
             closable={false}
           >
-            <BaseInfo
-              save={this.save}
-              viewVisible={this.state.viewVisible}
-              editVisible={this.state.editVisible}
-              isCreate={this.state.isCreate}
-              item={this.state.item}
-            />
+            <BaseInfo save={this.save} item={this.state.item} />
           </Tabs.TabPane>
           <Tabs.TabPane
             className="common-tabpane"

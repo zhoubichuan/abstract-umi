@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { GlobalTheSlider } from "./GlobalTheSlider.jsx"
+import { GlobalTheSlider } from "./GlobalTheSlider"
 
 class TheSlider extends Component {
   render() {

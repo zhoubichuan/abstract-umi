@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { Form, Input, Icon, Button, Popconfirm, Modal, message } from "antd"
-import service from "../../service/user.jsx"
+import service from "../../service/user"
 
 export default class Home extends Component {
   handleSubmit = (isSignUp, user) => {
