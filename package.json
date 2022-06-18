@@ -102,7 +102,7 @@
     "@rematch/immer": "^1.2.0",
     "@rematch/loading": "^1.2.1",
     "@types/react-beautiful-dnd": "^12.1.2",
-    "antd": "^4.0.3",
+    "antd": "3.26.19",
     "axios": "^0.19.2",
     "babel-plugin-import": "^1.13.3",
     "babel-polyfill": "^6.26.0",
