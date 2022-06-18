@@ -177,7 +177,7 @@ export default class Category extends Component {
             },
         };
         return (
-            <div style={{ paddingLeft: 10 }}>
+            <div className="common-page" style={{ paddingLeft: 10 }}>
                 <Row>
                     <Col span={6}>
                         <Button.Group>

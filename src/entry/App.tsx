@@ -45,7 +45,7 @@ class App extends React.Component {
     render() {
         const routes = renderAllRoutes(this.props.routes);
         return (
-            <Layout>
+            <Layout >
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
                     <div className="logo" />
                     <Menu
