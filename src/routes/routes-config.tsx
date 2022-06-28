@@ -16,7 +16,7 @@ import ChildTwo from '@src/views/home/ChildTwo';
 import welcome from '@src/pages/welcome/index';
 import category from '@src/pages/category/index';
 import DataModel from '@src/pages/DataModeManager/DataModel';
-import tagManager from '@src/pages/TagManager/tagManager';
+import tagManager from '@src/pages/tagManager/tagManager';
 import Login from '@src/views/login/Login';
 import Register from '@src/views/register/Register';
 export interface RouteConfigDeclaration {

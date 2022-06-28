@@ -48,7 +48,7 @@ module.exports = smart(baseConfig, {
     disableHostCheck: true,
     host: '0.0.0.0',
     useLocalIp: true,
-    port: 666,
+    port: 3000,
     historyApiFallback: true,
     inline: true,
     hot: true,
