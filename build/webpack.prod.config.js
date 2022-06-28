@@ -17,10 +17,10 @@ module.exports = smart(baseConfig, {
     mode: 'production',
     devtool: 'none',
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve('abstract-react'),
         filename: 'js/[name].[contenthash:8].bundle.js',
         chunkFilename: 'js/[name].[contenthash:8].chunk.js',
-        publicPath: '/',
+        publicPath: '/abstract-react',
     },
     module: {
         rules: [].concat(styleLoaders),

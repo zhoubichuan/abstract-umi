@@ -54,7 +54,7 @@ const config = {
       threadPool: happyThreadPool
     }),
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [path.resolve('dist')],
+      cleanOnceBeforeBuildPatterns: [path.resolve('abstract-react')],
     }),
   ],
   resolve: {

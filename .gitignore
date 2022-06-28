@@ -3,7 +3,7 @@ node_modules
 dist
 bower_components
 /.vscode
-
+/abstract-react
 # dependencies
 /node_modules
 

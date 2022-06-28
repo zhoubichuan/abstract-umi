@@ -24,7 +24,7 @@ module.exports = smart(baseConfig, {
     // 开发环境下，filename 不能使用 contenthash/chunkhash
     filename: 'js/[name].[hash:8].bundle.js',
     chunkFilename: 'js/[name].chunk.js',
-    publicPath: '/',
+    publicPath: '/abstract-react',
   },
   module: {
     rules: [].concat(styleLoaders),
@@ -67,6 +67,6 @@ module.exports = smart(baseConfig, {
     //   }
     // }
     // open: true,
-    // openPage:'dist/index.html',
+    // openPage:'abstract-react/index.html',
   }
 });
