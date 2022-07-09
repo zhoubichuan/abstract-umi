@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Row, Col, Table, Button, Modal, message, Popconfirm, Input } from 'antd';
+import {  Row, Col, Button, Input } from 'antd';
+// import { Form, Row, Col, Table, Button, Modal, message, Popconfirm, Input } from 'antd';
 import categoryService from '@src/services/category';
-import moment from 'moment';
+// import moment from 'moment';
 // require('moment/locale/zh-cn.js');
 
 export default class Category extends Component {
@@ -16,100 +17,100 @@ export default class Category extends Component {
         isCreate: true,
     };
     //开始执行添加操作
-    create = () => {
-        this.setState({
-            title: '添加分类',
-            isCreate: true,
-            editVisible: true,
-        });
-    };
-    componentDidMount() {
-        this.getList();
-    }
-    pageChange = current => {
-        this.setState({ pagination: { ...this.state.pagination, current } }, this.getList);
-    };
-    getList = () => {
-        categoryService
-            .list({
-                current: this.state.pagination.current,
-                keyword: this.state.keyword,
-            })
-            .then(res => {
-                if (res.code == 0) {
-                    const { items, pageNum: current, pageSize, total } = res.data;
-                    this.setState({
-                        items: items.map(
-                            (item, index) => (
-                                ((item.key = item._id),
-                                (item.index = index + 1),
-                                (item.code = item.code),
-                                (item.creator = item.creator),
-                                (item.createTime = item.createTime),
-                                (item.updater = item.updater),
-                                (item.updateTime = item.updateTime)),
-                                item
-                            ),
-                        ),
-                        pagination: {
-                            current,
-                            pageSize,
-                            total,
-                            showTotal: total => `总计${total}条`,
-                            showQuickJumper: true,
-                            onChange: this.pageChange,
-                        },
-                    });
-                } else {
-                    message.error(res.error);
-                }
-            });
-    };
-    editCancel = () => {
-        this.setState({ editVisible: false });
-    };
-    editOk = () => {
-        const category = this.editform.props.form.getFieldsValue();
-        if (this.state.isCreate) {
-            category.creator = 'aaa';
-            category.createTime = moment().format();
-            category.updater = 'aaa';
-            category.updateTime = moment().format();
-        } else {
-            category.updater = 'bbb';
-            category.updateTime = moment().format();
-        }
-        categoryService[this.state.isCreate ? 'create' : 'update'](category).then(res => {
-            if (res.code == 0) {
-                this.setState({ editVisible: false }, this.getList());
-            } else {
-                message.error(res.error);
-            }
-        });
-    };
-    edit = item => {
-        this.setState({
-            title: '更新分类',
-            editVisible: true,
-            isCreate: false,
-            item,
-        });
-    };
-    remove = id => {
-        categoryService.remove(id).then(res => {
-            if (res.code == 0) {
-                this.setState(
-                    {
-                        pagination: {
-                            ...this.state.pagination,
-                            current: 1,
-                        },
-                    },
-                    this.getList,
-                );
-            }
-        });
-    };
+    // create = () => {
+    //     this.setState({
+    //         title: '添加分类',
+    //         isCreate: true,
+    //         editVisible: true,
+    //     });
+    // };
+    // componentDidMount() {
+    //     this.getList();
+    // }
+    // pageChange = current => {
+    //     this.setState({ pagination: { ...this.state.pagination, current } }, this.getList);
+    // };
+    // getList = () => {
+    //     categoryService
+    //         .list({
+    //             current: this.state.pagination.current,
+    //             keyword: this.state.keyword,
+    //         })
+    //         .then(res => {
+    //             if (res.code == 0) {
+    //                 const { items, pageNum: current, pageSize, total } = res.data;
+    //                 this.setState({
+    //                     items: items.map(
+    //                         (item, index) => (
+    //                             ((item.key = item._id),
+    //                             (item.index = index + 1),
+    //                             (item.code = item.code),
+    //                             (item.creator = item.creator),
+    //                             (item.createTime = item.createTime),
+    //                             (item.updater = item.updater),
+    //                             (item.updateTime = item.updateTime)),
+    //                             item
+    //                         ),
+    //                     ),
+    //                     pagination: {
+    //                         current,
+    //                         pageSize,
+    //                         total,
+    //                         showTotal: total => `总计${total}条`,
+    //                         showQuickJumper: true,
+    //                         onChange: this.pageChange,
+    //                     },
+    //                 });
+    //             } else {
+    //                 message.error(res.error);
+    //             }
+    //         });
+    // };
+    // editCancel = () => {
+    //     this.setState({ editVisible: false });
+    // };
+    // editOk = () => {
+    //     const category = this.editform.props.form.getFieldsValue();
+    //     if (this.state.isCreate) {
+    //         category.creator = 'aaa';
+    //         category.createTime = moment().format();
+    //         category.updater = 'aaa';
+    //         category.updateTime = moment().format();
+    //     } else {
+    //         category.updater = 'bbb';
+    //         category.updateTime = moment().format();
+    //     }
+    //     categoryService[this.state.isCreate ? 'create' : 'update'](category).then(res => {
+    //         if (res.code == 0) {
+    //             this.setState({ editVisible: false }, this.getList());
+    //         } else {
+    //             message.error(res.error);
+    //         }
+    //     });
+    // };
+    // edit = item => {
+    //     this.setState({
+    //         title: '更新分类',
+    //         editVisible: true,
+    //         isCreate: false,
+    //         item,
+    //     });
+    // };
+    // remove = id => {
+    //     categoryService.remove(id).then(res => {
+    //         if (res.code == 0) {
+    //             this.setState(
+    //                 {
+    //                     pagination: {
+    //                         ...this.state.pagination,
+    //                         current: 1,
+    //                     },
+    //                 },
+    //                 this.getList,
+    //             );
+    //         }
+    //     });
+    // };
     render() {
         const columns = [
             {
@@ -202,15 +203,15 @@ export default class Category extends Component {
                         />
                     </Col>
                 </Row>
-                <Table
+                {/* <Table
                     style={{ marginTop: 10 }}
                     columns={columns}
                     dataSource={this.state.items}
                     bordered
                     pagination={this.state.pagination}
                     rowSelection={rowSelection}
-                />
-                <Modal
+                /> */}
+                {/* <Modal
                     title={this.state.title}
                     visible={this.state.editVisible}
                     onCancel={this.editCancel}
@@ -223,7 +224,7 @@ export default class Category extends Component {
                         isCreate={this.state.isCreate}
                         item={this.state.item}
                     />
-                </Modal>
+                </Modal> */}
             </div>
         );
     }

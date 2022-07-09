@@ -9,7 +9,7 @@ import {
   Select,
   DatePicker,
 } from "antd"
-import { DownOutlined, UpOutlined } from "@ant-design/icons"
+// import { DownOutlined, UpOutlined } from "@ant-design/icons"
 // 城市选择
 import { Cascader } from "antd"
 //城市选择数据
@@ -123,7 +123,7 @@ export class Search extends Component {
                   清除
                 </Button>
                 <a style={{ fontSize: 12 }} onClick={this.handleExpand}>
-                  {this.state.expand ? <UpOutlined /> : <DownOutlined />}{" "}
+                  {/* {this.state.expand ? <UpOutlined /> : <DownOutlined />}{" "} */}
                   Collapse
                 </a>
               </Col>

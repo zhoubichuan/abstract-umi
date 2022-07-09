@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { Tabs } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+// import { CloseOutlined } from '@ant-design/icons';
 import ViewDetail from './View/Detail';
 import EditDetail from './Edit/Detail';
 import CreateDetail from './Create/Detail';
@@ -58,7 +58,7 @@ export class GlobalTheSlider extends Component {
                         display: Object.values(tabsItem).length ? 'block' : 'none',
                     }}
                 >
-                    <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} />
+                    {/* <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} /> */}
                     <Tabs
                         onChange={this.onChange}
                         activeKey={

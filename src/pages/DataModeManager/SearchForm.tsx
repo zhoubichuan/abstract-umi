@@ -9,7 +9,7 @@ import {
   Select,
   DatePicker,
 } from "antd"
-import { DownOutlined, UpOutlined } from "@ant-design/icons"
+// import { DownOutlined, UpOutlined } from "@ant-design/icons"
 const { RangePicker } = DatePicker
 export default class SearchForm extends Component {
   constructor(props) {

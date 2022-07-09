@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const glob = require('glob');
-const {smart} = require('webpack-merge');
+const { smart } = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const PurgecssPlugin = require('purgecss-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -20,7 +20,7 @@ module.exports = smart(baseConfig, {
         path: path.resolve('abstract-react'),
         filename: 'js/[name].[contenthash:8].bundle.js',
         chunkFilename: 'js/[name].[contenthash:8].chunk.js',
-        publicPath: '/abstract-react',
+        publicPath: '/',
     },
     module: {
         rules: [].concat(styleLoaders),
@@ -54,9 +54,9 @@ module.exports = smart(baseConfig, {
             new OptimizeCSSAssetsPlugin({
                 cssProcessor: require('cssnano'),
                 cssProcessorOptions: {
-                    discardComments: {removeAll: true},
+                    discardComments: { removeAll: true },
                     parser: require('postcss-safe-parser'),
-                    autoprefixer: {disable: true}
+                    autoprefixer: { disable: true }
                 },
                 canPrint: true
             }),

@@ -3,17 +3,17 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import GlobalContext from '@common/global-context';
 import { renderAllRoutes } from '@routes/route-loader';
 import { connect } from 'react-redux';
-// import * as utils from "@src/utils";
+import * as utils from '@src/utils';
 import { Row, Col } from 'antd';
 import { withRouter, Link } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-} from '@ant-design/icons';
+// import {
+//     MenuUnfoldOutlined,
+//     MenuFoldOutlined,
+//     UserOutlined,
+//     VideoCameraOutlined,
+//     UploadOutlined,
+// } from '@ant-design/icons';
 import './App.less';
 const { SubMenu } = Menu;
 
@@ -45,7 +45,7 @@ class App extends React.Component {
     render() {
         const routes = renderAllRoutes(this.props.routes);
         return (
-            <Layout >
+            <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
                     <div className="logo" />
                     <Menu
@@ -58,7 +58,7 @@ class App extends React.Component {
                         <Menu.Item
                             key="/admin"
                             title="首页"
-                            icon={<UserOutlined />}
+                            // icon={<UserOutlined />}
                             onClick={() => this.handleLinkToRegisterBtnClick('admin')}
                         >
                             首页
@@ -66,13 +66,13 @@ class App extends React.Component {
                         <Menu.Item
                             key="/category"
                             title="数据模型项目"
-                            icon={<VideoCameraOutlined />}
+                            // icon={<VideoCameraOutlined />}
                             onClick={() => this.handleLinkToRegisterBtnClick('category')}
                         >
                             数据模型项目
                         </Menu.Item>
                         <SubMenu
-                            icon={<UploadOutlined />}
+                            // icon={<UploadOutlined />}
                             title={
                                 <span className="submenu-title-wrapper">
                                     <Icon type="setting" />
@@ -130,13 +130,13 @@ class App extends React.Component {
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{ padding: 0 }}>
-                        {React.createElement(
+                        {/* {React.createElement(
                             this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                             {
                                 className: 'trigger',
                                 onClick: this.toggle,
                             },
-                        )}
+                        )} */}
                     </Header>
                     <Content
                         className="site-layout-background"
