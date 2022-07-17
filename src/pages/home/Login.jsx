@@ -1,17 +1,6 @@
-/**
- * @author 周必川
- * @email zhoubichuan@icloud.com
- * @create date 2020-06-18 12:02:51
- * @modify date 2020-06-18 12:02:51
- * @desc '登录' 页面
- */
-
 import React from "react"
 import { Form, Icon, Input, Button, Modal, Checkbox, notification } from "antd"
-import { apiPost } from "../../api"
-
-import styled from "styled-components"
-import elf from "../../elf"
+import { post } from "@/services"
 
 const FormItem = Form.Item
 
@@ -42,7 +31,7 @@ class Login extends React.Component {
       let json = this.props.form.getFieldsValue()
       json["jobNum"] = json.loginName
       console.log(json)
-      let token = await apiPost("/login", json)
+      let token = await post("/login", json)
       if (
         typeof token.data.eorr !== "undefined" &&
         token.data.eorr.toString() === "登陆失败"
@@ -126,28 +115,5 @@ class Login extends React.Component {
   }
 }
 
-// style
-const loginImg = require("../../assets/images/Login@2x.jpg")
-
-const LoginBox = styled.div`
-  height: 100%;
-  ${elf.m.flexCenter()};
-  ${elf.m.bCimg(loginImg, "cover")};
-`
-
-const LoginForm = styled.div`
-  width: 320px;
-  height: 340px;
-  padding: 36px;
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
-  background: #fff;
-`
-
-const LoginTitle = styled.h2`
-  font-size: ${elf.f.title}px;
-  text-align: center;
-  font-weight: bold;
-  padding-bottom: ${elf.d.autoPadding}px;
-`
 
 export default Login

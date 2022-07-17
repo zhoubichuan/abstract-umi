@@ -11,7 +11,7 @@ function Upload() {
       return ()=>window.URL.revokeObjectURL(objectURL)
     }
   },[currentFile])
-  handleChange(event){
+  function handleChange(event){
     let file = event.target.file[0]
     setCurrentfile(file)
   }

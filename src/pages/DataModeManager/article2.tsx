@@ -15,8 +15,8 @@ import {
   Modal,
   Card,
 } from "antd"
-import articleService from "../../service/article"
-import categoryService from "../../service/category"
+import articleService from "@/services/article"
+import categoryService from "@/services/category"
 // import moment from "moment"
 // require("moment/locale/zh-cn.js")
 
