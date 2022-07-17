@@ -8,10 +8,10 @@ export default class Article extends Component {
   }
   componentDidMount() {
     articleService.addPv(this.props.match.params.id).then((res) => {
-      if (res.code == 0) {
+      if (res?.code == 0) {
         this.setState({}, this.getList)
       } else {
-        message.error(res.data)
+        message.error(res?.data)
       }
     })
   }

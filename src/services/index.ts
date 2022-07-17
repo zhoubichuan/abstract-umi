@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import fetch from 'fetch';
 const baseURL = localStorage.baseURL ? localStorage.baseURL : 'http://127.0.0.1:7001';
 
 const config = {
@@ -15,33 +15,29 @@ export function get(url, data) {
         }
         url = `${url}?${params.slice(-1)}`;
     }
-    return axios({
+    return fetch(url, {
         ...config,
         method: 'get',
-        url,
     }).then(res => res.data);
 }
 export function post(url, data) {
-    return axios({
+    return fetch(url, {
         ...config,
         method: 'post',
-        data,
-        url,
+        body:JSON.stringify(data),
     }).then(res => res.data);
 }
 export function put(url, data) {
-    return axios({
+    return fetch(url, {
         ...config,
         method: 'put',
-        data,
-        url,
+        body:JSON.stringify(data),
     }).then(res => res.data);
 }
 export function del(url, data) {
-    return axios({
+    return fetch(url, {
         ...config,
         method: 'delete',
-        data,
-        url,
+        body:JSON.stringify(data),
     }).then(res => res.data);
 }

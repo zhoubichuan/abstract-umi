@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { message } from 'antd';
-import { host } from '@src/services/config';
+import { host } from '@/servicess/config';
 import {
     serverResponseFailedManager,
     serverResponseSuccessManager,
-} from '@src/services/server-response-manager';
+} from '@/servicess/server-response-manager';
 
 const axiosInstance: AxiosInstance = axios.create({
     // 默认的请求头

@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { Collapse, Form, Col, Row } from 'antd';
-import moment from 'moment';
+// import moment from 'moment';
 import ThemeContext from '../../ThemeContext.js';
 class BaseInfo extends Component {
     constructor(props) {
@@ -25,7 +25,9 @@ class BaseInfo extends Component {
         const { item } = this.state;
         return (
             <Fragment>
-                <Row gutter={24} key={moment.locale()}>
+                <Row gutter={24} 
+                // key={moment.locale()}
+                >
                     <Collapse defaultActiveKey={['base', 'edit']}>
                         <Collapse.Panel header="基本信息" key="base">
                             {baseInfoConfig.map((config, index) => {
@@ -48,11 +50,11 @@ class BaseInfo extends Component {
                                 <Col span={12} key={index}>
                                     <Form.Item label={config.header} name={config.name}>
                                         <span>
-                                            {['updateTime', 'creatTime'].includes(config.name)
+                                            {/* {['updateTime', 'creatTime'].includes(config.name)
                                                 ? moment(item[config.name]).format(
                                                       'YYYY-MM-DD HH:mm:ss',
                                                   )
-                                                : item[config.name]}
+                                                : item[config.name]} */}
                                         </span>
                                     </Form.Item>
                                 </Col>

@@ -60,7 +60,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     return (
       <LoginBox>
         <LoginForm>
@@ -150,4 +150,4 @@ const LoginTitle = styled.h2`
   padding-bottom: ${elf.d.autoPadding}px;
 `
 
-export default Form.create()(Login)
+export default Login

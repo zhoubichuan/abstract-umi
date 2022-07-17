@@ -2,19 +2,19 @@ import { Component } from "react"
 import { Button } from "antd"
 export default class ComButton extends Component {
   handleCreate = () => {
-    // let itemValue = {
-    //   type: "create",
-    //   title: "创建",
-    //   key: "create",
-    //   item: { key: "create" },
-    //   categories: this.state.categories,
-    //   tags: this.state.tags,
-    // }
-    // let tabsItem = this.state.tabsItem
-    // itemValue.key && (tabsItem[itemValue.key] = itemValue)
-    // this.setState({
-    //   tabsItem,
-    // })
+    let itemValue = {
+      type: "create",
+      title: "创建",
+      key: "create",
+      item: { key: "create" },
+      categories: this.state.categories,
+      tags: this.state.tags,
+    }
+    let tabsItem = this.state.tabsItem
+    itemValue.key && (tabsItem[itemValue.key] = itemValue)
+    this.setState({
+      tabsItem,
+    })
   }
   handleClick = () => {}
   render() {

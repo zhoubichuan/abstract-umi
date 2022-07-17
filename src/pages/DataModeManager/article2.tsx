@@ -17,8 +17,8 @@ import {
 } from "antd"
 import articleService from "../../service/article"
 import categoryService from "../../service/category"
-import moment from "moment"
-require("moment/locale/zh-cn.js")
+// import moment from "moment"
+// require("moment/locale/zh-cn.js")
 
 export default class Article extends Component {
   state = {
@@ -40,7 +40,7 @@ export default class Article extends Component {
         pageSize: 10,
       })
       .then((res) => {
-        if (res.code == 0) {
+        if (res?.code == 0) {
           this.setState({
             categories: res.data.items,
           })
@@ -73,8 +73,8 @@ export default class Article extends Component {
           loading: false,
         })
 
-        if (res.code == 0) {
-          const { items, pageNum: current, pageSize, total } = res.data
+        if (res?.code == 0) {
+          const { items, pageNum: current, pageSize, total } = res?.data
           this.setState({
             items: items.map((item) => ((item.key = item._id), item)),
             pagination: {
@@ -87,7 +87,7 @@ export default class Article extends Component {
             },
           })
         } else {
-          message.error(res.data)
+          message.error(res?.data)
         }
       })
   }
@@ -107,7 +107,7 @@ export default class Article extends Component {
     let article = this.editform.props.form.getFieldsValue()
     articleService[this.state.isCreate ? "create" : "update"](article).then(
       (res) => {
-        if (res.code == 0) {
+        if (res?.code == 0) {
           this.setState(
             {
               editVisible: false,
@@ -127,7 +127,7 @@ export default class Article extends Component {
   }
   view = (item) => {
     articleService.addPv(item._id).then((res) => {
-      if (res.code == 0) {
+      if (res?.code == 0) {
         this.setState(
           {
             viewVisible: true,
@@ -136,7 +136,7 @@ export default class Article extends Component {
           this.getList
         )
       } else {
-        message.error(res.data)
+        message.error(res?.data)
       }
     })
   }
@@ -147,7 +147,7 @@ export default class Article extends Component {
   }
   remove = (ids) => {
     articleService.remove(ids).then((res) => {
-      if (res.code == 0) {
+      if (res?.code == 0) {
         this.setState({}, this.getList)
       }
     })
@@ -167,7 +167,7 @@ export default class Article extends Component {
   commentOk = () => {
     let comment = this.commentForm.props.form.getFieldsValue()
     articleService.addComment(this.state.item._id, comment).then((res) => {
-      if (res.code == 0) {
+      if (res?.code == 0) {
         this.setState(
           {
             commentVisible: false,
@@ -175,7 +175,7 @@ export default class Article extends Component {
           this.getList
         )
       } else {
-        message.error(res.data)
+        message.error(res?.data)
       }
     })
   }
@@ -192,8 +192,8 @@ export default class Article extends Component {
   }
   deleteComment = (article_id, comment_id) => {
     articleService.deleteComment(article_id, comment_id).then((res) => {
-      if (res.code == 0) {
-        if (res.code == 0) {
+      if (res?.code == 0) {
+        if (res?.code == 0) {
           this.setState(
             {
               commentVisible: false,
@@ -201,7 +201,7 @@ export default class Article extends Component {
             this.getList
           )
         } else {
-          message.error(res.data)
+          message.error(res?.data)
         }
       }
     })
@@ -251,7 +251,7 @@ export default class Article extends Component {
         title: "创建时间",
         dataIndex: "createAt",
         key: "createAt",
-        render: (text) => moment(text).fromNow(),
+        // render: (text) => moment(text).fromNow(),
       },
       {
         title: "评论数",
@@ -392,11 +392,11 @@ export default class Article extends Component {
 }
 class EditModal extends Component {
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     return (
       <Form>
         <Form.Item>
-          {getFieldDecorator("category", {
+          {/* {getFieldDecorator("category", {
             initialValue: this.props.isCreate
               ? this.props.categories[0]._id
               : this.props.item._id,
@@ -414,10 +414,10 @@ class EditModal extends Component {
                 </Select.Option>
               ))}
             </Select>
-          )}
+          )} */}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("title", {
+          {/* {getFieldDecorator("title", {
             initialValue: this.props.isCreate ? "" : this.props.item.title,
             rules: [
               {
@@ -425,10 +425,10 @@ class EditModal extends Component {
                 message: "请输入标题",
               },
             ],
-          })(<Input placeholder="请输入标题" />)}
+          })(<Input placeholder="请输入标题" />)} */}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("content", {
+          {/* {getFieldDecorator("content", {
             initialValue: this.props.isCreate ? "" : this.props.item.content,
             rules: [
               {
@@ -436,15 +436,15 @@ class EditModal extends Component {
                 message: "请输入内容",
               },
             ],
-          })(<Input.TextArea placeholder="请输入内容" />)}
+          })(<Input.TextArea placeholder="请输入内容" />)} */}
         </Form.Item>
-        {!this.isCreate && (
+        {/* {!this.isCreate && (
           <Form.Item>
             {getFieldDecorator("id", {
               initialValue: this.props.item._id,
             })(<Input type="hidden" />)}
           </Form.Item>
-        )}
+        )} */}
       </Form>
     )
   }
@@ -493,7 +493,7 @@ class CommentModal extends Component {
     }, 2000)
   }
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     const loadMore = this.state.start + this.state.limit <
       this.props.item.comments.length && (
       <div
@@ -518,9 +518,9 @@ class CommentModal extends Component {
         <Col span={24}>
           <Form>
             <Form.Item>
-              {getFieldDecorator("content")(
+              {/* {getFieldDecorator("content")(
                 <Input placeholder="请输入评论内容" />
-              )}
+              )} */}
             </Form.Item>
           </Form>
           <List
@@ -557,6 +557,6 @@ class CommentModal extends Component {
     )
   }
 }
-const WrappedEditModal = Form.create()(EditModal)
-const WrappedViewModal = Form.create()(ViewModal)
-const WrappedCommentModal = Form.create()(CommentModal)
+const WrappedEditModal = EditModal
+const WrappedViewModal = ViewModal
+const WrappedCommentModal = CommentModal

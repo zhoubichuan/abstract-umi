@@ -9,7 +9,7 @@ import {
   Select,
   DatePicker,
 } from "antd"
-// import { DownOutlined, UpOutlined } from "@ant-design/icons"
+import { DownOutlined, UpOutlined } from "@ant-design/icons"
 // 城市选择
 import { Cascader } from "antd"
 //城市选择数据
@@ -56,7 +56,7 @@ export class Search extends Component {
     }
   }
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     const layout = {
       justify: "center",
       labelCol: { span: 6 },
@@ -69,21 +69,21 @@ export class Search extends Component {
             <Row gutter={24}>
               <Col span={8}>
                 <Form.Item label="中文名称">
-                  {getFieldDecorator("name")(
+                  {/* {getFieldDecorator("name")(
                     <Input placeholder="请输入英文名称" />
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="英文名称">
-                  {getFieldDecorator("nameEn")(
+                  {/* {getFieldDecorator("nameEn")(
                     <Input placeholder="请输入英文名称" />
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="分类">
-                  {getFieldDecorator("category")(
+                  {/* {getFieldDecorator("category")(
                     <Select placeholder="请选择分类">
                       {this.props.categories.map((item) => (
                         <Select.Option key={item._id} value={item._id}>
@@ -91,28 +91,28 @@ export class Search extends Component {
                         </Select.Option>
                       ))}
                     </Select>
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="创建者">
-                  {getFieldDecorator("creater")(
+                  {/* {getFieldDecorator("creater")(
                     <Input placeholder="请输入创建者" />
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="创建时间">
-                  {getFieldDecorator("creatTime")(
+                  {/* {getFieldDecorator("creatTime")(
                     <RangePicker onChange={this.getDate} />
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={8}>
                 <Form.Item label="更新者">
-                  {getFieldDecorator("updater")(
+                  {/* {getFieldDecorator("updater")(
                     <Input placeholder="请输入更新者" />
-                  )}
+                  )} */}
                 </Form.Item>
               </Col>
               <Col span={24} style={{ textAlign: "center" }}>
@@ -123,7 +123,7 @@ export class Search extends Component {
                   清除
                 </Button>
                 <a style={{ fontSize: 12 }} onClick={this.handleExpand}>
-                  {/* {this.state.expand ? <UpOutlined /> : <DownOutlined />}{" "} */}
+                  {this.state.expand ? <UpOutlined /> : <DownOutlined />}{" "}
                   Collapse
                 </a>
               </Col>
@@ -134,4 +134,4 @@ export class Search extends Component {
     )
   }
 }
-export let SearchForm = Form.create()(Search)
+export let SearchForm = Search

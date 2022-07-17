@@ -17,8 +17,8 @@ import {
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import { SliderRight } from './SliderRight';
 import { SearchForm } from './SearchForm';
-import tagService from '@src/services/tag';
-import moment from 'moment';
+import tagService from '@/services/tag';
+// import moment from 'moment';
 import ThemeContext from './ThemeContext';
 // require('moment/locale/zh-cn.js');
 
@@ -64,8 +64,8 @@ export default class Article extends Component {
                     loading: false,
                 });
 
-                if (res.code == 0) {
-                    const { items, pageNum: current, pageSize, total } = res.data;
+                if (res?.code == 0) {
+                    const { items, pageNum: current, pageSize, total } = res?.data;
                     this.setState({
                         items: items.map(
                             (item, index) => (
@@ -82,7 +82,7 @@ export default class Article extends Component {
                         },
                     });
                 } else {
-                    message.error(res.data);
+                    message.error(res?.data);
                 }
             });
     };
@@ -118,7 +118,7 @@ export default class Article extends Component {
     };
     handleView = ({ _id }) => {
         tagService.queryTagDetail(_id).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 const item = res.data;
                 const itemValue = {
                     type: 'view',
@@ -132,7 +132,7 @@ export default class Article extends Component {
                     tabsItem,
                 });
             } else {
-                message.error(res.data);
+                message.error(res?.data);
             }
         });
     };
@@ -143,7 +143,7 @@ export default class Article extends Component {
     };
     handleRemove = ids => {
         tagService.deleteTag(ids).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 message.success('删除数据成功');
                 this.setState({}, this.getList());
             }
@@ -331,7 +331,7 @@ export default class Article extends Component {
                 dataIndex: 'creatTime',
                 key: 'createAt',
                 sorter: (a, b) => a.creatTime.length - b.creatTime.length,
-                render: text => moment(text).fromNow(),
+                // render: text => moment(text).fromNow(),
             },
             {
                 title: '更新者',
@@ -349,7 +349,7 @@ export default class Article extends Component {
                 dataIndex: 'updateTime',
                 key: 'updateTime',
                 sorter: (a, b) => a.updateTime.length - b.updateTime.length,
-                render: text => moment(text).fromNow(),
+                // render: text => moment(text).fromNow(),
             },
 
             {
@@ -458,7 +458,7 @@ class CommentModal extends Component {
         }, 2000);
     };
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}};
         const loadMore = this.state.start + this.state.limit < this.props.item.comments.length && (
             <div
                 style={{
@@ -521,4 +521,4 @@ class CommentModal extends Component {
         );
     }
 }
-const WrappedCommentModal = Form.create()(CommentModal);
+const WrappedCommentModal =CommentModal

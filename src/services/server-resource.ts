@@ -4,7 +4,7 @@
  * @date：2020/3/19
  */
 import urljoin from 'url-join';
-import { host } from '@src/services/config';
+import { host } from '@/servicess/config';
 
 class ServerResource {
     // 资源路径根路径

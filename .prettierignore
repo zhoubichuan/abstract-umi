@@ -4,4 +4,4 @@ build/
 .gitignore
 .eslintignore
 
-abstract-react
+abstract-umi

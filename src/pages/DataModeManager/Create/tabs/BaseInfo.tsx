@@ -1,8 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import { Collapse, Input, Button, Form, Select, Col, Row, Upload, message } from 'antd';
-import categoryService from '@src/services/category';
-import tagService from '@src/services/tag';
-import articleService from '@src/services/article';
+import categoryService from '@/services/category';
+import tagService from '@/services/tag';
+import articleService from '@/services/article';
 class BaseInfo extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +22,7 @@ class BaseInfo extends Component {
                 pageSize: 10,
             })
             .then(res => {
-                if (res.code == 0) {
+                if (res?.code == 0) {
                     message.success('请求成功');
                     this.setState({
                         categories: res.data.items,
@@ -35,7 +35,7 @@ class BaseInfo extends Component {
                 pageSize: 10,
             })
             .then(res => {
-                if (res.code == 0) {
+                if (res?.code == 0) {
                     message.success('请求成功');
                     this.setState({
                         tags: res.data.items,
@@ -118,7 +118,7 @@ class BaseInfo extends Component {
             labelCol: { span: 4 },
             wrapperCol: { span: 20 },
         };
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}};
         return (
             <Fragment>
                 <Form {...layout} className="base-info">
@@ -127,52 +127,52 @@ class BaseInfo extends Component {
                             <Collapse.Panel header="基本信息" key="1">
                                 <Col span={12}>
                                     <Form.Item label="中文名称" name="name">
-                                        {getFieldDecorator('name', {
+                                        {/* {getFieldDecorator('name', {
                                             rules: [
                                                 {
                                                     required: true,
                                                     message: '中文名称不能为空',
                                                 },
                                             ],
-                                        })(<Input placeholder="请输入英文名称" />)}
+                                        })(<Input placeholder="请输入英文名称" />)} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="英文名称">
-                                        {getFieldDecorator('nameEn', {
+                                        {/* {getFieldDecorator('nameEn', {
                                             rules: [
                                                 {
                                                     required: true,
                                                     message: '英文名称不能为空',
                                                 },
                                             ],
-                                        })(<Input placeholder="请输入英文名称" />)}
+                                        })(<Input placeholder="请输入英文名称" />)} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={24}>
                                     <Form.Item label="中文描述" labelCol={{ span: 2 }}>
-                                        {getFieldDecorator('descript')(
+                                        {/* {getFieldDecorator('descript')(
                                             <Input.TextArea placeholder="请输入中文描述" />,
-                                        )}
+                                        )} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={24}>
                                     <Form.Item label="英文描述" labelCol={{ span: 2 }}>
-                                        {getFieldDecorator('descriptEn')(
+                                        {/* {getFieldDecorator('descriptEn')(
                                             <Input.TextArea placeholder="请输入英文描述" />,
-                                        )}
+                                        )} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="内容">
-                                        {getFieldDecorator('content')(
+                                        {/* {getFieldDecorator('content')(
                                             <Input.TextArea placeholder="请输入内容" />,
-                                        )}
+                                        )} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="标签">
-                                        {getFieldDecorator('tag')(
+                                        {/* {getFieldDecorator('tag')(
                                             <Select>
                                                 {this.state.tags.map(item => (
                                                     <Select.Option key={item._id} value={item._id}>
@@ -180,12 +180,12 @@ class BaseInfo extends Component {
                                                     </Select.Option>
                                                 ))}
                                             </Select>,
-                                        )}
+                                        )} */}
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="分类">
-                                        {getFieldDecorator('category')(
+                                        {/* {getFieldDecorator('category')(
                                             <Select>
                                                 {this.state.categories.map(item => (
                                                     <Select.Option key={item._id} value={item._id}>
@@ -193,7 +193,7 @@ class BaseInfo extends Component {
                                                     </Select.Option>
                                                 ))}
                                             </Select>,
-                                        )}
+                                        )} */}
                                     </Form.Item>
                                 </Col>
                             </Collapse.Panel>
@@ -212,45 +212,46 @@ class BaseInfo extends Component {
         );
     }
 }
-export default Form.create({
-    mapPropsToFields(props) {
-        const item = props.viewVisible || !props.isCreate ? props.item : [];
-        return item
-            ? {
-                  name: Form.createFormField({
-                      value: item.name,
-                  }),
-                  nameEn: Form.createFormField({
-                      value: item.nameEn,
-                  }),
-                  descript: Form.createFormField({
-                      value: item.descript,
-                  }),
-                  descriptEn: Form.createFormField({
-                      value: item.descriptEn,
-                  }),
-                  content: Form.createFormField({
-                      value: item.content,
-                  }),
-                  tag: Form.createFormField({
-                      value: (item.tag && item.tag._id) || '',
-                  }),
-                  category: Form.createFormField({
-                      value: (item.category && item.category._id) || '',
-                  }),
-                  updater: Form.createFormField({
-                      value: item.updater,
-                  }),
-                  creater: Form.createFormField({
-                      value: item.creater,
-                  }),
-                  updateTime: Form.createFormField({
-                      value: item.updateTime,
-                  }),
-                  creatTime: Form.createFormField({
-                      value: item.creatTime,
-                  }),
-              }
-            : {};
-    },
-})(BaseInfo);
+export default BaseInfo
+// Form.create({
+//     mapPropsToFields(props) {
+//         const item = props.viewVisible || !props.isCreate ? props.item : [];
+//         return item
+//             ? {
+//                   name: Form.createFormField({
+//                       value: item.name,
+//                   }),
+//                   nameEn: Form.createFormField({
+//                       value: item.nameEn,
+//                   }),
+//                   descript: Form.createFormField({
+//                       value: item.descript,
+//                   }),
+//                   descriptEn: Form.createFormField({
+//                       value: item.descriptEn,
+//                   }),
+//                   content: Form.createFormField({
+//                       value: item.content,
+//                   }),
+//                   tag: Form.createFormField({
+//                       value: (item.tag && item.tag._id) || '',
+//                   }),
+//                   category: Form.createFormField({
+//                       value: (item.category && item.category._id) || '',
+//                   }),
+//                   updater: Form.createFormField({
+//                       value: item.updater,
+//                   }),
+//                   creater: Form.createFormField({
+//                       value: item.creater,
+//                   }),
+//                   updateTime: Form.createFormField({
+//                       value: item.updateTime,
+//                   }),
+//                   creatTime: Form.createFormField({
+//                       value: item.creatTime,
+//                   }),
+//               }
+//             : {};
+//     },
+// })(BaseInfo);

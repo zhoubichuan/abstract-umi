@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Collapse, Input, Button, Form, Select, Col, Row, Upload, message } from 'antd';
-import categoryService from '@src/services/category';
-import tagService from '@src/services/tag';
+import categoryService from '@/services/category';
+import tagService from '@/services/tag';
 
 class BaseInfo extends Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class BaseInfo extends Component {
                 pageSize: 10,
             })
             .then(res => {
-                if (res.code == 0) {
+                if (res?.code == 0) {
                     message.success('请求成功');
                     this.setState({
                         categories: res.data.items,
@@ -35,7 +35,7 @@ class BaseInfo extends Component {
                 pageSize: 10,
             })
             .then(res => {
-                if (res.code == 0) {
+                if (res?.code == 0) {
                     message.success('请求成功');
                     this.setState({
                         tags: res.data.items,
@@ -115,7 +115,7 @@ class BaseInfo extends Component {
             labelCol: { span: 4 },
             wrapperCol: { span: 20 },
         };
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}};
         return (
             <Fragment>
                 <Form {...layout} className="base-info">
@@ -208,45 +208,46 @@ class BaseInfo extends Component {
         );
     }
 }
-export default Form.create({
-    mapPropsToFields(props) {
-        const item = props.viewVisible || !props.isCreate ? props.item : [];
-        return item
-            ? {
-                  name: Form.createFormField({
-                      value: item.name,
-                  }),
-                  nameEn: Form.createFormField({
-                      value: item.nameEn,
-                  }),
-                  descript: Form.createFormField({
-                      value: item.descript,
-                  }),
-                  descriptEn: Form.createFormField({
-                      value: item.descriptEn,
-                  }),
-                  content: Form.createFormField({
-                      value: item.content,
-                  }),
-                  tag: Form.createFormField({
-                      value: (item.tag && item.tag._id) || '',
-                  }),
-                  category: Form.createFormField({
-                      value: (item.category && item.category._id) || '',
-                  }),
-                  updater: Form.createFormField({
-                      value: item.updater,
-                  }),
-                  creater: Form.createFormField({
-                      value: item.creater,
-                  }),
-                  updateTime: Form.createFormField({
-                      value: item.updateTime,
-                  }),
-                  creatTime: Form.createFormField({
-                      value: item.creatTime,
-                  }),
-              }
-            : {};
-    },
-})(BaseInfo);
+export default BaseInfo
+// {
+//     mapPropsToFields(props) {
+//         const item = props.viewVisible || !props.isCreate ? props.item : [];
+//         return item
+//             ? {
+//                   name: Form.createFormField({
+//                       value: item.name,
+//                   }),
+//                   nameEn: Form.createFormField({
+//                       value: item.nameEn,
+//                   }),
+//                   descript: Form.createFormField({
+//                       value: item.descript,
+//                   }),
+//                   descriptEn: Form.createFormField({
+//                       value: item.descriptEn,
+//                   }),
+//                   content: Form.createFormField({
+//                       value: item.content,
+//                   }),
+//                   tag: Form.createFormField({
+//                       value: (item.tag && item.tag._id) || '',
+//                   }),
+//                   category: Form.createFormField({
+//                       value: (item.category && item.category._id) || '',
+//                   }),
+//                   updater: Form.createFormField({
+//                       value: item.updater,
+//                   }),
+//                   creater: Form.createFormField({
+//                       value: item.creater,
+//                   }),
+//                   updateTime: Form.createFormField({
+//                       value: item.updateTime,
+//                   }),
+//                   creatTime: Form.createFormField({
+//                       value: item.creatTime,
+//                   }),
+//               }
+//             : {};
+//     },
+// })(BaseInfo);

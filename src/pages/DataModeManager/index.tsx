@@ -15,10 +15,10 @@ import {
     Modal,
     Card,
 } from 'antd';
-import articleService from '@src/service/article';
-import categoryService from '@src/service/category';
+import articleService from '@/services/article';
+import categoryService from '@/services/category';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+// import moment from 'moment';
 // require('moment/locale/zh-cn.js');
 
 export default class DataModel extends Component {
@@ -36,7 +36,7 @@ export default class DataModel extends Component {
     };
     componentDidMount() {
         categoryService.list({ current: 1, pageSize: 10 }).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 this.setState({
                     categories: res.data.items,
                 });
@@ -57,8 +57,8 @@ export default class DataModel extends Component {
             .then(res => {
                 this.setState({ loading: false });
 
-                if (res.code == 0) {
-                    const { items, pageNum: current, pageSize, total } = res.data;
+                if (res?.code == 0) {
+                    const { items, pageNum: current, pageSize, total } = res?.data;
                     this.setState({
                         items: items.map(item => ((item.key = item._id), item)),
                         pagination: {
@@ -71,7 +71,7 @@ export default class DataModel extends Component {
                         },
                     });
                 } else {
-                    message.error(res.data);
+                    message.error(res?.data);
                 }
             });
     };
@@ -84,7 +84,7 @@ export default class DataModel extends Component {
     editOk = () => {
         const article = this.editform.props.form.getFieldsValue();
         articleService[this.state.isCreate ? 'create' : 'update'](article).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 this.setState({ editVisible: false }, this.getList);
             }
         });
@@ -94,10 +94,10 @@ export default class DataModel extends Component {
     };
     view = item => {
         articleService.addPv(item._id).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 this.setState({ viewVisible: true, item }, this.getList);
             } else {
-                message.error(res.data);
+                message.error(res?.data);
             }
         });
     };
@@ -106,7 +106,7 @@ export default class DataModel extends Component {
     };
     remove = ids => {
         articleService.remove(ids).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 this.setState({}, this.getList);
             }
         });
@@ -123,10 +123,10 @@ export default class DataModel extends Component {
     commentOk = () => {
         const comment = this.commentForm.props.form.getFieldsValue();
         articleService.addComment(this.state.item._id, comment).then(res => {
-            if (res.code == 0) {
+            if (res?.code == 0) {
                 this.setState({ commentVisible: false }, this.getList);
             } else {
-                message.error(res.data);
+                message.error(res?.data);
             }
         });
     };
@@ -138,11 +138,11 @@ export default class DataModel extends Component {
     };
     deleteComment = (article_id, comment_id) => {
         articleService.deleteComment(article_id, comment_id).then(res => {
-            if (res.code == 0) {
-                if (res.code == 0) {
+            if (res?.code == 0) {
+                if (res?.code == 0) {
                     this.setState({ commentVisible: false }, this.getList);
                 } else {
-                    message.error(res.data);
+                    message.error(res?.data);
                 }
             }
         });
@@ -190,7 +190,7 @@ export default class DataModel extends Component {
                 title: '创建时间',
                 dataIndex: 'createAt',
                 key: 'createAt',
-                render: text => moment(text).fromNow(),
+                // render: text => moment(text).fromNow(),
             },
             {
                 title: '评论数',
@@ -396,7 +396,7 @@ class CommentModal extends Component {
         }, 2000);
     };
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}};
         const loadMore = this.state.start + this.state.limit < this.props.item.comments.length && (
             <div style={{ marginTop: 20, textAlign: 'center' }}>
                 {this.state.loading ? <Spin /> : <Button onClick={this.loadMore}>加载更多</Button>}
@@ -407,7 +407,7 @@ class CommentModal extends Component {
                 <Col span="24">
                     <Form>
                         <Form.Item>
-                            {getFieldDecorator('content')(<Input placeholder="请输入评论内容" />)}
+                            {/* {getFieldDecorator('content')(<Input placeholder="请输入评论内容" />)} */}
                         </Form.Item>
                     </Form>
                     <List

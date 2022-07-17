@@ -1,12 +1,12 @@
 import React, { Component } from "react"
 import { Form, Input, Icon, Button, Popconfirm, Modal, message } from "antd"
-import service from "../../service/user"
+import service from "@/services/user"
 
 export default class Home extends Component {
   handleSubmit = (isSignUp, user) => {
     service[isSignUp ? "signup" : "signin"](user).then((res) => {
       debugger
-      if (res.code == 0) {
+      if (res?.code == 0) {
         if (!isSignUp) {
           sessionStorage.setItem("username", res.data.user.username)
         }
@@ -43,7 +43,7 @@ class UserForm extends Component {
     }
   }
   render() {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     return (
       <Form
         onSubmit={(e) => {
@@ -55,7 +55,7 @@ class UserForm extends Component {
         }}
       >
         <Form.Item>
-          {getFieldDecorator("username", {
+          {/* {getFieldDecorator("username", {
             rules: [
               { validator: this.checkUsername },
               { required: true, message: "请输入用户名" },
@@ -66,10 +66,10 @@ class UserForm extends Component {
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,25)" }} />}
               placehold="请输入用户名"
             />
-          )}
+          )} */}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator("password", {
+          {/* {getFieldDecorator("password", {
             rules: [{ required: true, message: "请输入密码" }],
           })(
             <Input
@@ -77,11 +77,11 @@ class UserForm extends Component {
               prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,25)" }} />}
               placehold="请输入密码"
             />
-          )}
+          )} */}
         </Form.Item>
         {this.state.isSignUp && (
           <Form.Item>
-            {getFieldDecorator("mail", {
+            {/* {getFieldDecorator("mail", {
               rules: [{ required: true, message: "请输入邮箱" }],
             })(
               <Input
@@ -91,7 +91,7 @@ class UserForm extends Component {
                 }
                 placehold="请输入邮箱"
               />
-            )}
+            )} */}
           </Form.Item>
         )}
         <Form.Item>
@@ -107,4 +107,4 @@ class UserForm extends Component {
   }
 }
 
-const WrappedUserForm = Form.create()(UserForm)
+const WrappedUserForm = UserForm

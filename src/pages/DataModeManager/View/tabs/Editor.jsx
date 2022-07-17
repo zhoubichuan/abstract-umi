@@ -3,7 +3,7 @@ import { Card, Form, Input, Row, Col, Select, Button, Upload, Icon, message } fr
 import 'braft-editor/dist/index.css';
 import 'braft-extensions/dist/table.css';
 import BraftEditor from 'braft-editor';
-import Table from 'braft-extensions/dist/table';
+import Table from 'braft-extensions/dist/table.js';
 import axios from 'axios';
 
 const { Item } = Form;
@@ -82,7 +82,7 @@ class AddForm extends React.Component {
     handleChange = ({ fileList }) => this.setState({ fileList });
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}};
         const formItemLayout = {
             labelCol: { span: 6 },
             wrapperCol: { span: 16 },
@@ -259,4 +259,4 @@ class AddForm extends React.Component {
     }
 }
 
-const Editor = Form.create()(AddForm);
+const Editor = AddForm;
