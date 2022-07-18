@@ -8,6 +8,7 @@ export default defineConfig({
   request: {},
   layout: {
     title: '@umijs/max',
+    locale: false, // 默认开启，如无需菜单国际化可关闭
   },
   base: '/abstract-umi/',
   publicPath: '/abstract-umi/',

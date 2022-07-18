@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row, Col, Icon, message, Popconfirm } from 'antd';
-import { withRouter } from 'react-router-dom';
 // import user from '@/services/user.ts';
 
 class Header extends Component {
@@ -48,4 +47,4 @@ class Header extends Component {
     }
 }
 
-export default withRouter(Header);
+export default Header
