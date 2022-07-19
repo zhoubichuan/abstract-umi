@@ -127,65 +127,42 @@ class BaseInfo extends Component {
                             <Collapse.Panel header="基本信息" key="1">
                                 <Col span={12}>
                                     <Form.Item label="中文名称" name="name">
-                                        {/* {getFieldDecorator('name', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: '中文名称不能为空',
-                                                },
-                                            ],
-                                        })(<Input placeholder="请输入英文名称" />)} */}
+                                    <Input placeholder="请输入英文名称" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="英文名称">
-                                        {/* {getFieldDecorator('nameEn', {
-                                            rules: [
-                                                {
-                                                    required: true,
-                                                    message: '英文名称不能为空',
-                                                },
-                                            ],
-                                        })(<Input placeholder="请输入英文名称" />)} */}
+                                    <Input placeholder="请输入英文名称" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={24}>
                                     <Form.Item label="中文描述" labelCol={{ span: 2 }}>
-                                        {/* {getFieldDecorator('descript')(
-                                            <Input.TextArea placeholder="请输入中文描述" />,
-                                        )} */}
+                                            <Input.TextArea placeholder="请输入中文描述" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={24}>
                                     <Form.Item label="英文描述" labelCol={{ span: 2 }}>
-                                        {/* {getFieldDecorator('descriptEn')(
-                                            <Input.TextArea placeholder="请输入英文描述" />,
-                                        )} */}
+                                            <Input.TextArea placeholder="请输入英文描述" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="内容">
-                                        {/* {getFieldDecorator('content')(
-                                            <Input.TextArea placeholder="请输入内容" />,
-                                        )} */}
+                                            <Input.TextArea placeholder="请输入内容" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item label="标签">
-                                        {/* {getFieldDecorator('tag')(
-                                            <Select>
-                                                {this.state.tags.map(item => (
-                                                    <Select.Option key={item._id} value={item._id}>
-                                                        {item.name}
-                                                    </Select.Option>
-                                                ))}
-                                            </Select>,
-                                        )} */}
+                                        <Select>
+                                            {this.state.tags.map(item => (
+                                                <Select.Option key={item._id} value={item._id}>
+                                                    {item.name}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
-                                    <Form.Item label="分类">
-                                        {/* {getFieldDecorator('category')(
+                                    <Form.Item label="分类" name={'category'}>
                                             <Select>
                                                 {this.state.categories.map(item => (
                                                     <Select.Option key={item._id} value={item._id}>
@@ -193,7 +170,6 @@ class BaseInfo extends Component {
                                                     </Select.Option>
                                                 ))}
                                             </Select>,
-                                        )} */}
                                     </Form.Item>
                                 </Col>
                             </Collapse.Panel>

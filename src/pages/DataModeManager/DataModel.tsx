@@ -15,11 +15,12 @@ import {
     Modal,
 } from 'antd';
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
-import { SliderRight } from './SliderRight';
+import SliderRight from './SliderRight';
 import SearchForm from './SearchForm';
 import articleService from '@/services/article';
 // import moment from 'moment';
 import ThemeContext from './ThemeContext';
+import { DownloadOutlined } from '@ant-design/icons';
 // require('moment/locale/zh-cn.js');
 
 export default class DataModel extends Component {
@@ -472,7 +473,7 @@ export default class DataModel extends Component {
                     />
                     {/* 按钮组 */}
                     <Button.Group className={'common-button'}>
-                        <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
+                        <Button type="primary" icon={<DownloadOutlined />} onClick={this.handleCreate}>
                             创建
                         </Button>
                         <Button
@@ -480,7 +481,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             删除
@@ -490,7 +491,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             预发布
@@ -500,7 +501,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             已发布
@@ -510,7 +511,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             修订
@@ -520,7 +521,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             失效
@@ -530,7 +531,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="minus-circle"
+                            icon={<DownloadOutlined />}
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             作废
@@ -540,7 +541,7 @@ export default class DataModel extends Component {
                                 marginLeft: 5,
                             }}
                             type="primary"
-                            icon="download"
+                            icon={<DownloadOutlined />}
                             className="export-table"
                         >
                             导出表格
