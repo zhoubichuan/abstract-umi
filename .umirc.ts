@@ -29,12 +29,12 @@ export default defineConfig({
     {
       name: '首页',
       path: '/home',
-      component: './Home',
+      component: './Home/index',
     },
     {
       name: '种类',
       path: '/category',
-      component: './Category',
+      component: './Category/index',
     },
     {
       name: '数据实体',
