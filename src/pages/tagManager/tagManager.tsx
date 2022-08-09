@@ -272,7 +272,7 @@ export default class Article extends Component {
                 dataIndex: 'name',
                 key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
-                render: (text, record) => (
+                render: (text:string, record) => (
                     <a
                         onClick={() => this.handleView(record)}
                         className={'text-ellipsis'}
@@ -384,7 +384,6 @@ export default class Article extends Component {
         return (
             <div
                 className="common-page"
-                span="24"
                 style={{
                     padding: 8,
                 }}
@@ -398,15 +397,14 @@ export default class Article extends Component {
                         className={'search'}
                     />
                     <Button.Group className={'common-button'}>
-                        <Button type="primary" icon="plus-circle" onClick={this.handleCreate}>
+                        <Button type="primary" onClick={this.handleCreate}>
                             创建
                         </Button>
                         <Button
                             style={{
                                 marginLeft: 5,
                             }}
-                            type="danger"
-                            icon="minus-circle"
+                            type="primary"
                             onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
                         >
                             删除
@@ -521,4 +519,3 @@ class CommentModal extends Component {
         );
     }
 }
-const WrappedCommentModal =CommentModal

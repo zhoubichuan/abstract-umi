@@ -181,13 +181,12 @@ export default class Category extends Component {
                 <Row>
                     <Col span={6}>
                         <Button.Group>
-                            <Button type="primary" icon="plus-circle" onClick={this.create}>
+                            <Button type="primary" onClick={this.create}>
                                 新建
                             </Button>
                             <Button
                                 style={{ marginLeft: 10 }}
-                                icon="delete"
-                                type="danger"
+                                type="primary"
                                 onClick={() => this.remove(this.state.selectedRowKeys)}
                             >
                                 删除

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Icon, message, Popconfirm } from 'antd';
+import { Row, Col, message, Popconfirm } from 'antd';
 // import user from '@/services/user.ts';
 
 class Header extends Component {
@@ -28,7 +28,7 @@ class Header extends Component {
                 <Col span={6}>数据管理系统</Col>
                 <Col span={18}>
                     <div style={{ float: 'right', fontSize: 16 }}>
-                        <Icon type="smile" />
+                        <div type="smile" />
                         欢迎{this.state.username}
                         <Popconfirm
                             title="Are you sure delete this task?"
@@ -37,7 +37,7 @@ class Header extends Component {
                             okText="Yes"
                             cancelText="No"
                         >
-                            <Icon type="logout" />
+                            <div type="logout" />
                             退出
                         </Popconfirm>
                     </div>

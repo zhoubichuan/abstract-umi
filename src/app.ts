@@ -10,7 +10,7 @@ export const layout = () => {
     menu: {
       locale: false,
     },
-    // rightContentRender: () => <Header />,
+    rightContentRender: () => <Header />,
     // footerRender: () => <Footer />,
     // menuHeaderRender: undefined,
   };
