@@ -21,7 +21,7 @@ import tagService from '@/services/tag';
 // import moment from 'moment';
 import ThemeContext from './ThemeContext';
 // require('moment/locale/zh-cn.js');
-
+import type { ColumnsType } from 'antd/es/table';
 export default class Article extends Component {
     state = {
         tabsItem: {},
@@ -259,7 +259,13 @@ export default class Article extends Component {
         });
     };
     render() {
-        const columns = [
+        interface DataType {
+            key: React.Key;
+            name: string;
+            age: number;
+            address: string;
+          }
+        const columns: ColumnsType<DataType> = [
             {
                 title: '序号',
                 dataIndex: 'index',

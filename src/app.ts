@@ -1,5 +1,4 @@
-import Header from './components/Header'
-
+import Header from './components/Guide'
 export async function getInitialState(): Promise<{ name: string }> {
   return { name: '@umijs/max' };
 }

@@ -7,7 +7,9 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '@umijs/max',
+    name: 'My App', 
+    navTheme: 'light',
+    layout: 'mix',
     locale: false, // 默认开启，如无需菜单国际化可关闭
   },
   base: '/abstract-umi/',
