@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Form, Input, Icon, Button, Popconfirm, Modal, message } from "antd"
+import { Form, Input,  Button, Popconfirm, Modal, message } from "antd"
 import service from "@/services/user"
 
 export default class Home extends Component {

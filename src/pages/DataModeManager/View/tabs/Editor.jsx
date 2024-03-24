@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Input, Row, Col, Select, Button, Upload, Icon, message } from 'antd';
+import { Card, Form, Input, Row, Col, Select, Button, Upload, message } from 'antd';
 import 'braft-editor/dist/index.css';
 import 'braft-extensions/dist/table.css';
 import BraftEditor from 'braft-editor';
@@ -97,7 +97,7 @@ class AddForm extends React.Component {
         };
         const uploadButton = (
             <Button>
-                <Icon type="upload" /> 选择附件
+                 选择附件
             </Button>
         );
         return (

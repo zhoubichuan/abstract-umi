@@ -8,7 +8,6 @@ import {
   Select,
   Button,
   Upload,
-  Icon,
   message,
 } from "antd"
 import "braft-editor/dist/index.css"
@@ -153,7 +152,7 @@ class AddForm extends React.Component {
     }
     const uploadButton = (
       <Button>
-        <Icon type="upload" /> 选择附件
+         选择附件
       </Button>
     )
     return (

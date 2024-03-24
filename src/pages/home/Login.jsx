@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Icon, Input, Button, Modal, Checkbox, notification } from "antd"
+import { Form,  Input, Button, Modal, Checkbox, notification } from "antd"
 import { post } from "@/services"
 
 const FormItem = Form.Item
@@ -38,7 +38,6 @@ class Login extends React.Component {
       ) {
         notification.open({
           message: "登陆失败",
-          Icon: <Icon type="smile-circle" style={{ color: "#108ee9" }} />,
         })
       } else {
         localStorage.setItem("token", token.data.token)
@@ -65,7 +64,6 @@ class Login extends React.Component {
                 ],
               })(
                 <Input
-                  prefix={<Icon type="user" style={{ fontSize: 13 }} />}
                   placeholder="用户名"
                 />
               )}
@@ -80,7 +78,6 @@ class Login extends React.Component {
                 ],
               })(
                 <Input
-                  prefix={<Icon type="lock" style={{ fontSize: 13 }} />}
                   type="password"
                   placeholder="密码"
                 />
