@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Tabs } from 'antd';
 // import { CloseOutlined } from '@ant-design/icons';
-import ViewDetail from './View/Detail';
+// import ViewDetail from './View/Detail';
 import EditDetail from './Edit/Detail';
 import CreateDetail from './Create/Detail';
 import ThemeContext from './ThemeContext';
@@ -79,11 +79,11 @@ export class GlobalTheSlider extends Component {
                                         tab={item.title}
                                         key={item.key}
                                     >
-                                        <ViewDetail
+                                        {/* <ViewDetail
                                             item={item.item}
                                             categories={item.categories}
                                             tags={item.tags}
-                                        />
+                                        /> */}
                                     </Tabs.TabPane>
                                 );
                             }

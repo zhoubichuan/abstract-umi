@@ -7,7 +7,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    name: 'My App', 
+    name: 'My App',
     navTheme: 'light',
     layout: 'mix',
     locale: false, // 默认开启，如无需菜单国际化可关闭
@@ -18,9 +18,9 @@ export default defineConfig({
   hash: true,
   proxy: {
     '/api': {
-      'target': 'http://127.0.0.1:7001/', 
+      'target': 'http://127.0.0.1:7001/',
       'changeOrigin': true,
-      'pathRewrite': { '^/api' : '/api' },
+      'pathRewrite': { '^/api': '/api' },
     },
   },
   routes: [
@@ -34,19 +34,24 @@ export default defineConfig({
       component: './Home/index',
     },
     {
-      name: '种类',
+      name: '数据类别',
       path: '/category',
       component: './Category/index',
     },
     {
-      name: '数据实体',
-      path: '/dataModeManager',
-      component: './DataModeManager/DataModel',
+      name: '基础数据',
+      path: '/base-data',
+      component: './BaseData/index',
+    },
+    {
+      name: '树状数据',
+      path: '/tree-data',
+      component: './BaseData/index',
     },
     {
       name: '标签',
       path: '/tagManager',
-      component: './TagManager/TagManager',
+      component: './TagManager/index',
     },
     {
       name: '登录',

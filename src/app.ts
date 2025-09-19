@@ -1,6 +1,6 @@
-import Header from './components/Guide'
+// import Header from './components/Guide'
 export async function getInitialState(): Promise<{ name: string }> {
-  return { name: '@umijs/max' };
+  return { name: '小明' };
 }
 
 export const layout = () => {
@@ -9,7 +9,7 @@ export const layout = () => {
     menu: {
       locale: false,
     },
-    rightContentRender: () => <Header />,
+    // rightContentRender: () => <Header />,
     // footerRender: () => <Footer />,
     // menuHeaderRender: undefined,
   };
