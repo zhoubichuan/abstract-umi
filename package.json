@@ -8,6 +8,7 @@
     "postinstall": "max setup",
     "setup": "max setup",
     "start": "npm run dev",
+    "scp:prod": "scp -r ./abstract-umi/* root@zhoubichuan.com:/usr/src/zhoubichuan/prod/",
     "github": "bash github.sh"
   },
   "dependencies": {

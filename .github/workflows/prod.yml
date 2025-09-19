@@ -12,13 +12,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "16.5.0"
-      - name: 安装yarn
-        run: yarn
       - name: 安装依赖
-        run: yarn install
+        run: npm install
       - name: 打包
-        run: yarn run build
-      - name: copy file  via ssh key
+        run: npm run build
+      - name: 部署
         uses: appleboy/scp-action@master
         with:
           source: "abstract-umi/*"
@@ -27,3 +25,4 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
+          strip_components: 1
