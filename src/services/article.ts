@@ -1,4 +1,4 @@
-import { get, post, del, put } from './index';
+import { get, post, remove, put } from './index';
 const ENTITY = '/api/articles';
 
 function list({ current = 1, pageSize = 10, keyword = '' }) {
@@ -17,11 +17,11 @@ function update(item) {
     return put(`${ENTITY}/${item.id}`, item);
 }
 
-function remove(ids) {
+function del(ids) {
     if (typeof ids == 'string') {
         ids = [ids];
     }
-    return del(`${ENTITY}/${ids[0]}`, {
+    return remove(`${ENTITY}/${ids[0]}`, {
         ids,
     });
 }

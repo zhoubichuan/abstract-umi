@@ -21,7 +21,7 @@ jobs:
       - name: 安装node
         uses: actions/setup-node@v1
         with:
-          node-version: "16.5.0"
+          node-version: "20.0.0"
       # 生成静态文件
       - name: 安装依赖
         run: npm install

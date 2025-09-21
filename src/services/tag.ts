@@ -1,4 +1,4 @@
-import { get, post, del, put } from './index';
+import { get, post, remove, put } from './index';
 const ENTITY = '/api/tag';
 // 1.查询/posts
 function searchTagList({ current = 1, pageSize = 10, keyword = '' }) {

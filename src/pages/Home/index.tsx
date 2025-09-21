@@ -1,11 +1,10 @@
 import React, { Component } from "react"
-import { Form, Input,  Button, Popconfirm, Modal, message } from "antd"
+import { Form, Input, Button, Popconfirm, Modal, message, Icon } from "antd"
 import service from "@/services/user"
 
 export default class Home extends Component {
   handleSubmit = (isSignUp, user) => {
-    service[isSignUp ? "signup" : "signin"](user).then((res) => {
-      debugger
+    service[isSignUp ? "login" : "signin"](user).then((res) => {
       if (res?.code == 0) {
         if (!isSignUp) {
           sessionStorage.setItem("username", res.data.user.username)
@@ -43,7 +42,6 @@ class UserForm extends Component {
     }
   }
   render() {
-    const { getFieldDecorator } = this.props?.form || {getFieldDecorator:() => {}}
     return (
       <Form
         onSubmit={(e) => {
@@ -54,44 +52,35 @@ class UserForm extends Component {
           )
         }}
       >
-        <Form.Item>
-          {/* {getFieldDecorator("username", {
-            rules: [
-              { validator: this.checkUsername },
-              { required: true, message: "请输入用户名" },
-            ],
-          })(
-            <Input
-              type="text"
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,25)" }} />}
-              placehold="请输入用户名"
-            />
-          )} */}
+        <Form.Item rules={[
+          { validator: this.checkUsername },
+          { required: true, message: "请输入用户名" },
+        ]}>
+
+          <Input
+            type="text"
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,25)" }} />}
+            placehold="请输入用户名"
+          />
         </Form.Item>
-        <Form.Item>
-          {/* {getFieldDecorator("password", {
-            rules: [{ required: true, message: "请输入密码" }],
-          })(
-            <Input
-              type="password"
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,25)" }} />}
-              placehold="请输入密码"
-            />
-          )} */}
+        <Form.Item rules={[{ required: true, message: "请输入密码" }]} >
+          <Input
+            type="password"
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,25)" }} />}
+            placehold="请输入密码"
+          />
+
         </Form.Item>
         {this.state.isSignUp && (
-          <Form.Item>
-            {/* {getFieldDecorator("mail", {
-              rules: [{ required: true, message: "请输入邮箱" }],
-            })(
-              <Input
-                type="mail"
-                prefix={
-                  <Icon type="mail" style={{ color: "rgba(0,0,0,25)" }} />
-                }
-                placehold="请输入邮箱"
-              />
-            )} */}
+          <Form.Item rules={[{ required: true, message: "请输入邮箱" }]}>
+            <Input
+              type="mail"
+              prefix={
+                <Icon type="mail" style={{ color: "rgba(0,0,0,25)" }} />
+              }
+              placehold="请输入邮箱"
+            />
+
           </Form.Item>
         )}
         <Form.Item>

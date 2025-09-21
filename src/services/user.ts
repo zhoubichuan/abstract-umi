@@ -1,17 +1,29 @@
-import { get, post, put, del } from './index';
+import { get, post } from './index';
 const ENTITY = '/api/users';
 
-function signup(data) {
-    return post(`${ENTITY}/signup`, data);
+function add(data) {
+    return post(`${ENTITY}/add`, data);
 }
-function signin(data) {
-    return post(`${ENTITY}/signin`, data);
+function del(data) {
+    return post(`${ENTITY}/del`, data);
 }
-function signout() {
-    return get(`${ENTITY}/signout`);
+function edit(data) {
+    return post(`${ENTITY}/edit`, data);
+}
+function query(data) {
+    return get(`${ENTITY}/query`, data);
+}
+function login(data) {
+    return post(`${ENTITY}/login`, data);
+}
+function signout(data) {
+    return post(`${ENTITY}/signout`, data);
 }
 export default {
-    signup,
-    signin,
+    add,
+    del,
+    edit,
+    query,
+    login,
     signout,
 };

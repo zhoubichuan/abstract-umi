@@ -1,9 +1,16 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import React from 'react';
-
+import service from "@/services/user"
 const App: React.FC = () => {
   const onFinish = (values: any) => {
-    console.log('Success:', values);
+     service.login(values).then((res) => {
+      if (res?.code == 0) {
+          sessionStorage.setItem("username", res.data.user.username)
+        // this.props.history.push("./admin")
+      } else {
+        // message.error(res.error)
+      }
+    })
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -42,7 +49,7 @@ const App: React.FC = () => {
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          登陆
         </Button>
       </Form.Item>
     </Form>

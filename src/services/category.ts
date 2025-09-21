@@ -1,4 +1,4 @@
-import { get, post, del, put } from './index';
+import { get, post, remove, put } from './index';
 const ENTITY = '/api/categories';
 
 function list({ current = 1, pageSize = 10, keyword = '' }) {
@@ -13,11 +13,11 @@ function update(category) {
     return put(`${ENTITY}/${category.id}`, category);
 }
 
-function remove(ids) {
+function del(ids) {
     if (typeof ids == 'string') {
         ids = [ids];
     }
-    return del(`${ENTITY}/${ids[0]}`, {
+    return remove(`${ENTITY}/${ids[0]}`, {
         ids,
     });
 }
@@ -25,5 +25,5 @@ export default {
     list,
     create,
     update,
-    remove,
+    del,
 };
