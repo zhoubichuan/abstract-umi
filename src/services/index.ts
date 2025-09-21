@@ -1,4 +1,4 @@
-// import fetch from 'fetch';
+import { request } from '@umijs/max';
 const baseURL = localStorage.baseURL ? localStorage.baseURL : 'http://127.0.0.1:7005';
 
 const config = {
@@ -15,29 +15,29 @@ export function get(url, data) {
         }
         url = `${url}?${params.slice(-1)}`;
     }
-    return fetch(config.baseURL + url, {
+    return request(config.baseURL + url, {
         ...config,
         method: 'get',
-    }).then(res => res.data);
+    });
 }
 export function post(url, data) {
-    return fetch(config.baseURL + url, {
+    return request(config.baseURL + url, {
         ...config,
         method: 'post',
-        body: JSON.stringify(data),
-    }).then(res => res.data);
+        data,
+    });
 }
 export function put(url, data) {
-    return fetch(config.baseURL + url, {
+    return request(config.baseURL + url, {
         ...config,
         method: 'put',
-        body: JSON.stringify(data),
-    }).then(res => res.data);
+        data,
+    });
 }
 export function remove(url, data) {
-    return fetch(config.baseURL + url, {
+    return request(config.baseURL + url, {
         ...config,
         method: 'delete',
-        body: JSON.stringify(data),
-    }).then(res => res.data);
+        data,
+    });
 }

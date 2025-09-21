@@ -18,7 +18,7 @@ export default defineConfig({
   hash: true,
   proxy: {
     '/api': {
-      'target': 'http://127.0.0.1:7001/',
+      'target': 'http://127.0.0.1:7005/',
       'changeOrigin': true,
       'pathRewrite': { '^/api': '/api' },
     },
@@ -26,7 +26,7 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/user/login',
     },
     {
       name: '首页',
@@ -54,14 +54,31 @@ export default defineConfig({
       component: './TagManager/index',
     },
     {
-      name: '登录',
-      path: '/login',
-      component: './Login/Login',
-    },
-    {
-      name: '注册',
-      path: '/register',
-      component: './Register/Register',
+      path: '/user',
+      component: './Layouts/index',
+      layout: false,
+      routes: [
+        {
+          name: '登录',
+          path: '/user/login',
+          component: './Login/Login',
+        },
+        {
+          name: '注册',
+          path: '/user/register',
+          component: './Register/Register'
+        },
+        {
+          name: '忘记密码',
+          path: '/user/forget',
+          component: './Register/Register',
+        },
+        {
+          name: '修改密码',
+          path: '/user/edit',
+          component: './Register/Register',
+        }
+      ],
     },
   ],
   npmClient: 'pnpm',
