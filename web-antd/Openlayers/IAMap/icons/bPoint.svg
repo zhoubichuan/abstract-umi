@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="无人机演示" transform="translate(-1264.000000, -525.000000)">
+            <g id="地图" transform="translate(609.000000, 248.000000)">
+                <g id="icon/地图中/入_激活_未选中_正常状态备份" transform="translate(655.000000, 277.000000)">
+                    <rect id="矩形备份-13" x="0" y="0" width="56" height="56"></rect>
+                    <path d="M28,4 C33.5228475,4 38.5228475,6.23857625 42.1421356,9.85786438 C45.7614237,13.4771525 48,18.4771525 48,24 C48,28.673515 46.3971664,32.9727321 43.710845,36.3775676 C40.8825493,39.9623516 36.8538787,42.5565003 32.2306883,43.5518877 L32.2306883,43.5518877 L28.0001542,50.9792518 L23.7713739,43.5523316 C19.1476524,42.5573434 15.1184516,39.9632582 12.2897661,36.3783421 C9.6030768,32.973384 8,28.6738693 8,24 C8,18.4771525 10.2385763,13.4771525 13.8578644,9.85786438 C17.4771525,6.23857625 22.4771525,4 28,4 Z" id="形状结合备份-11" stroke="#FFFFFF" stroke-width="2" fill="#A747FF"></path>
+                    <text id="B" font-family="PingFangSC-Medium, PingFang SC" font-size="20" font-weight="400" fill="#FFFFFF">
+                        <tspan x="21.13" y="31">B</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

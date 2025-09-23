@@ -10,8 +10,8 @@ function del(data) {
 function edit(data) {
     return post(`${ENTITY}/edit`, data);
 }
-function query(data) {
-    return get(`${ENTITY}/query`, data);
+function query(params) {
+    return get(`${ENTITY}/query`, {params});
 }
 function current(data) {
     return get(`${ENTITY}/current`, data);

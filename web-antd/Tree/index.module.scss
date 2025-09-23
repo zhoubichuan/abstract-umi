@@ -1,0 +1,16 @@
+@import '../index.scss';
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  &::before {
+    display: inline-block;
+    width: 6px;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background: $base-color;
+    border-radius: 4px;
+    content: '';
+  }
+}

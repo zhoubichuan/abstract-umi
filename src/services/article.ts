@@ -1,29 +1,24 @@
 import { get, post, remove, put } from './index';
 const ENTITY = '/api/articles';
 
-function list({ current = 1, pageSize = 10, keyword = '' }) {
-    return get(`${ENTITY}?pageNum=${current}&pageSize=${pageSize}&keyword=${keyword}`);
+function list(data) {
+       return get(`${ENTITY}/query`, data);
 }
 
 function search(filter) {
     return post(`${ENTITY}/search`, filter);
 }
 
-function create(item) {
-    return post(ENTITY, item);
+function create(data) {
+    return post(`${ENTITY}/add`, data);
 }
 
-function update(item) {
-    return put(`${ENTITY}/${item.id}`, item);
+function update(data) {
+    return post(`${ENTITY}/edit`, data);
 }
 
-function del(ids) {
-    if (typeof ids == 'string') {
-        ids = [ids];
-    }
-    return remove(`${ENTITY}/${ids[0]}`, {
-        ids,
-    });
+function del(data) {
+    return post(`${ENTITY}/del`, data);
 }
 
 function addPv(id) {

@@ -1,0 +1,8 @@
+@import '../index.scss';
+.rangePicker {
+  :global {
+    .#{$ant-prefix}-picker {
+        border-radius: $form-item-radius;
+    }
+  }
+}

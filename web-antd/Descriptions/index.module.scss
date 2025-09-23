@@ -1,0 +1,74 @@
+@import '../index.scss';
+
+.tableInput {
+    background: #F9F9F9;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 20px;
+
+    :global {
+
+        .#{$ant-prefix}-descriptions-row {
+
+            .#{$ant-prefix}-descriptions-item {
+                .#{$ant-prefix}-descriptions-item-container {
+                    .#{$ant-prefix}-descriptions-item-content {
+                        font-weight: bold;
+                        font-size: 15px;
+                        color: #1D1D1F;
+                    }
+                }
+            }
+
+            &:nth-child(1) {
+                .#{$ant-prefix}-descriptions-item {
+                    .#{$ant-prefix}-descriptions-item-container {
+                        .#{$ant-prefix}-descriptions-item-content {
+                            color: #50525A;
+                            font-weight: 400;
+                            font-size: 15px;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+.row {
+    background: #F9F9F9;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 20px;
+
+    :global {
+
+        .#{$ant-prefix}-descriptions-row {
+
+            .#{$ant-prefix}-descriptions-item {
+                .#{$ant-prefix}-descriptions-item-container {
+                    .#{$ant-prefix}-descriptions-item-content {
+                        font-weight: bold;
+                        font-size: 15px;
+                        color: #1D1D1F;
+                    }
+                }
+            }
+
+            &:nth-child(1) {
+                .#{$ant-prefix}-descriptions-item {
+                    .#{$ant-prefix}-descriptions-item-container {
+                        .#{$ant-prefix}-descriptions-item-content {
+                            color: #50525A;
+                            font-weight: 400;
+                            font-size: 15px;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+}

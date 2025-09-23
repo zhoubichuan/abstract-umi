@@ -1,99 +1,88 @@
-import React, { Component } from "react"
-import { Form, Input, Button, Popconfirm, Modal, message, Icon } from "antd"
-import service from "@/services/user"
+import React, { useState } from 'react';
+import { Tree } from 'antd';
+import type { TreeDataNode, TreeProps } from 'antd';
 
-export default class Home extends Component {
-  handleSubmit = (isSignUp, user) => {
-    service[isSignUp ? "login" : "signin"](user).then((res) => {
-      if (res?.code == 0) {
-        if (!isSignUp) {
-          sessionStorage.setItem("username", res.data.user.username)
-        }
-        this.props.history.push("./admin")
-      } else {
-        message.error(res.error)
-      }
-    })
-  }
-  render() {
-    return (
-      <div className="home-page">
-        <div className="login-form">
-          <h1>树状数据系统</h1>
-          <WrappedUserForm onSubmit={this.handleSubmit} />
-        </div>
-      </div>
-    )
-  }
-}
+const treeData: TreeDataNode[] = [
+  {
+    title: '0-0',
+    key: '0-0',
+    children: [
+      {
+        title: '0-0-0',
+        key: '0-0-0',
+        children: [
+          { title: '0-0-0-0', key: '0-0-0-0' },
+          { title: '0-0-0-1', key: '0-0-0-1' },
+          { title: '0-0-0-2', key: '0-0-0-2' },
+        ],
+      },
+      {
+        title: '0-0-1',
+        key: '0-0-1',
+        children: [
+          { title: '0-0-1-0', key: '0-0-1-0' },
+          { title: '0-0-1-1', key: '0-0-1-1' },
+          { title: '0-0-1-2', key: '0-0-1-2' },
+        ],
+      },
+      {
+        title: '0-0-2',
+        key: '0-0-2',
+      },
+    ],
+  },
+  {
+    title: '0-1',
+    key: '0-1',
+    children: [
+      { title: '0-1-0-0', key: '0-1-0-0' },
+      { title: '0-1-0-1', key: '0-1-0-1' },
+      { title: '0-1-0-2', key: '0-1-0-2' },
+    ],
+  },
+  {
+    title: '0-2',
+    key: '0-2',
+  },
+];
 
-class UserForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { isSignUp: true }
-  }
-  checkUsername = (rule, value, callback) => {
-    if (!value) {
-      callback("用户名不能为空")
-    } else if (!/^1\d{10}$/.test(value)) {
-      callback("用户名必须是一个手机号")
-    } else {
-      callback()
-    }
-  }
-  render() {
-    return (
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault()
-          this.props.onSubmit(
-            this.state.isSignUp,
-            this.props.form.getFieldsValue()
-          )
-        }}
-      >
-        <Form.Item rules={[
-          { validator: this.checkUsername },
-          { required: true, message: "请输入用户名" },
-        ]}>
+const App: React.FC = () => {
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(['0-0-0', '0-0-1']);
+  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>(['0-0-0']);
+  const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
+  const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 
-          <Input
-            type="text"
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,25)" }} />}
-            placehold="请输入用户名"
-          />
-        </Form.Item>
-        <Form.Item rules={[{ required: true, message: "请输入密码" }]} >
-          <Input
-            type="password"
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,25)" }} />}
-            placehold="请输入密码"
-          />
+  const onExpand: TreeProps['onExpand'] = (expandedKeysValue) => {
+    console.log('onExpand', expandedKeysValue);
+    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+    // or, you can remove all expanded children keys.
+    setExpandedKeys(expandedKeysValue);
+    setAutoExpandParent(false);
+  };
 
-        </Form.Item>
-        {this.state.isSignUp && (
-          <Form.Item rules={[{ required: true, message: "请输入邮箱" }]}>
-            <Input
-              type="mail"
-              prefix={
-                <Icon type="mail" style={{ color: "rgba(0,0,0,25)" }} />
-              }
-              placehold="请输入邮箱"
-            />
+  const onCheck: TreeProps['onCheck'] = (checkedKeysValue) => {
+    console.log('onCheck', checkedKeysValue);
+    setCheckedKeys(checkedKeysValue as React.Key[]);
+  };
 
-          </Form.Item>
-        )}
-        <Form.Item>
-          <Button htmlType="submit" className="login-form-button">
-            {this.state.isSignUp ? "注册" : "登录"}
-          </Button>
-          <a onClick={() => this.setState({ isSignUp: !this.state.isSignUp })}>
-            {this.state.isSignUp ? "已有账号，直接登录" : "没有账号，请注册"}
-          </a>
-        </Form.Item>
-      </Form>
-    )
-  }
-}
+  const onSelect: TreeProps['onSelect'] = (selectedKeysValue, info) => {
+    console.log('onSelect', info);
+    setSelectedKeys(selectedKeysValue);
+  };
 
-const WrappedUserForm = UserForm
+  return (
+    <Tree
+      checkable
+      onExpand={onExpand}
+      expandedKeys={expandedKeys}
+      autoExpandParent={autoExpandParent}
+      onCheck={onCheck}
+      checkedKeys={checkedKeys}
+      onSelect={onSelect}
+      selectedKeys={selectedKeys}
+      treeData={treeData}
+    />
+  );
+};
+
+export default App;

@@ -1,0 +1,218 @@
+@import '../index.scss';
+
+.layout {
+  :global {
+    .#{$ant-prefix}-layout-header {
+      position: fixed;
+      z-index: 1000;
+      height: auto;
+      padding: 0;
+      background-color: transparent;
+
+      .#{$ant-prefix}-card-bordered {
+        border-radius: inherit !important;
+      }
+
+      .#{$ant-prefix}-card-head {
+        border: none;
+      }
+
+      .#{$ant-prefix}-card-head-title {
+        padding: 0 !important;
+      }
+
+      .#{$ant-prefix}-card-body {
+        padding: 0;
+
+        .#{$ant-prefix}-descriptions-item {
+          .#{$ant-prefix}-descriptions-item-label {
+            color: #313131;
+            font-weight: 600;
+            font-size: 32px;
+          }
+
+          .#{$ant-prefix}-descriptions-item-content {
+            color: #6b707c;
+            font-weight: 400;
+            font-size: 20px;
+          }
+        }
+      }
+
+      &::after {
+        display: block;
+        height: 10px;
+        background: transparent !important;
+        content: '';
+      }
+    }
+
+    .#{$ant-prefix}-layout {
+      .#{$ant-prefix}-layout-sider {
+        position: absolute;
+        z-index: 100;
+        flex: 0 0 360px !important;
+        width: 360px !important;
+        max-width: inherit !important;
+        background: rgba(0, 0, 0, 0);
+
+        .#{$ant-prefix}-divider-horizontal {
+          height: 2px;
+          margin: 15px 0;
+          border: 1px solid #50525a;
+        }
+      }
+
+      .#{$ant-prefix}-layout-content {
+        position: relative;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    .#{$ant-prefix}-layout-footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 42px 0;
+      color: rgba(255, 255, 255);
+      background: rgba(102, 102, 102, 0.65);
+    }
+  }
+}
+.searchButton {
+  position: absolute;
+  right: 20px;
+}
+
+.pageTemplate {
+  height: 100%;
+  :global(.#{$ant-prefix}-tabs-nav) {
+    margin: 0;
+    &:before {
+      border: none;
+    }
+  }
+
+  :global(.#{$ant-prefix}-tabs-tab-btn) {
+    color: #1d1d1f !important;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  :global(.#{$ant-prefix}-tabs-ink-bar) {
+    visibility: hidden;
+  }
+  :global {
+    .#{$ant-prefix}-card-body {
+      height: 100%;
+      & > div {
+        height: 100%;
+        .#{$ant-prefix}-tabs {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .#{$ant-prefix}-tabs-content-holder {
+            flex-grow: 1;
+            .#{$ant-prefix}-tabs-content {
+              height: 100%;
+              .#{$ant-prefix}-tabs-tabpane {
+                height: 100%;
+                & > div {
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                  & > div {
+                    flex-grow: 1;
+                    .#{$ant-prefix}-table-wrapper {
+                      height: 100%;
+                      .#{$ant-prefix}-spin-nested-loading {
+                        height: 100%;
+                        .#{$ant-prefix}-spin-container {
+                          display: flex;
+                          flex-direction: column;
+                          height: 100%;
+                          .#{$ant-prefix}-table {
+                            flex-grow: 1;
+                            .#{$ant-prefix}-table-container {
+                              display: flex;
+                              flex-direction: column;
+                              height: 100%;
+                              .#{$ant-prefix}-table-body {
+                                flex-grow: 1;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.tabsTemplate {
+  height: 100%;
+  :global(.#{$ant-prefix}-tabs-nav) {
+    &:before {
+      border: none!important;
+    }
+  }
+  :global {
+    .#{$ant-prefix}-card-body {
+      height: 100%;
+      & > div {
+        height: 100%;
+        .#{$ant-prefix}-tabs {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .#{$ant-prefix}-tabs-content-holder {
+            flex-grow: 1;
+            .#{$ant-prefix}-tabs-content {
+              height: 100%;
+              .#{$ant-prefix}-tabs-tabpane {
+                height: 100%;
+                & > div {
+                  display: flex;
+                  flex-direction: column;
+                  height: 100%;
+                  & > div {
+                    flex-grow: 1;
+                    .#{$ant-prefix}-table-wrapper {
+                      height: 100%;
+                      .#{$ant-prefix}-spin-nested-loading {
+                        height: 100%;
+                        .#{$ant-prefix}-spin-container {
+                          display: flex;
+                          flex-direction: column;
+                          height: 100%;
+                          .#{$ant-prefix}-table {
+                            flex-grow: 1;
+                            .#{$ant-prefix}-table-container {
+                              display: flex;
+                              flex-direction: column;
+                              height: 100%;
+                              .#{$ant-prefix}-table-body {
+                                flex-grow: 1;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

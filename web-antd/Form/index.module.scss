@@ -1,0 +1,92 @@
+@import '../index.scss';
+
+.search {
+  margin-top: 14px;
+
+  .#{$ant-prefix}-form-item {
+    .#{$ant-prefix}-input {
+      border-radius: 6px;
+    }
+
+    .#{$ant-prefix}-select-selector {
+      border-radius: 4px;
+    }
+  }
+}
+.electronForm {
+  margin-top: 20px;
+  padding: 0 10px;
+
+  :global {
+    .#{$ant-prefix}-form-item {
+      box-shadow: 0px 1px 24px 0px rgba(0, 0, 0, 0.04);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 100%);
+
+      .#{$ant-prefix}-form-item-label>label {
+        font-weight: 400;
+        font-size: 16px;
+        height: 100%;
+      }
+
+      .#{$ant-prefix}-input {
+        border: none;
+        margin: 14px 0 10px
+      }
+
+      .#{$ant-prefix}-select-selector {
+        border: none;
+        margin: 14px 0 10px
+      }
+
+      .#{$ant-prefix}-radio-group {
+        margin: 14px 10px 14px
+      }
+
+      .#{$ant-prefix}-picker {
+        border: none;
+        margin: 14px 0 10px
+      }
+      .#{$ant-prefix}-btn-default{
+        background:#FFFFFF ;
+      }
+    }
+  }
+}
+
+.layout{
+  height: 100%;
+  .content{
+    max-height: 650px;
+    @include scrollbar-hidden;
+  }
+  :global{
+    .#{$ant-prefix}-form-item-label-wrap{
+      .#{$ant-prefix}-form-item-no-colon{
+        font-size: 16px;
+        font-weight: 400;
+        color: #86868B;
+      }
+    }
+    .#{$ant-prefix}-form-item{
+      .#{$ant-prefix}-form-item-control{
+        width: calc(100% - 118px);
+      }
+    }
+  }
+}
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  &::before {
+    display: inline-block;
+    width: 6px;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background: $base-color;
+    border-radius: 4px;
+    content: '';
+  }
+}

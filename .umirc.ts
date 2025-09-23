@@ -34,9 +34,9 @@ export default defineConfig({
       component: './Home/index',
     },
     {
-      name: '数据类别',
-      path: '/category',
-      component: './Category/index',
+      name: '用户查询',
+      path: '/user-query',
+      component: './User/index',
     },
     {
       name: '基础数据',

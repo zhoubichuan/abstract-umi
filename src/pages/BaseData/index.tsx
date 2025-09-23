@@ -5,8 +5,6 @@ import {
     Spin,
     Avatar,
     Table,
-    Input,
-    Popconfirm,
     Button,
     Form,
     message,
@@ -17,10 +15,11 @@ import {
 import { EditTwoTone, MessageTwoTone, DeleteTwoTone } from '@ant-design/icons';
 import SliderRight from './SliderRight';
 import SearchForm from './SearchForm';
+import ButtonGroup from './ButtonGroup';
 import articleService from '@/services/article';
 // import moment from 'moment';
 import ThemeContext from './ThemeContext';
-import { DownloadOutlined } from '@ant-design/icons';
+
 // require('moment/locale/zh-cn.js');
 
 export default class DataModel extends Component {
@@ -100,6 +99,7 @@ export default class DataModel extends Component {
         itemValue.key && (tabsItem[itemValue.key] = itemValue);
         this.setState({
             tabsItem,
+            commentVisible: true,
         });
     };
     handleEdit = item => {
@@ -144,14 +144,7 @@ export default class DataModel extends Component {
             viewVisible: false,
         });
     };
-    handleRemove = ids => {
-        articleService.remove(ids).then(res => {
-            if (res?.code == 0) {
-                message.success('删除数据成功');
-                // this.setState({}, this.getList());
-            }
-        });
-    };
+  
     handleSearch = keyword => {
         this.setState(
             {
@@ -472,81 +465,7 @@ export default class DataModel extends Component {
                         type={1}
                     />
                     {/* 按钮组 */}
-                    <Button.Group className={'common-button'}>
-                        <Button type="primary" icon={<DownloadOutlined />} onClick={this.handleCreate}>
-                            创建
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            删除
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            预发布
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            已发布
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            修订
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            失效
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            onClick={() => this.handleRemove(this.state.selectedRowkKeys)}
-                        >
-                            作废
-                        </Button>
-                        <Button
-                            style={{
-                                marginLeft: 5,
-                            }}
-                            type="primary"
-                            icon={<DownloadOutlined />}
-                            className="export-table"
-                        >
-                            导出表格
-                        </Button>
-                    </Button.Group>
+                    <ButtonGroup />
                     {/* 表格部分 */}
                     <Table
                         className={'common-table'}
@@ -562,7 +481,7 @@ export default class DataModel extends Component {
                     <SliderRight handleCloseTabs={this.handleCloseTabs} />
                 </ThemeContext.Provider>
                 <Modal
-                    visible={this.state.commentVisible}
+                    open={this.state.commentVisible}
                     onCancel={this.commentCancel}
                     onOk={this.commentOk}
                     destroyOnClose
@@ -598,7 +517,6 @@ class CommentModal extends Component {
         start: 0,
         limit: 5,
         loading: false,
-        comments: this.props.item.comments.slice(0, 5),
     };
     loading = () => {
         this.setState({
@@ -612,10 +530,6 @@ class CommentModal extends Component {
                 () => {
                     this.setState({
                         loading: false,
-                        comments: this.props.item.comments.slice(
-                            0,
-                            this.state.start + this.state.limit,
-                        ),
                     });
                 },
             );
@@ -644,7 +558,7 @@ class CommentModal extends Component {
         });
     };
     render() {
-        const loadMore = this.state.start + this.state.limit < this.props.item.comments.length && (
+        const loadMore = (
             <div
                 style={{
                     marginTop: 20,

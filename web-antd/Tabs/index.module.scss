@@ -1,0 +1,29 @@
+@import '../index.scss';
+.tabs {
+  :global {
+    .#{$ant-prefix}-tabs-nav {
+      margin: 0;
+
+      &:before {
+        border: none;
+      }
+    }
+
+    .#{$ant-prefix}-tabs-tab-btn {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .#{$ant-prefix}-tabs-tab:hover {
+      color: $tabs-color;
+    }
+
+    .#{$ant-prefix}-tabs-tab-active .#{$ant-prefix}-tabs-tab-btn {
+      color: $tabs-color;
+    }
+
+    .#{$ant-prefix}-tabs-ink-bar {
+      background: $tabs-color;
+    }
+  }
+}

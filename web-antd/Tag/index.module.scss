@@ -1,0 +1,16 @@
+@import '../index.scss';
+.tag {
+    display: inline;
+}
+.limitLength {
+  :global(.#{$ant-prefix}-tag) {
+    max-width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.noBorder {
+  :global(.#{$ant-prefix}-tag) {
+    border: none;
+  }
+}

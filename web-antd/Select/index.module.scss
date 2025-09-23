@@ -1,0 +1,9 @@
+@import '../index.scss';
+
+.select {
+  :global {
+    .#{$ant-prefix}-select-selector {
+      border-radius: $form-item-radius !important;
+    }
+  }
+}

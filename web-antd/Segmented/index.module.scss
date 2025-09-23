@@ -1,0 +1,32 @@
+@import '../index.scss';
+.segmented {
+  :global {
+    .#{$ant-prefix}-segmented {
+      padding: 0;
+      border: 2px solid #E9E9E9;
+      border-radius: 8px;
+      .#{$ant-prefix}-segmented-group {
+        border-radius: 6px;
+        .#{$ant-prefix}-segmented-item-label {
+          min-height: 48px;
+          font-weight: 500;
+          font-size: 22px;
+          line-height: 48px;
+        }
+        .#{$ant-prefix}-segmented-item {
+          background-color: #ffffff;
+          border-radius: 6px;
+          .#{$ant-prefix}-segmented-item-label {
+            color: #6b707c;
+          }
+        }
+        .#{$ant-prefix}-segmented-item-selected {
+          background-color: $base-color;
+          .#{$ant-prefix}-segmented-item-label {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}

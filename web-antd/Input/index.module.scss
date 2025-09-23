@@ -1,0 +1,16 @@
+@import '../index.scss';
+// 圆形按钮
+.circle {
+  :global {
+    .#{$ant-prefix}-input {
+      border-radius: $form-item-radius;
+    }
+  }
+}
+.input {
+  :global {
+    .#{$ant-prefix}-input-affix-wrapper {
+      border-radius: $form-item-radius;
+    }
+  }
+}

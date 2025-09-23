@@ -1,0 +1,148 @@
+@import '../index.scss';
+// 评分按钮
+.rate {
+  :global {
+    .#{$ant-prefix}-btn {
+      position: relative;
+      height: auto;
+      padding: 0;
+      height: 42px;
+      cursor: pointer;
+      width: 98px;
+      border: none;
+      border-radius: 20px;
+      background: none;
+
+      img {
+        position: absolute;
+        top: 0;
+      }
+
+      span {
+        margin-left: 44px;
+        padding-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      &:after {
+        content: '';
+        display: none !important;
+      }
+    }
+  }
+}
+
+.button {
+  :global {
+    .#{$ant-prefix}-btn-primary {
+      background: $primary-color;
+      border-color: $primary-color;
+
+      &:hover,
+      &:focus {
+        background: $primary-color;
+        border-color: $primary-color;
+      }
+    }
+    .#{$ant-prefix}-btn-link {
+      color: $base-color;
+    }
+
+    .#{$ant-prefix}-btn-link[disabled] {
+      color: rgba(0, 0, 0, 0.25);
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.25);
+      }
+
+      &:focus {
+        color: rgba(0, 0, 0, 0.25);
+      }
+
+      &:active {
+        color: rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .#{$ant-prefix}-btn {
+      border-radius: 4px;
+      height: 40px;
+      padding: 6.4px 15px;
+    }
+
+    .#{$ant-prefix}-btn-sm {
+      font-size: 14px;
+    }
+
+    .#{$ant-prefix}-btn-lg {
+      font-size: 16px;
+    }
+  }
+}
+
+.defaultBtn {
+  background: $default-color;
+  border-color: $default-color;
+  font-weight: 400;
+  color: #646464;
+
+  &:hover,
+  &:focus {
+    background: $default-color;
+    border-color: $default-color;
+  }
+}
+
+// 图标按钮
+.image {
+  :global {
+    .#{$ant-prefix}-btn {
+      display: inline-block;
+      .#{$ant-prefix}-image {
+        vertical-align: middle;
+        margin: 0 10px 2px 0;
+        img {
+          vertical-align: top;
+        }
+      }
+    }
+    .#{$ant-prefix}-btn-default {
+      background: $default-color;
+      border-color: $default-color;
+      font-weight: 400;
+      color: #646464;
+
+      &:hover,
+      &:focus {
+        background: $default-color;
+        border-color: $default-color;
+      }
+    }
+  }
+}
+.dark {
+  :global {
+    .#{$ant-prefix}-btn {
+      .#{$ant-prefix}-image {
+        vertical-align: middle;
+        margin: 0 10px 2px 0;
+        img {
+          vertical-align: top;
+        }
+      }
+    }
+    .#{$ant-prefix}-btn-default {
+      background: #3b3b3b;
+      border-color: #3b3b3b;
+      font-weight: 400;
+      color: #a5a5a5;
+
+      &:hover,
+      &:focus {
+        background: #3b3b3b;
+        border-color: #3b3b3b;
+      }
+    }
+  }
+}

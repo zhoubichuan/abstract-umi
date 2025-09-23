@@ -1,0 +1,14 @@
+$ant-prefix: 'ant';
+// y轴滚动，隐藏滚动条
+@mixin scrollbar-hidden {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+$form-item-radius: 6px;
+// 车联网前端主题色
+@import './theme1.scss';
+
+// 车联网后端主题色
+// @import './theme2.scss';

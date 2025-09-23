@@ -1,0 +1,55 @@
+@import '../index.scss';
+.card {
+  border-radius: 16px;
+
+  :global(.#{$ant-prefix}-card-body) {
+    padding: 15px 24px 8px 24px;
+  }
+}
+.checkbox {
+  position: relative;
+  .title {
+    color: #333333;
+    font-weight: 500;
+    font-size: 21px;
+  }
+  .check {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  &.selected {
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
+    border: 3px solid $base-color;
+    border-radius: 8px;
+    box-shadow: 0px 1px 24px 0px rgba(0, 0, 0, 0.04);
+  }
+  :global {
+    .#{$ant-prefix}-card {
+      height: 154px;
+      overflow: hidden;
+      .#{$ant-prefix}-card-head {
+        .#{$ant-prefix}-card-head-title {
+          margin-top: 20px;
+          padding: 0;
+          color: inherit;
+          font-size: inherit;
+        }
+      }
+      .#{$ant-prefix}-card-body {
+        height: 100% !important;
+      }
+    }
+  }
+}
+
+.height {
+  height: 100%;
+}
+.border {
+  :global {
+    .#{$ant-prefix}-card-bordered {
+      border: none;
+    }
+  }
+}

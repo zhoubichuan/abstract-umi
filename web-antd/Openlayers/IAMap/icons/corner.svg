@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>tractor_round</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="tractor_round" transform="translate(-0.000000, -0.000000)">
+            <rect id="矩形备份-12" x="7.001111" y="0" width="56" height="56"></rect>
+            <path d="M34.9984607,0 L46.9978258,15.9989368 C46.3630092,15.5230435 45.6959712,15.0820542 44.9987639,14.6795263 C38.8105883,11.1068246 31.1863331,11.1068246 24.9981575,14.6795263 C24.301688,15.0816282 23.635324,15.5221102 23.001111,15.9974261 L34.9984607,0 Z" id="形状结合" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <rect id="矩形" x="0" y="0" width="70" height="70"></rect>
+        </g>
+    </g>
+</svg>

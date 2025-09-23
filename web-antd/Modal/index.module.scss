@@ -1,0 +1,47 @@
+@import '../index.scss';
+.dialog {
+    :global {
+        .#{$ant-prefix}-modal-content {
+            border-radius: 20px;
+        }
+
+        .#{$ant-prefix}-modal-close {
+            @include modal-close-position;
+            position: absolute;
+            background: #F1F1F1;
+            width: 40px;
+            border-radius: 50%;
+            height: 40px;
+
+            .#{$ant-prefix}-modal-close-x {
+                width: 100%!important;
+                height: 100%!important;
+                line-height: 40px!important;
+            }
+        }
+    }
+
+    :global {
+        .#{$ant-prefix}-card {
+            border: none;
+            .#{$ant-prefix}-card-body {
+                padding: 0 !important;
+                height: calc(100vh - 224px) !important;
+            }
+        }
+    }
+}
+.gray{
+    :global{
+        .#{$ant-prefix}-modal-content {
+            background-color:#FAFAFA
+        }
+    }
+}
+
+.title{ 
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1;
+}

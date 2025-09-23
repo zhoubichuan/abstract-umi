@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/地图中/入_激活_未选中_正常状态</title>
+    <g id="icon/地图中/入_激活_未选中_正常状态" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="矩形备份-13" x="0" y="0" width="56" height="56"></rect>
+        <path d="M28,3 C33.7989899,3 39.0489899,5.35050506 42.8492424,9.1507576 C46.6494949,12.9510101 49,18.2010101 49,24 C49,29.0017269 47.2515236,33.5951358 44.3321102,37.2020111 C41.2645808,40.9918807 36.9048994,43.6933698 31.9227327,44.6344405 L31.9227327,44.6344405 L28.0000848,51.8958556 L24.0834855,44.6442395 C19.0222529,43.5884127 14.6738483,40.8690958 11.6303715,37.109121 C8.71618698,33.5088765 7,28.9547997 7,24 C7,18.2010101 9.35050506,12.9510101 13.1507576,9.1507576 C16.9510101,5.35050506 22.2010101,3 28,3 Z" id="形状结合备份-20" stroke="#FFFFFF" stroke-width="2" fill="#FF7A46"></path>
+        <text id="起" font-family="PingFangSC-Medium, PingFang SC" font-size="20" font-weight="400" fill="#FFFFFF">
+            <tspan x="18" y="31">起</tspan>
+        </text>
+    </g>
+</svg>
