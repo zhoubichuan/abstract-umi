@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import { Collapse, Input, Button, Form, Select, Col, Row, Upload, message } from 'antd';
 import categoryService from '@/services/category';
 import tagService from '@/services/tag';
-import articleService from '@/services/article';
+import articleService from '@/services/treedata';
 class BaseInfo extends Component {
     constructor(props) {
         super(props);

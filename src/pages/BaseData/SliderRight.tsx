@@ -2,9 +2,9 @@ import { GlobalTheSlider } from "./GlobalTheSlider"
 import { Button, Drawer, Radio, Space } from 'antd';
 import type { DrawerProps } from 'antd/es/drawer';
 import type { RadioChangeEvent } from 'antd/es/radio';
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
 
-const App: React.FC = (props) => {
+const App: React.FC = (props, ref) => {
   const [visible, setVisible] = useState(false);
 
   const showDrawer = () => {
@@ -13,7 +13,11 @@ const App: React.FC = (props) => {
   const onClose = () => {
     setVisible(false);
   };
-
+  useImperativeHandle(ref, () => ({
+    handleCreate: () => {
+      setVisible(true);
+    }
+  }))
   return (
     <>
       <Space>
@@ -36,12 +40,12 @@ const App: React.FC = (props) => {
           </Space>
         }
       >
-      <GlobalTheSlider
-        handleCloseTabs={props.handleCloseTabs}
-      ></GlobalTheSlider>
+        <GlobalTheSlider
+          handleCloseTabs={props.handleCloseTabs}
+        ></GlobalTheSlider>
       </Drawer>
     </>
   );
 };
 
-export default App;
+export default forwardRef(App);
