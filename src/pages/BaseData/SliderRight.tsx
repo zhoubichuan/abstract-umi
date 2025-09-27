@@ -6,10 +6,6 @@ import React, { useState, useImperativeHandle, forwardRef } from 'react';
 
 const App: React.FC = (props, ref) => {
   const [visible, setVisible] = useState(false);
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
   const onClose = () => {
     setVisible(false);
   };
@@ -20,29 +16,17 @@ const App: React.FC = (props, ref) => {
   }))
   return (
     <>
-      <Space>
-        <Button type="primary" onClick={showDrawer}>
-          Open
-        </Button>
-      </Space>
       <Drawer
         title="Drawer with extra actions"
         placement={'right'}
         width={1000}
         onClose={onClose}
         visible={visible}
-        extra={
-          <Space>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button type="primary" onClick={onClose}>
-              OK
-            </Button>
-          </Space>
-        }
       >
         <GlobalTheSlider
           handleCloseTabs={props.handleCloseTabs}
-        ></GlobalTheSlider>
+        >
+        </GlobalTheSlider>
       </Drawer>
     </>
   );

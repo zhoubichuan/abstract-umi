@@ -13,10 +13,10 @@ interface DataType {
 }
 
 
-const App: React.FC = (props,ref) => {
+const App: React.FC = (props, ref) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState(false);
- const [dataSource, setDataSource] = useState([]);
+  const [dataSource, setDataSource] = useState([]);
   const handleSearch = (params) => {
     setLoading(true)
     treeDataService
@@ -25,7 +25,7 @@ const App: React.FC = (props,ref) => {
         pageSize: 20,
       })
       .then(res => {
-         setLoading(false)
+        setLoading(false)
 
         if (res?.code == 0) {
           const { data, pageNum: current, pageSize, total } = res;
@@ -50,36 +50,20 @@ const App: React.FC = (props,ref) => {
         }
       });
   };
-  const handleEdit = item => {
-    const itemValue = {
-      type: 'edit',
-      title: item.name,
-      key: 'create',
-      item: item,
-      categories: this.state.categories,
-      tags: this.state.tags,
-    };
-    const tabsItem = this.state.tabsItem;
-    itemValue.key && (tabsItem[itemValue.key] = itemValue);
-    this.setState({
-      tabsItem,
-    });
-  };
-  const handleView = item => {
-    treeDataService.addPv(item._id).then(res => {
-      if (res?.code == 0) {
 
-      } else {
-        message.error(res?.data);
-      }
-    });
-  };
+
   const columns: TableColumnsType<DataType> = [
     {
       title: '序号',
       dataIndex: 'index',
       key: 'index',
       width: 60,
+      fixed: 'left',
+    },
+      {
+      title: 'id',
+      dataIndex: 'id',
+      key: 'id',
       fixed: 'left',
     },
     {
@@ -89,7 +73,7 @@ const App: React.FC = (props,ref) => {
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text, record) => (
         <a
-          onClick={() => handleView(record)}
+          onClick={() => props.view(record)}
           className={'text-ellipsis'}
           title={text}
         >
@@ -138,10 +122,15 @@ const App: React.FC = (props,ref) => {
       dataIndex: 'parent',
       key: 'parent',
     },
-        {
+    {
       title: 'hasChildren',
       dataIndex: 'hasChildren',
       key: 'hasChildren',
+      render: text => (
+        <div >
+          {text ? '是' : "否"}
+        </div>
+      ),
     },
     {
       title: '创建者',
@@ -187,29 +176,12 @@ const App: React.FC = (props,ref) => {
       render: (text, record, index) => {
         return (
           <div className="icons-list">
-            <EditTwoTone onClick={() => this.handleEdit(record)} />
-            <MessageTwoTone
-              onClick={() => this.comment(record)}
-              style={{ marginLeft: '10px' }}
-            />
-            {/* <Popconfirm onConfirm={() => this.remove(record._id)}>
-                                <DeleteTwoTone style={{ marginLeft: '10px' }} />
-                            </Popconfirm> */}
+            <EditTwoTone onClick={() => props.edit(record)} />
           </div>
         );
       },
     },
   ];
-
-  const start = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 1000);
-  };
-
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);

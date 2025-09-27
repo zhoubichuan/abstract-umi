@@ -13,6 +13,7 @@ const App: React.FC = () => {
             item: { key: "create" },
         }
     })
+
     const searchFormRef = useRef(null)
     const tableShowRef = useRef(null)
     const sliderRightRef = useRef(null)
@@ -23,12 +24,41 @@ const App: React.FC = () => {
         search({})
     }, [])
     const handleCreate = () => {
+        setState({
+            item: {
+                type: "create",
+                title: "创建",
+                key: "create",
+                item: { key: "create" },
+            }
+        })
         sliderRightRef?.current?.handleCreate()
     }
     const handleSearch = (params) => {
         tableShowRef?.current?.search(params)
     }
-
+    const handleView = item => {
+        setState({
+            item: {
+                type: 'view',
+                title: item.name,
+                key: 'create',
+                item: item,
+            }
+        })
+        sliderRightRef?.current?.handleCreate()
+    };
+    const handleEdit = item => {
+        setState({
+            item: {
+                type: 'edit',
+                title: item.name,
+                key: 'create',
+                item: item,
+            }
+        })
+        sliderRightRef?.current?.handleCreate()
+    };
     return (
         <div className="common-page" style={{ padding: 8 }}>
             <div className={'common-content'}>
@@ -42,7 +72,7 @@ const App: React.FC = () => {
                     handleImport={search}
                 />
                 {/* 表格部分 */}
-                <TableShow ref={tableShowRef} />
+                <TableShow ref={tableShowRef} edit={handleEdit} view={handleView} />
             </div>
             <ThemeContext.Provider value={state}>
                 <SliderRight ref={sliderRightRef} />
