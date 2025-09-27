@@ -64,14 +64,14 @@ const App: React.FC = (props) => {
       <div style={{ textAlign: 'right' }}>
         <Space size="small">
           <Button type="primary" htmlType="submit">
-            Search
+            搜索
           </Button>
           <Button
             onClick={() => {
               form.resetFields();
             }}
           >
-            Clear
+            重置
           </Button>
           <a
             style={{ fontSize: 12 }}
@@ -79,7 +79,7 @@ const App: React.FC = (props) => {
               setExpand(!expand);
             }}
           >
-            <DownOutlined rotate={expand ? 180 : 0} /> Collapse
+            <DownOutlined rotate={expand ? 180 : 0} /> 收起
           </a>
         </Space>
       </div>

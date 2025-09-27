@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import SliderRight from './SliderRight';
 import SearchForm from './SearchForm';
 import ButtonGroup from './ButtonGroup';
@@ -16,13 +16,19 @@ const App: React.FC = () => {
     const searchFormRef = useRef(null)
     const tableShowRef = useRef(null)
     const sliderRightRef = useRef(null)
+    const search = (params) => {
+        tableShowRef?.current?.search(params)
+    }
+    useEffect(() => {
+        search({})
+    }, [])
     const handleCreate = () => {
         sliderRightRef?.current?.handleCreate()
     }
     const handleSearch = (params) => {
-        debugger
         tableShowRef?.current?.search(params)
     }
+
     return (
         <div className="common-page" style={{ padding: 8 }}>
             <div className={'common-content'}>
@@ -31,9 +37,9 @@ const App: React.FC = () => {
                 {/* 按钮组 */}
                 <ButtonGroup
                     handleCreate={handleCreate}
-                    handleDelete={searchFormRef?.current?.search}
-                    handleExport={searchFormRef?.current?.search}
-                    handleImport={searchFormRef?.current?.search}
+                    handleDelete={search}
+                    handleExport={search}
+                    handleImport={search}
                 />
                 {/* 表格部分 */}
                 <TableShow ref={tableShowRef} />
