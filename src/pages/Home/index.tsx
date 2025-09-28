@@ -54,8 +54,6 @@ const App: React.FC = () => {
 
   const onExpand: TreeProps['onExpand'] = (expandedKeysValue) => {
     console.log('onExpand', expandedKeysValue);
-    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-    // or, you can remove all expanded children keys.
     setExpandedKeys(expandedKeysValue);
     setAutoExpandParent(false);
   };

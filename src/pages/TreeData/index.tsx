@@ -42,7 +42,7 @@ const App: React.FC = () => {
             item: {
                 type: 'view',
                 title: item.name,
-                key: 'view',
+                key: 'create',
                 item: item,
             }
         })
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             item: {
                 type: 'edit',
                 title: item.name,
-                key: 'edit',
+                key: 'create',
                 item: item,
             }
         })

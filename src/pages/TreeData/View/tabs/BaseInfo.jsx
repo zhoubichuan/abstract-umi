@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Collapse, Form, Col, Row } from 'antd';
 // import moment from 'moment';
+import ThemeContext from '../../ThemeContext.js';
 class BaseInfo extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,8 @@ class BaseInfo extends Component {
             { header: '中文描述', name: 'descript' },
             { header: '英文描述', name: 'descriptEn' },
             { header: '内容', name: 'content' },
+            { header: '标签', name: 'tag' },
+            { header: '分类', name: 'category' },
         ];
         const editConfig = [
             { header: '更新者', name: 'updater' },
@@ -23,15 +26,10 @@ class BaseInfo extends Component {
             { header: '创建时间', name: 'creatTime' },
         ];
         const { item } = this.state;
-        const formStyle = {
-            maxWidth: 'none',
-            padding: 24,
-        };
         return (
             <Fragment>
-                <Row gutter={24}
-                    // key={moment.locale()}
-                    style={formStyle}
+                <Row gutter={24} 
+                // key={moment.locale()}
                 >
                     <Collapse defaultActiveKey={['base', 'edit']}>
                         <Collapse.Panel header="基本信息" key="base">
@@ -41,7 +39,9 @@ class BaseInfo extends Component {
                                     <Col span={12} key={index}>
                                         <Form.Item label={config.header} name={config.name}>
                                             <span>
-                                                {item[config.name]}
+                                                {['tag', 'category'].includes(config.name)
+                                                    ? item[config.name].name
+                                                    : item[config.name]}
                                             </span>
                                         </Form.Item>
                                     </Col>

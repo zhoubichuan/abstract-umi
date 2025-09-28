@@ -17,7 +17,7 @@ const App: React.FC = (props, ref) => {
   return (
     <>
       <Drawer
-        title="标题"
+        title="Drawer with extra actions"
         placement={'right'}
         width={1000}
         onClose={onClose}

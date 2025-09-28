@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Tabs } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
-import ViewDetail from './View/Detail';
+// import { CloseOutlined } from '@ant-design/icons';
+// import ViewDetail from './View/Detail';
 import EditDetail from './Edit/Detail';
 import CreateDetail from './Create/Detail';
 import ThemeContext from './ThemeContext';
@@ -58,7 +58,7 @@ export class GlobalTheSlider extends Component {
                         display: Object.values(tabsItem).length ? 'block' : 'none',
                     }}
                 >
-                    <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} />
+                    {/* <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} /> */}
                     <Tabs
                         onChange={this.onChange}
                         activeKey={
@@ -79,9 +79,11 @@ export class GlobalTheSlider extends Component {
                                         tab={item.title}
                                         key={item.key}
                                     >
-                                        <ViewDetail
+                                        {/* <ViewDetail
                                             item={item.item}
-                                        />
+                                            categories={item.categories}
+                                            tags={item.tags}
+                                        /> */}
                                     </Tabs.TabPane>
                                 );
                             }
@@ -93,7 +95,10 @@ export class GlobalTheSlider extends Component {
                                         key={item.key}
                                     >
                                         <EditDetail
+                                            save={this.save}
                                             item={item.item}
+                                            categories={item.categories}
+                                            tags={item.tags}
                                         />
                                     </Tabs.TabPane>
                                 );
@@ -106,7 +111,10 @@ export class GlobalTheSlider extends Component {
                                         key={item.key}
                                     >
                                         <CreateDetail
+                                            save={this.save}
                                             item={item.item}
+                                            categories={item.categories}
+                                            tags={item.tags}
                                         />
                                     </Tabs.TabPane>
                                 );

@@ -10,10 +10,10 @@ class Detail extends Component {
         super();
         this.state = {
             activeKey: 'baseInfo',
-            viewVisible: this.props?.viewVisible,
-            editVisible: this.props?.editVisible,
-            item: this.props?.item,
-            isCreate: this.props?.isCreate,
+            viewVisible: this.props.viewVisible,
+            editVisible: this.props.editVisible,
+            item: this.props.item,
+            isCreate: this.props.isCreate,
         };
     }
     componentWillReceiveProps(nextProps) {

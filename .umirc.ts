@@ -46,7 +46,7 @@ export default defineConfig({
     {
       name: '树状数据',
       path: '/tree-data',
-      component: './BaseData/index',
+      component: './TreeData/index',
     },
     {
       name: '标签',

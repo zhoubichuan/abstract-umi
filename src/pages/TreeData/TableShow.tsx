@@ -29,7 +29,27 @@ const App: React.FC = (props, ref) => {
 
         if (res?.code == 0) {
           const { data, pageNum: current, pageSize, total } = res;
-          setDataSource(data);
+          const target = data.sort((a, b) => a.level - b.level)
+
+          while (target.length > 1) {
+            let item = target.pop()
+            if (item.parent == 0) {
+              target.push(item)
+              break
+            }
+            for (let j = target.length - 1; j--; j > 1) {
+              console.log(target)
+              if (item.parent === target[j].node) {
+                if (target[j].children) {
+                  target[j].children.push(item)
+                } else {
+                  target[j].children = [item]
+                }
+                break;
+              }
+            }
+          }
+          setDataSource(target);
 
         } else {
           message.error(res?.data);
