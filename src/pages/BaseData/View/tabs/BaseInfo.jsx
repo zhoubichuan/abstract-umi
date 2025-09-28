@@ -31,9 +31,8 @@ class BaseInfo extends Component {
             <Fragment>
                 <Row gutter={24}
                     // key={moment.locale()}
-                    style={formStyle}
                 >
-                    <Collapse defaultActiveKey={['base', 'edit']}>
+                    <Collapse defaultActiveKey={['base', 'edit']} style={formStyle}>
                         <Collapse.Panel header="基本信息" key="base">
                             {baseInfoConfig.map((config, index) => {
                                 console.log(config.name, item[config.name]);

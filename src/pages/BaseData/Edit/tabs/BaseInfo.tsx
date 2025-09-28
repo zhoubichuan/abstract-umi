@@ -40,48 +40,48 @@ const App: React.FC = (props) => {
                     <Collapse.Panel header="基本信息" key="1">
                         <Row gutter={24}>
                             <Col span={12}>
-                                <Form.Item label="label" name="label" rules={[{ required: true }]}>
+                                <Form.Item label="label" name="label" initialValue={props.item?.label} rules={[{ required: true }]}>
                                     <Input placeholder="请输入英文名称" />
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="value" name="value" rules={[{ required: true }]}>
-                                    <Input placeholder="请输入英文名称" />
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={24}>
-                            <Col span={12}>
-                                <Form.Item label="url" name="url" rules={[{ required: true }]}>
-                                    <Input placeholder="请输入英文名称" />
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item label="level" name="level" rules={[{ required: true }]}>
+                                <Form.Item label="value" name="value" initialValue={props.item?.value} rules={[{ required: true }]}>
                                     <Input placeholder="请输入英文名称" />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={24}>
                             <Col span={12}>
-                                <Form.Item label="descript" name="descript" rules={[{ required: true }]}>
+                                <Form.Item label="url" name="url" initialValue={props.item?.url} rules={[{ required: true }]}>
                                     <Input placeholder="请输入英文名称" />
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="node" name="node" rules={[{ required: true }]}>
+                                <Form.Item label="level" name="level" initialValue={props.item?.level} rules={[{ required: true }]}>
                                     <Input placeholder="请输入英文名称" />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={24}>
                             <Col span={12}>
-                                <Form.Item label="parent" name="parent" rules={[{ required: true }]}>
+                                <Form.Item label="descript" name="descript" initialValue={props.item?.descript} rules={[{ required: true }]}>
                                     <Input placeholder="请输入英文名称" />
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
-                                <Form.Item label="hasChildren" name="hasChildren" rules={[{ required: true }]}>
+                                <Form.Item label="node" name="node" initialValue={props.item?.node} rules={[{ required: true }]}>
+                                    <Input placeholder="请输入英文名称" />
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={24}>
+                            <Col span={12}>
+                                <Form.Item label="parent" name="parent" initialValue={props.item?.parent} rules={[{ required: true }]}>
+                                    <Input placeholder="请输入英文名称" />
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="hasChildren" initialValue={props.item?.hasChildren} name="hasChildren" rules={[{ required: true }]}>
                                     <Radio.Group options={options} defaultValue="是" />
                                 </Form.Item>
                             </Col>
