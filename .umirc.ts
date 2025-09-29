@@ -82,5 +82,8 @@ export default defineConfig({
     },
   ],
   npmClient: 'pnpm',
+  chainWebpack(memo) {
+    memo.output.publicPath('/abstract-umi/');
+  },
 });
 
