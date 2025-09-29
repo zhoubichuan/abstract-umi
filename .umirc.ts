@@ -1,6 +1,10 @@
 import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
+  history: {
+    type: 'hash',
+  },
+  publicPath: process.env.NODE_ENV === 'production' ? './abstract-umi' : '/abstract-umi',
   antd: {},
   access: {},
   model: {},
@@ -13,7 +17,6 @@ export default defineConfig({
     locale: false, // 默认开启，如无需菜单国际化可关闭
   },
   base: '/abstract-umi/',
-  publicPath: '/abstract-umi/',
   outputPath: 'abstract-umi',
   hash: true,
   proxy: {
