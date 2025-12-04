@@ -1,17 +1,14 @@
 import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
-  history: {
-    type: 'hash',
-  },
-  publicPath: process.env.NODE_ENV === 'production' ? './abstract-umi' : '/abstract-umi',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/abstract-umi/',
   antd: {},
   access: {},
   model: {},
   initialState: {},
   request: {},
   layout: {
-    name: 'My App',
+    name: '树形数据',
     navTheme: 'light',
     layout: 'mix',
     locale: false, // 默认开启，如无需菜单国际化可关闭

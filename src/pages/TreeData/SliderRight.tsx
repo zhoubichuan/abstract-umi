@@ -15,20 +15,18 @@ const App: React.FC = (props, ref) => {
     }
   }))
   return (
-    <>
-      <Drawer
-        title="Drawer with extra actions"
-        placement={'right'}
-        width={1000}
-        onClose={onClose}
-        visible={visible}
+    <Drawer
+      title="Drawer with extra actions"
+      placement={'right'}
+      width={1000}
+      onClose={onClose}
+      visible={visible}
+    >
+      <GlobalTheSlider
+        handleCloseTabs={props.handleCloseTabs}
       >
-        <GlobalTheSlider
-          handleCloseTabs={props.handleCloseTabs}
-        >
-        </GlobalTheSlider>
-      </Drawer>
-    </>
+      </GlobalTheSlider>
+    </Drawer>
   );
 };
 

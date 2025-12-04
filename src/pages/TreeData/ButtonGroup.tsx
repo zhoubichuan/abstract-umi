@@ -65,6 +65,17 @@ const App: React.FC = (props) => {
       >
         导出表格
       </Button>
+      <Button
+        style={{
+          marginLeft: 5,
+        }}
+        type="primary"
+        icon={<DownloadOutlined />}
+        className="export-table"
+         onClick={handleImport}
+      >
+        本地缓存
+      </Button>
     </Button.Group>
   )
 };

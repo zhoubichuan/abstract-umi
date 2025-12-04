@@ -1,4 +1,4 @@
-import { GlobalTheSlider } from "./GlobalTheSlider"
+import GlobalTheSlider from "./GlobalTheSlider"
 import { Button, Drawer, Radio, Space } from 'antd';
 import type { DrawerProps } from 'antd/es/drawer';
 import type { RadioChangeEvent } from 'antd/es/radio';
@@ -17,7 +17,7 @@ const App: React.FC = (props, ref) => {
   return (
     <>
       <Drawer
-        title="标题"
+        title="编辑数据"
         placement={'right'}
         width={1000}
         onClose={onClose}

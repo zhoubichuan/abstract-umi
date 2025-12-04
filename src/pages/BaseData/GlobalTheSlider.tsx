@@ -1,29 +1,43 @@
-import React, { Fragment, Component } from 'react';
 import { Tabs } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 import ViewDetail from './View/Detail';
 import EditDetail from './Edit/Detail';
 import CreateDetail from './Create/Detail';
+import React, { useState, Fragment, useEffect } from 'react';
 import ThemeContext from './ThemeContext';
-
-export class GlobalTheSlider extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeKey: '',
-            tabsItem: this.context,
-            move: this.props.move,
-        };
-        this.renderChild = this.renderChild.bind(this);
-    }
-    static contextType = ThemeContext;
-    onChange = activeKey => {
-        this.setState({ activeKey });
+const App: React.FC = (props) => {
+    const [tabsItem, setState] = useState({
+        '0001': {
+            type: "create",
+            title: "创建",
+            key: "0001",
+            item: { key: "create" },
+        },
+        '0002': {
+            type: "view",
+            title: "创建",
+            key: "0002",
+            item: { key: "create" },
+        },
+        '0003': {
+            type: "edit",
+            title: "创建",
+            key: "0003",
+            item: { key: "create" },
+        }
+    })
+    const [cur, setCur] = useState({
+        type: "create",
+        title: "创建",
+        key: "create",
+        item: { key: "create" },
+    })
+    const onChange = (activeKey) => {
+        setCur(tabsItem[activeKey])
     };
-    handleCloseTabs = () => {
+    const handleCloseTabs = () => {
         this.props.handleCloseTabs();
     };
-    remove = targetKey => {
+    const remove = (targetKey) => {
         const { panes, activeKey } = this.state;
         let newActiveKey = activeKey;
         let lastIndex;
@@ -45,88 +59,70 @@ export class GlobalTheSlider extends Component {
             activeKey: newActiveKey,
         });
     };
-    onEdit = (targetKey, action) => {
-        this[action](targetKey);
+    const onEdit = (targetKey, action) => {
     };
-    render() {
-        const tabsItem = this.context;
-        return (
-            <Fragment>
-                <div
-                    className="global-slider"
-                    style={{
-                        display: Object.values(tabsItem).length ? 'block' : 'none',
-                    }}
-                >
-                    <CloseOutlined className="slider-ico" onClick={this.handleCloseTabs} />
-                    <Tabs
-                        onChange={this.onChange}
-                        activeKey={
-                            this.state.activeKey ||
-                            (Object.values(tabsItem)[0] &&
-                                Object.values(tabsItem)[Object.values(tabsItem).length - 1].key)
-                        }
-                        type="editable-card"
-                        onEdit={this.onEdit}
-                        className="slider-tabs"
-                    >
-                        {Object.keys(tabsItem).map(key => {
-                            const item = tabsItem[key];
-                            if (item.type.includes('view')) {
-                                return (
-                                    <Tabs.TabPane
-                                        className="slider-tabpane"
-                                        tab={item.title}
-                                        key={item.key}
-                                    >
-                                        <ViewDetail
-                                            item={item.item}
-                                        />
-                                    </Tabs.TabPane>
-                                );
-                            }
-                            if (item.type.includes('edit')) {
-                                return (
-                                    <Tabs.TabPane
-                                        className="slider-tabpane"
-                                        tab={item.title}
-                                        key={item.key}
-                                    >
-                                        <EditDetail
-                                            item={item.item}
-                                        />
-                                    </Tabs.TabPane>
-                                );
-                            }
-                            if (item.type.includes('create')) {
-                                return (
-                                    <Tabs.TabPane
-                                        className="slider-tabpane"
-                                        tab={'创建模型'}
-                                        key={item.key}
-                                    >
-                                        <CreateDetail
-                                            item={item.item}
-                                        />
-                                    </Tabs.TabPane>
-                                );
-                            }
-                        })}
-                    </Tabs>
-                </div>
-            </Fragment>
-        );
-    }
-
-    renderChild(child, key) {
-        return (
-            <Tabs.TabPane
-                className="slider-tabpane"
-                tab={(this.state.item && this.state.item.name) || '创建模型'}
-                key={key}
+    return (
+        <Fragment>
+            <div
+                className="global-slider"
+                style={{
+                    display: Object.values(tabsItem).length ? 'block' : 'none',
+                }}
             >
-                {child}
-            </Tabs.TabPane>
-        );
-    }
+                <Tabs
+                    onChange={onChange}
+                    activeKey={
+                        cur.key
+                    }
+                    onEdit={onEdit}
+                    className="slider-tabs"
+                >
+                    {Object.keys(tabsItem).map(key => {
+                        const item = tabsItem[key];
+                        if (item.type.includes('view')) {
+                            return (
+                                <Tabs.TabPane
+                                    className="slider-tabpane"
+                                    tab={item.title || 'ssss'}
+                                    key={item.key}
+                                >
+                                    <ViewDetail
+                                        item={item.item}
+                                    />
+                                </Tabs.TabPane>
+                            );
+                        }
+                        if (item.type.includes('edit')) {
+                            return (
+                                <Tabs.TabPane
+                                    className="slider-tabpane"
+                                    tab={item.title}
+                                    key={item.key}
+                                >
+                                    <EditDetail
+                                        item={item.item}
+                                    />
+                                </Tabs.TabPane>
+                            );
+                        }
+                        if (item.type.includes('create')) {
+                            return (
+                                <Tabs.TabPane
+                                    className="slider-tabpane"
+                                    tab={'创建模型'}
+                                    key={item.key}
+                                >
+                                    <CreateDetail
+                                        item={item.item}
+                                    />
+                                </Tabs.TabPane>
+                            );
+                        }
+                    })}
+                </Tabs>
+            </div>
+        </Fragment>
+    );
 }
+
+export default App;
