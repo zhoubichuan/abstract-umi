@@ -25,7 +25,7 @@ const App: React.FC = () => {
     }, [])
     const handleCreate = () => {
         setState({
-            item: {
+            create: {
                 type: "create",
                 title: "创建",
                 key: "create",
@@ -39,9 +39,9 @@ const App: React.FC = () => {
     }
     const handleView = item => {
         setState({
-            item: {
+            view: {
                 type: 'view',
-                title: item.name,
+                title: '查看',
                 key: 'view',
                 item: item,
             }
@@ -50,9 +50,9 @@ const App: React.FC = () => {
     };
     const handleEdit = item => {
         setState({
-            item: {
+            edit: {
                 type: 'edit',
-                title: item.name,
+                title: '编辑',
                 key: 'edit',
                 item: item,
             }

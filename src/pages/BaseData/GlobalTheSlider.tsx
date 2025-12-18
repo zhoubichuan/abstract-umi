@@ -2,37 +2,18 @@ import { Tabs } from 'antd';
 import ViewDetail from './View/Detail';
 import EditDetail from './Edit/Detail';
 import CreateDetail from './Create/Detail';
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment, useContext } from 'react';
 import ThemeContext from './ThemeContext';
 const App: React.FC = (props) => {
-    const [tabsItem, setState] = useState({
-        '0001': {
-            type: "create",
-            title: "创建",
-            key: "0001",
-            item: { key: "create" },
-        },
-        '0002': {
-            type: "view",
-            title: "创建",
-            key: "0002",
-            item: { key: "create" },
-        },
-        '0003': {
-            type: "edit",
-            title: "创建",
-            key: "0003",
-            item: { key: "create" },
-        }
-    })
+    const tabsItem = useContext(ThemeContext)
     const [cur, setCur] = useState({
         type: "create",
         title: "创建",
-        key: "create",
+        key: "0001",
         item: { key: "create" },
     })
     const onChange = (activeKey) => {
-        setCur(tabsItem[activeKey])
+        setCur(tabsItem[Object.keys(tabsItem)[0]])
     };
     const handleCloseTabs = () => {
         this.props.handleCloseTabs();
