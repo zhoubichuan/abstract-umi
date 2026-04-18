@@ -2,7 +2,11 @@ import { get, post, remove, put } from './index';
 const ENTITY = '/api/tag';
 // 1.查询/posts
 function searchTagList({ current = 1, pageSize = 10, keyword = '' }) {
-    return get(`${ENTITY}?pageNum=${current}&pageSize=${pageSize}&keyword=${keyword}`);
+    return get(ENTITY, {
+        pageNum: current,
+        pageSize,
+        keyword,
+    });
 }
 // 2.查询/posts/new
 function other(other) {
@@ -26,10 +30,10 @@ function updateTag({ id, tag }) {
 }
 // 7.删除 /posts/:id
 function deleteTag(ids) {
-    if (typeof ids == 'string') {
+    if (typeof ids === 'string') {
         ids = [ids];
     }
-    return del(`${ENTITY}/${ids[0]}`, {
+    return remove(`${ENTITY}/${ids[0]}`, {
         ids,
     });
 }

@@ -7,15 +7,30 @@ const config = {
     withCredentials: true,
 };
 
-export function get(url, data) {
-    if (data) {
-        let params = '';
-        for (const key in data) {
-            data[key] && (params += key + '=' + data[key] + '&');
-        }
-        url = `${url}?${params.slice(-1)}`;
+function buildUrl(url, data) {
+    if (!data || typeof data !== 'object') {
+        return url;
     }
-    return request(config.baseURL + url, {
+
+    const params = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === '') {
+            return;
+        }
+        params.append(key, String(value));
+    });
+
+    const queryString = params.toString();
+    if (!queryString) {
+        return url;
+    }
+
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}${queryString}`;
+}
+
+export function get(url, data) {
+    return request(config.baseURL + buildUrl(url, data), {
         ...config,
         method: 'get',
     });

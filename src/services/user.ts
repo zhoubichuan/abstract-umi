@@ -11,7 +11,7 @@ function edit(data) {
     return post(`${ENTITY}/edit`, data);
 }
 function query(params) {
-    return get(`${ENTITY}/query`, {params});
+    return get(`${ENTITY}/query`, params);
 }
 function current(data) {
     return get(`${ENTITY}/current`, data);

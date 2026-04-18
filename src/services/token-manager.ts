@@ -9,8 +9,15 @@ class TokenManager {
     /**
      * 获取 token
      */
-    getToekn(): string {
+    getToken(): string {
         return localStorage.getItem(this.key);
+    }
+
+    /**
+     * 兼容历史方法名拼写错误
+     */
+    getToekn(): string {
+        return this.getToken();
     }
 
     /**

@@ -3,6 +3,9 @@
   "author": "zhoubichuan <zhoubichuan@icloud.com>",
   "scripts": {
     "dev": "max dev",
+    "sit": "max dev",
+    "uat": "max dev",
+    "prod": "max dev",
     "build": "max build",
     "prepare": "husky install",
     "postinstall": "max setup",
