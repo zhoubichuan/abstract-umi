@@ -1,15 +1,11 @@
-import React, { Component } from "react"
+import React from "react"
 import { GlobalTheSlider } from "./GlobalTheSlider"
 
 /** tagManager 右侧区域入口，透传关闭页签回调。 */
-class TheSlider extends Component {
-  render() {
-    return (
-      <GlobalTheSlider
-        handleCloseTabs={this.props.handleCloseTabs}
-      ></GlobalTheSlider>
-    )
-  }
+type SliderRightProps = {
+  handleCloseTabs?: () => void
 }
 
-export let SliderRight = TheSlider
+export const SliderRight: React.FC<SliderRightProps> = ({ handleCloseTabs }) => {
+  return <GlobalTheSlider handleCloseTabs={handleCloseTabs}></GlobalTheSlider>
+}

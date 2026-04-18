@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react"
+import React, { Fragment, useContext, useMemo, useState } from "react"
 import { Tabs } from "antd"
 // import { CloseOutlined } from "@ant-design/icons"
 import ViewDetail from "./View/Detail"
@@ -6,117 +6,72 @@ import EditDetail from "./Edit/Detail"
 import CreateDetail from "./Create/Detail"
 import ThemeContext from "./ThemeContext"
 
-export class GlobalTheSlider extends Component {
-  constructor(props) {
-    super(props)
-    let { mode, item } = props
-    this.state = {
-      activeKey: "",
-      mode: this.props.mode,
-      item: this.props.item,
-    }
-    this.renderChild = this.renderChild.bind(this)
-  }
-  static contextType = ThemeContext
-  onChange = (activeKey) => {
-    this.setState({ activeKey })
-  }
-  handleCloseTabs = () => {
-    this.props.handleCloseTabs()
-  }
-  onEdit = (targetKey, action) => {
-    this[action](targetKey)
-  }
-  render() {
-    let tabsItem = this.context
-    return (
-      <Fragment>
-        <div
-          className="global-slider"
-          style={{
-            display: Object.values(tabsItem).length ? "block" : "none",
-          }}
-        >
-          {/* <CloseOutlined
-            className="slider-ico"
-            onClick={this.handleCloseTabs}
-          /> */}
-          <Tabs
-            onChange={this.onChange}
-            activeKey={
-              this.state.activeKey ||
-              (Object.values(tabsItem)[0] &&
-                Object.values(tabsItem)[Object.values(tabsItem).length - 1].key)
-            }
-            type="editable-card"
-            onEdit={this.onEdit}
-            className="slider-tabs"
-          >
-            {Object.keys(tabsItem).map((key) => {
-              let item = tabsItem[key]
-              if (item.type.includes("view")) {
-                return (
-                  <Tabs.TabPane
-                    className="slider-tabpane"
-                    tab={item.title}
-                    key={item.key}
-                  >
-                    <ViewDetail
-                      item={item.item}
-                      categories={item.categories}
-                      tags={item.tags}
-                    />
-                  </Tabs.TabPane>
-                )
-              }
-              if (item.type.includes("edit")) {
-                return (
-                  <Tabs.TabPane
-                    className="slider-tabpane"
-                    tab={item.title}
-                    key={item.key}
-                  >
-                    <EditDetail
-                      save={this.save}
-                      item={item.item}
-                      categories={item.categories}
-                      tags={item.tags}
-                    />
-                  </Tabs.TabPane>
-                )
-              }
-              if (item.type.includes("create")) {
-                return (
-                  <Tabs.TabPane
-                    className="slider-tabpane"
-                    tab={"创建模型"}
-                    key={item.key}
-                  >
-                    <CreateDetail
-                      save={this.save}
-                      item={item.item}
-                      categories={item.categories}
-                      tags={item.tags}
-                    />
-                  </Tabs.TabPane>
-                )
-              }
-            })}
-          </Tabs>
-        </div>
-      </Fragment>
-    )
-  }
+type SliderItem = {
+  key: string
+  type: string
+  title?: string
+  item?: any
+  categories?: any[]
+  tags?: any[]
+}
 
-  renderChild(child, key) {
-    return (
-      <Tabs.TabPane
-        className="slider-tabpane"
-        tab={(this.state.item && this.state.item.name) || "创建模型"}
-        key={key}
+type GlobalTheSliderProps = {
+  handleCloseTabs?: () => void
+}
+
+export const GlobalTheSlider: React.FC<GlobalTheSliderProps> = () => {
+  const tabsItem = useContext(ThemeContext) as unknown as Record<string, SliderItem>
+  const [activeKey, setActiveKey] = useState("")
+  const ViewDetailAny = ViewDetail as any
+  const EditDetailAny = EditDetail as any
+  const CreateDetailAny = CreateDetail as any
+
+  const lastKey = useMemo(() => {
+    const values = Object.values(tabsItem)
+    return values.length ? values[values.length - 1].key : ""
+  }, [tabsItem])
+
+  return (
+    <Fragment>
+      <div
+        className="global-slider"
+        style={{
+          display: Object.values(tabsItem).length ? "block" : "none",
+        }}
       >
-        {child}
-      </Tabs.TabPane>
-    )
-  }
+        <Tabs
+          onChange={setActiveKey}
+          activeKey={activeKey || lastKey}
+          type="editable-card"
+          className="slider-tabs"
+        >
+          {Object.keys(tabsItem).map((key) => {
+            const item = tabsItem[key]
+            if (item.type.includes("view")) {
+              return (
+                <Tabs.TabPane className="slider-tabpane" tab={item.title} key={item.key}>
+                  <ViewDetailAny item={item.item} categories={item.categories} tags={item.tags} />
+                </Tabs.TabPane>
+              )
+            }
+            if (item.type.includes("edit")) {
+              return (
+                <Tabs.TabPane className="slider-tabpane" tab={item.title} key={item.key}>
+                  <EditDetailAny item={item.item} categories={item.categories} tags={item.tags} />
+                </Tabs.TabPane>
+              )
+            }
+            if (item.type.includes("create")) {
+              return (
+                <Tabs.TabPane className="slider-tabpane" tab={"创建模型"} key={item.key}>
+                  <CreateDetailAny item={item.item} categories={item.categories} tags={item.tags} />
+                </Tabs.TabPane>
+              )
+            }
+            return null
+          })}
+        </Tabs>
+      </div>
+    </Fragment>
+  )
 }

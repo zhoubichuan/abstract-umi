@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Tabs, Button, Col } from 'antd';
 import BaseInfo from './tabs/BaseInfo';
 import Attribute from './tabs/Attribute';
@@ -10,112 +10,43 @@ import File from './tabs/File';
  * TreeData 详情容器：
  * 承载基本信息、属性、编辑、历史、上传下载等子模块。
  */
-class Detail extends Component {
-    constructor(props) {
-        super();
-        this.state = {
-            activeKey: 'baseInfo',
-            viewVisible: this.props.viewVisible,
-            editVisible: this.props.editVisible,
-            item: this.props.item,
-            isCreate: this.props.isCreate,
-        };
-    }
-    /** 根据外部传入状态更新详情页内容。 */
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            viewVisible: nextProps.viewVisible,
-            isCreate: nextProps.isCreate,
-            editVisible: nextProps.editVisible,
-            item: nextProps.item,
-        });
-    }
-    // componentWillUnmount() {
-    //   this.props.form.resetFields()
-    // }
-    onChange = () => {
-        this.setState(this.state.item);
-    };
-    /** 表单校验成功后组装参数并提交保存。 */
-    handleSave = async () => {
-        let adopt = false;
-        this.props.form.validateFields(err => {
-            if (err) {
-                adopt = false;
-            } else {
-                adopt = true;
-            }
-        });
-        if (adopt) {
-            const params = this.props.form.getFieldsValue();
-            params['id'] = this.state.item._id;
-            this.props.save(null, params, null);
-        }
-    };
-    render() {
-        const layout = {
-            justify: 'center',
-            labelCol: { span: 4 },
-            wrapperCol: { span: 20 },
-        };
-        return (
-            <Fragment>
-                <Tabs className="common-tabs">
-                    <Tabs.TabPane
-                        className="common-tabpane"
-                        tab="基本信息"
-                        key="baseInfo"
-                        closable={false}
-                    >
-                        <BaseInfo
-                            save={this.save}
-                            viewVisible={this.state.viewVisible}
-                            editVisible={this.state.editVisible}
-                            isCreate={this.state.isCreate}
-                            item={this.state.item}
-                        />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane
-                        className="common-tabpane"
-                        tab="数据模型项属性"
-                        key="attribute"
-                        closable={true}
-                    >
-                        <Attribute />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane
-                        className="common-tabpane"
-                        tab="内容编辑"
-                        key="content"
-                        closable={true}
-                    >
-                        <Editor />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane
-                        className="common-tabpane"
-                        tab="历史记录"
-                        key="history"
-                        closable={true}
-                    >
-                        <History />
-                    </Tabs.TabPane>
-                    <Tabs.TabPane
-                        className="common-tabpane"
-                        tab="上传下载"
-                        key="down"
-                        closable={true}
-                    >
-                        <File />
-                    </Tabs.TabPane>
-                </Tabs>
-                <Col className="tabs-button">
-                    <Button type="primary">编辑</Button>
-                    <Button style={{ marginLeft: '20px' }} onClick={this.handleCloseTabs}>
-                        修改
-                    </Button>
-                </Col>
-            </Fragment>
-        );
-    }
-}
+const Detail: React.FC<any> = (props) => {
+    const [viewVisible, setViewVisible] = useState(props?.viewVisible);
+    const [editVisible, setEditVisible] = useState(props?.editVisible);
+    const [item, setItem] = useState(props?.item);
+    const [isCreate, setIsCreate] = useState(props?.isCreate);
+
+    useEffect(() => {
+        setViewVisible(props?.viewVisible);
+        setIsCreate(props?.isCreate);
+        setEditVisible(props?.editVisible);
+        setItem(props?.item);
+    }, [props?.viewVisible, props?.isCreate, props?.editVisible, props?.item]);
+
+    return (
+        <Fragment>
+            <Tabs className="common-tabs">
+                <Tabs.TabPane className="common-tabpane" tab="基本信息" key="baseInfo" closable={false}>
+                    <BaseInfo viewVisible={viewVisible} editVisible={editVisible} isCreate={isCreate} item={item} />
+                </Tabs.TabPane>
+                <Tabs.TabPane className="common-tabpane" tab="数据模型项属性" key="attribute" closable={true}>
+                    <Attribute />
+                </Tabs.TabPane>
+                <Tabs.TabPane className="common-tabpane" tab="内容编辑" key="content" closable={true}>
+                    <Editor />
+                </Tabs.TabPane>
+                <Tabs.TabPane className="common-tabpane" tab="历史记录" key="history" closable={true}>
+                    <History />
+                </Tabs.TabPane>
+                <Tabs.TabPane className="common-tabpane" tab="上传下载" key="down" closable={true}>
+                    <File />
+                </Tabs.TabPane>
+            </Tabs>
+            <Col className="tabs-button">
+                <Button type="primary">编辑</Button>
+                <Button style={{ marginLeft: '20px' }}>修改</Button>
+            </Col>
+        </Fragment>
+    );
+};
 export default Detail;
