@@ -22,6 +22,8 @@ import tagService from '@/services/tag';
 import ThemeContext from './ThemeContext';
 // require('moment/locale/zh-cn.js');
 import type { ColumnsType } from 'antd/es/table';
+
+/** 标签管理主页面（列表 + 抽屉页签 + 评论弹窗）。 */
 export default class Article extends Component {
     state = {
         tabsItem: {},
@@ -50,6 +52,7 @@ export default class Article extends Component {
             this.getList(),
         );
     };
+    /** 拉取标签列表并同步分页信息。 */
     getList = () => {
         this.setState({
             loading: true,
@@ -86,6 +89,7 @@ export default class Article extends Component {
                 }
             });
     };
+    /** 打开“创建标签”页签。 */
     handleCreate = () => {
         const itemValue = {
             type: 'create',
@@ -101,6 +105,7 @@ export default class Article extends Component {
             tabsItem,
         });
     };
+    /** 打开“编辑标签”页签。 */
     handleEdit = item => {
         const itemValue = {
             type: 'edit',
@@ -116,6 +121,7 @@ export default class Article extends Component {
             tabsItem,
         });
     };
+    /** 拉取详情并打开“查看标签”页签。 */
     handleView = ({ _id }) => {
         tagService.queryTagDetail(_id).then(res => {
             if (res?.code == 0) {

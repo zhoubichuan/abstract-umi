@@ -1,11 +1,7 @@
-/**
- * @author：姚嘉东
- * @description：服务器资源路径拼接（因为后端返回的路径不一定是统一的，所以需要在前端做兼容处理）
- * @date：2020/3/19
- */
 import urljoin from 'url-join';
-import { host } from '@/servicess/config';
+import { host } from '@/services/config';
 
+/** 统一拼接服务端静态资源地址。 */
 class ServerResource {
     // 资源路径根路径
     baseUrl: string;
@@ -15,11 +11,11 @@ class ServerResource {
     }
 
     /**
-     * 获取资源访问路径
-     * @param url
+     * 将资源路径标准化为可访问 URL。
+     * @param url 服务端返回的资源路径
      */
     url(url: string): string {
-        if (!url) return;
+        if (!url) return '';
         if (/^((https:|http:)?\/\/)/i.test(url)) {
             return url;
         } else if (/^data:image/.test(url)) {

@@ -1,8 +1,4 @@
-/**
- * @author：姚嘉东
- * @description：后端接口配置文件
- * date：2020/3/19
- */
+/** 根据运行环境选择后端服务地址。 */
 let str: string;
 switch (process.env.NODE_ENV) {
     // 开发环境接口配置

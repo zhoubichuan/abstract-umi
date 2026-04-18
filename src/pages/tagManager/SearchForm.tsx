@@ -21,6 +21,8 @@ import WeeklyPicker from "../../components/TimePicker/WeeklyPicker"
 //月报时间选择器
 import MonthlyPicker from "../../components/TimePicker/MonthlyPicker"
 const { RangePicker } = DatePicker
+
+/** 标签管理搜索表单（高级筛选入口）。 */
 export class Search extends Component {
   constructor(props) {
     super(props)
@@ -28,6 +30,7 @@ export class Search extends Component {
       expand: false,
     }
   }
+  /** 校验并提交筛选参数 */
   handleSubmit = async () => {
     let adopt = false
     this.props.form.validateFields((err) => {
@@ -44,9 +47,11 @@ export class Search extends Component {
       this.props.search(null, params, null)
     }
   }
+  /** 切换筛选面板展开状态 */
   handleExpand = () => {
     this.setState({ expand: !this.state.expand })
   }
+  /** 记录时间范围，提交时拼装到查询参数中 */
   getDate = (date, dateString) => {
     this.startDate = dateString[0]
     if (dateString[1] > 0) {

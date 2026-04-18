@@ -4,6 +4,11 @@ import SearchForm from './SearchForm';
 import ButtonGroup from './ButtonGroup';
 import TableShow from './TableShow';
 import ThemeContext from './ThemeContext';
+
+/**
+ * BaseData 列表页容器：
+ * 负责串联搜索、表格与右侧抽屉的交互状态。
+ */
 const App: React.FC = () => {
     const [state, setState] = useState({
         item: {
@@ -17,12 +22,14 @@ const App: React.FC = () => {
     const searchFormRef = useRef(null)
     const tableShowRef = useRef(null)
     const sliderRightRef = useRef(null)
+    /** 触发表格查询（供按钮组和初始化复用） */
     const search = (params) => {
         tableShowRef?.current?.search(params)
     }
     useEffect(() => {
         search({})
     }, [])
+    /** 打开创建抽屉 */
     const handleCreate = () => {
         setState({
             create: {
@@ -34,9 +41,11 @@ const App: React.FC = () => {
         })
         sliderRightRef?.current?.handleCreate()
     }
+    /** 搜索表单回调 */
     const handleSearch = (params) => {
         tableShowRef?.current?.search(params)
     }
+    /** 打开查看态抽屉 */
     const handleView = item => {
         setState({
             view: {
@@ -48,6 +57,7 @@ const App: React.FC = () => {
         })
         sliderRightRef?.current?.handleCreate()
     };
+    /** 打开编辑态抽屉 */
     const handleEdit = item => {
         setState({
             edit: {

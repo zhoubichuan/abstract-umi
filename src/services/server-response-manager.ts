@@ -1,18 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { message } from 'antd';
-/**
- * @author：姚嘉东
- * @description：针对请求返回做不同的响应处理
- * @date：2020/3/19
- */
 
 /**
- * 针对请求成功：返回的 code 码做不同的响应处理
+ * 请求成功后的业务码响应处理。
  */
 class ServerResponseSuccessManager {
     /**
-     * 状态码解析器
-     * @param response
+     * 解析后端业务状态码并触发对应处理逻辑。
+     * @param response 接口响应对象
      */
     codeParser(response: AxiosResponse) {
         const code = response?.data?.code;
@@ -27,10 +22,10 @@ class ServerResponseSuccessManager {
     }
 
     /**
-     * 状态码为 10010 的响应处理
-     * @param resData
+     * 处理业务码 10010（登录态失效）。
+     * @param resData 响应数据体
      */
-    handleCodeIs10010(resData) {
+    handleCodeIs10010(resData: unknown) {
         if (resData === 'TOKEN_INVALID') {
             message.config({
                 maxCount: 1,
@@ -44,11 +39,12 @@ class ServerResponseSuccessManager {
 }
 
 /**
- * 针对请求失败的响应处理
+ * 请求失败时的统一错误处理。
  */
 class ServerResponseFailedManager {
     /**
-     * 请求失败时，需要提示的信息
+     * 输出请求失败提示信息。
+     * @param error axios 错误对象
      */
     getErrorMessage(error: AxiosError) {
         message.info(error.response);

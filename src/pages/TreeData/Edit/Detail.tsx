@@ -5,6 +5,11 @@ import Attribute from './tabs/Attribute';
 import Editor from './tabs/Editor';
 import History from './tabs/History';
 import File from './tabs/File';
+
+/**
+ * TreeData 详情容器：
+ * 承载基本信息、属性、编辑、历史、上传下载等子模块。
+ */
 class Detail extends Component {
     constructor(props) {
         super();
@@ -16,6 +21,7 @@ class Detail extends Component {
             isCreate: this.props.isCreate,
         };
     }
+    /** 根据外部传入状态更新详情页内容。 */
     componentWillReceiveProps(nextProps) {
         this.setState({
             viewVisible: nextProps.viewVisible,
@@ -30,6 +36,7 @@ class Detail extends Component {
     onChange = () => {
         this.setState(this.state.item);
     };
+    /** 表单校验成功后组装参数并提交保存。 */
     handleSave = async () => {
         let adopt = false;
         this.props.form.validateFields(err => {

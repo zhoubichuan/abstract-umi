@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, Space } from 'antd';
+
+/** TreeData 搜索表单（轻量筛选字段）。 */
 const App: React.FC = (props) => {
   const [form] = Form.useForm();
   const [expand, setExpand] = useState(false);
@@ -11,6 +13,7 @@ const App: React.FC = (props) => {
   };
 
 
+  /** 提交搜索条件给父组件 */
   const onFinish = (values: any) => {
     props.search(values)
   };

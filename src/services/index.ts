@@ -7,7 +7,11 @@ const config = {
     withCredentials: true,
 };
 
-function buildUrl(url, data) {
+/**
+ * 将对象参数安全拼接到 URL 上。
+ * 约定：忽略 undefined/null/空字符串，避免把无效筛选项传给后端。
+ */
+function buildUrl(url: string, data?: Record<string, unknown>) {
     if (!data || typeof data !== 'object') {
         return url;
     }
@@ -29,27 +33,33 @@ function buildUrl(url, data) {
     return `${url}${separator}${queryString}`;
 }
 
-export function get(url, data) {
+export function get(url: string, data?: Record<string, unknown>) {
     return request(config.baseURL + buildUrl(url, data), {
         ...config,
         method: 'get',
     });
 }
-export function post(url, data) {
+
+/** POST：用于新增或带 body 的查询请求 */
+export function post(url: string, data?: unknown) {
     return request(config.baseURL + url, {
         ...config,
         method: 'post',
         data,
     });
 }
-export function put(url, data) {
+
+/** PUT：用于更新资源 */
+export function put(url: string, data?: unknown) {
     return request(config.baseURL + url, {
         ...config,
         method: 'put',
         data,
     });
 }
-export function remove(url, data) {
+
+/** DELETE：支持携带请求体做批量删除 */
+export function remove(url: string, data?: unknown) {
     return request(config.baseURL + url, {
         ...config,
         method: 'delete',

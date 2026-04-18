@@ -1,20 +1,18 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { message } from 'antd';
-import { host } from '@/servicess/config';
+import { host } from '@/services/config';
 import {
     serverResponseFailedManager,
     serverResponseSuccessManager,
-} from '@/servicess/server-response-manager';
+} from '@/services/server-response-manager';
 
 const axiosInstance: AxiosInstance = axios.create({
-    // 默认的请求头
+    // 默认请求配置：统一使用后端网关前缀
     baseURL: host,
 });
 
-// axios.defaults.baseURL = host;
-
 /**
- * request 拦截器
+ * 请求拦截器：预留鉴权头、trace id 等注入能力。
  */
 axiosInstance.interceptors.request.use(
     (config: AxiosRequestConfig): AxiosRequestConfig => {
@@ -28,7 +26,7 @@ axiosInstance.interceptors.request.use(
 );
 
 /**
- * response 拦截器
+ * 响应拦截器：统一处理业务码与网络错误。
  */
 axiosInstance.interceptors.response.use(
     (response: AxiosResponse) => {

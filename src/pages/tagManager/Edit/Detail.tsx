@@ -4,6 +4,11 @@ import BaseInfo from "./tabs/BaseInfo"
 import Attribute from "./tabs/Attribute"
 import Editor from "./tabs/Editor"
 import History from "./tabs/History"
+
+/**
+ * 标签详情容器：
+ * 统一承载多 Tab 编辑视图，并与父组件保持 item 同步。
+ */
 class Detail extends Component {
   constructor(props) {
     super(props)
@@ -15,6 +20,7 @@ class Detail extends Component {
       isCreate: this.props.isCreate,
     }
   }
+  /** 外部 item 变化后同步到当前详情视图。 */
   componentWillReceiveProps(nextProps) {
     this.setState({
       viewVisible: nextProps.viewVisible,
@@ -29,6 +35,7 @@ class Detail extends Component {
   onChange = () => {
     this.setState(this.state.item)
   }
+  /** 校验表单并提交保存。 */
   handleSave = async () => {
     let adopt = false
     this.props.form.validateFields((err) => {

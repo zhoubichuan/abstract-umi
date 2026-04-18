@@ -5,6 +5,11 @@ import Attribute from './tabs/Attribute';
 import Editor from './tabs/Editor';
 import History from './tabs/History';
 import File from './tabs/File';
+
+/**
+ * BaseData 详情容器：
+ * 负责组织分 Tab 的编辑内容并同步外部传入 item 状态。
+ */
 class Detail extends Component {
     constructor(props) {
         super();
@@ -30,6 +35,7 @@ class Detail extends Component {
     onChange = () => {
         this.setState(this.state.item);
     };
+    /** 校验表单并触发保存。 */
     handleSave = async () => {
         let adopt = false;
         this.props.form.validateFields(err => {
