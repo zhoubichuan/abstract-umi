@@ -1,15 +1,31 @@
-import { Button, Checkbox, Form, Input, message } from 'antd';
-import React from 'react';
+import { Button, Checkbox, Col, Form, Input, message, Radio, Row } from 'antd';
+import React, { useMemo, useState } from 'react';
 import service from "@/services/user"
 import { history } from 'umi';
 import { Link } from 'umi';
-import { Col, Row } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import styles from './Login.module.less';
 
 const style: React.CSSProperties = { padding: '8px 0' };
+type LoginType = 'username' | 'email';
+
 const App: React.FC = () => {
+  const [loginType, setLoginType] = useState<LoginType>('username');
+
+  const accountLabel = useMemo(() => (loginType === 'email' ? '邮箱' : '账号'), [loginType]);
+
+  const accountPlaceholder = useMemo(
+    () => (loginType === 'email' ? '请输入邮箱地址' : '请输入你的账号'),
+    [loginType],
+  );
+
   const onFinish = (values: any) => {
-    service.login(values).then((res) => {
+    const payload =
+      loginType === 'email'
+        ? { email: values.account, password: values.password }
+        : { username: values.account, password: values.password };
+
+    service.login(payload).then((res) => {
       if (res?.code === 0) {
         sessionStorage.setItem("username", res.data.username)
         message.success("登陆成功")
@@ -25,8 +41,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <Row>
-      <Col span={12} offset={6}>
+    <Row align="middle" justify="center" className={styles.page}>
+      <Col xs={22} sm={18} md={14} lg={10} xl={8} className={styles.content}>
+        <div className={styles.panel}>
+          <h2 className={styles.title}>ABSTRACT UMI</h2>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
@@ -35,16 +53,31 @@ const App: React.FC = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="true"
           initialValues={{
-            'username': 'admin',
+            account: 'admin',
             'password': 'ant.design',
           }}
         >
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Radio.Group
+              value={loginType}
+              onChange={(e) => setLoginType(e.target.value)}
+              optionType="button"
+              buttonStyle="solid"
+            >
+              <Radio.Button value="username">账号登录</Radio.Button>
+              <Radio.Button value="email">邮箱登录</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+
           <Form.Item
-            label="账号"
-            name="username"
-            rules={[{ required: true, message: '请输入你的账号!' }]}
+            label={accountLabel}
+            name="account"
+            rules={[
+              { required: true, message: `请输入你的${accountLabel}!` },
+              ...(loginType === 'email' ? [{ type: 'email' as const, message: '请输入正确的邮箱格式!' }] : []),
+            ]}
           >
-            <Input prefix={<UserOutlined />} />
+            <Input prefix={loginType === 'email' ? <MailOutlined /> : <UserOutlined />} placeholder={accountPlaceholder} />
           </Form.Item>
 
           <Form.Item
@@ -78,6 +111,7 @@ const App: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
+        </div>
       </Col>
     </Row>
 
