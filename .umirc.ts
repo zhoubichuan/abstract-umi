@@ -51,7 +51,7 @@ export default defineConfig({
     {
       name: '标签',
       path: '/tagManager',
-      component: './TagManager/index',
+      component: './tagManager/index',
     },
     {
       path: '/user',
