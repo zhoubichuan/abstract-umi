@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[448],{74528:function(l,u,n){n.r(u),n.d(u,{default:function(){return d}});var s=n(94272),t=n(86074);function d(){return(0,t.jsx)("div",{style:{padding:20},children:(0,t.jsx)(s.Outlet,{})})}}}]);
